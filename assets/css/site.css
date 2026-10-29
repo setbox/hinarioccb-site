@@ -38,20 +38,6 @@
   --pontilhado: #CDBFA8;
   --escala: 1;
   --serifa: "EB Garamond", Georgia, "Times New Roman", serif;
-  --pf-font: var(--serifa);
-  --pf-text: var(--tinta);
-  --pf-text-secondary: var(--suave);
-  --pf-text-muted: var(--suave);
-  --pf-background: var(--superficie);
-  --pf-border: var(--contorno);
-  --pf-border-focus: var(--destaque);
-  --pf-border-radius: 8px;
-  --pf-hover: var(--realce);
-  --pf-mark: var(--realce);
-  --pf-input-height: 52px;
-  --pf-input-font-size: 19px;
-  --pf-result-title-font-size: 19px;
-  --pf-result-excerpt-font-size: 16px;
   color-scheme: light;
 }
 
@@ -355,6 +341,21 @@ h1, h2 {
 
 pagefind-searchbox {
   display: block;
+  --pf-font: var(--serifa);
+  --pf-text: var(--tinta);
+  --pf-text-secondary: var(--suave);
+  --pf-text-muted: var(--suave);
+  --pf-background: var(--superficie);
+  --pf-border: var(--contorno);
+  --pf-border-focus: var(--destaque);
+  --pf-border-radius: 8px;
+  --pf-hover: var(--realce);
+  --pf-mark: var(--tinta);
+  --pf-outline-focus: var(--destaque);
+  --pf-input-height: 52px;
+  --pf-input-font-size: 19px;
+  --pf-result-title-font-size: 19px;
+  --pf-result-excerpt-font-size: 16px;
 }
 
 .atalho-numero {
@@ -413,6 +414,20 @@ pagefind-searchbox .pf-searchbox-footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.culto:has([data-culto-vazio]:not([hidden])) {
+  padding: 0;
+  border-color: transparent;
+  background: none;
+}
+
+.culto:has([data-culto-vazio]:not([hidden])) h2 {
+  font-size: 19px;
+}
+
+.culto:has([data-culto-vazio]:not([hidden])) .culto-nota {
+  display: none;
 }
 
 .culto-nota,
@@ -635,10 +650,13 @@ pagefind-searchbox .pf-searchbox-footer {
 
 .hino-categorias {
   margin: 10px 0 0;
-  font-size: 14px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--contorno);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0 18px;
+  font-size: 18px;
+  font-variant-caps: all-small-caps;
+  letter-spacing: 0.08em;
 }
 
 .hino-categorias a {
@@ -1058,15 +1076,16 @@ pagefind-searchbox .pf-searchbox-footer {
 }
 
 .letra .verso {
+  display: block;
+  width: fit-content;
+  margin-left: -4px;
+  padding: 0 4px 0 calc(1em + 4px);
+  text-indent: -1em;
   border-radius: 4px;
   transition: background-color 0.2s;
-  -webkit-box-decoration-break: clone;
-  box-decoration-break: clone;
 }
 
 .letra .verso.atual {
-  margin: 0 -4px;
-  padding: 1px 4px;
   background: linear-gradient(to right, var(--realce-verso) var(--progresso, 0%), var(--realce) var(--progresso, 0%));
   color: var(--tinta);
 }
@@ -1192,14 +1211,11 @@ pagefind-searchbox .pf-searchbox-footer {
 
 .lofi-cabecalho {
   margin-top: 24px;
-  padding: 20px;
+  padding-bottom: 24px;
   display: flex;
   gap: 18px;
   align-items: flex-start;
-  border-radius: 22px;
-  background: #3B2F4F;
-  color: #F4ECE6;
-  font-family: "Nunito", system-ui, sans-serif;
+  border-bottom: 1px solid var(--linha);
 }
 
 .lofi-cabecalho .lofi-cartao-icone {
@@ -1209,15 +1225,17 @@ pagefind-searchbox .pf-searchbox-footer {
 }
 
 .lofi-cabecalho h1 {
-  margin: 2px 0 0;
-  font-size: 26px;
-  font-weight: 800;
+  margin: 0;
+  font-size: 38px;
+  font-weight: 500;
+  line-height: 1.1;
 }
 
 .lofi-cabecalho-detalhe {
-  margin: 4px 0 0;
-  font-size: 15px;
-  color: #D8CCE4;
+  margin: 6px 0 0;
+  font-size: 18px;
+  font-style: italic;
+  color: var(--suave);
 }
 
 .lofi-perfis {
@@ -1232,17 +1250,16 @@ pagefind-searchbox .pf-searchbox-footer {
   padding: 0 16px;
   display: inline-flex;
   align-items: center;
-  border: 1px solid #8E7CA8;
+  border: 1px solid var(--contorno);
   border-radius: 20px;
-  color: #F4ECE6;
-  font-size: 15px;
-  font-weight: 700;
+  color: var(--tinta);
+  font-size: 17px;
   text-decoration: none;
 }
 
 .lofi-perfis a:hover {
-  color: #FFFFFF;
-  background: #45385C;
+  color: var(--tinta);
+  background: var(--realce);
 }
 
 .lofi-disco {
@@ -1286,15 +1303,16 @@ pagefind-searchbox .pf-searchbox-footer {
   align-items: center;
   gap: 8px;
   border-radius: 22px;
-  background: #E8A87C;
-  color: #3B2F4F;
-  font-weight: 700;
+  background: var(--destaque);
+  color: var(--sobre-destaque);
+  font-size: 18px;
+  font-weight: 500;
   text-decoration: none;
 }
 
 .lofi-ouvir:hover {
-  color: #3B2F4F;
-  background: #F0B993;
+  color: var(--sobre-destaque);
+  background: var(--destaque-forte);
 }
 
 .lofi-faixas {
@@ -1309,14 +1327,6 @@ pagefind-searchbox .pf-searchbox-footer {
   align-items: center;
   gap: 12px;
   border-bottom: 1px dotted var(--pontilhado);
-}
-
-.lofi-faixa-ordem {
-  width: 22px;
-  flex-shrink: 0;
-  font-size: 15px;
-  color: var(--suave);
-  font-variant-numeric: lining-nums tabular-nums;
 }
 
 .lofi-faixa-hino {
@@ -1417,7 +1427,6 @@ pagefind-searchbox .pf-searchbox-footer {
 .cabecalho-categoria {
   padding: 20px 0 18px;
   text-align: center;
-  border-bottom: 1px solid var(--linha);
 }
 
 .cabecalho-categoria h1 {

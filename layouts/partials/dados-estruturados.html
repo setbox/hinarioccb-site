@@ -1,0 +1,17 @@
+{{ $inicio := dict "@type" "ListItem" "position" 1 "name" "Hinário 5" "item" site.Home.Permalink }}
+{{ $dados := false }}
+{{ if .IsHome }}
+  {{ $dados = dict "@context" "https://schema.org" "@type" "WebSite" "name" site.Title "alternateName" "Hinário 5 CCB" "url" site.Home.Permalink "inLanguage" "pt-BR" }}
+{{ else if .Params.numero }}
+  {{ $nome := printf "%s: %s" (partial "rotulo.html" .) .Title }}
+  {{ $hino := dict "@type" "MusicComposition" "name" .Title "alternateName" $nome "url" .Permalink "inLanguage" "pt-BR" "lyrics" (dict "@type" "CreativeWork" "text" (.Plain | strings.TrimSpace)) "isPartOf" (dict "@type" "Book" "name" "Hinário 5 da Congregação Cristã no Brasil") }}
+  {{ with .Params.tom }}{{ $hino = merge $hino (dict "musicalKey" .) }}{{ end }}
+  {{ $ocasioes := slice }}
+  {{ range .GetTerms "ocasioes" }}{{ $ocasioes = $ocasioes | append .LinkTitle }}{{ end }}
+  {{ with $ocasioes }}{{ $hino = merge $hino (dict "genre" .) }}{{ end }}
+  {{ $trilha := dict "@type" "BreadcrumbList" "itemListElement" (slice $inicio (dict "@type" "ListItem" "position" 2 "name" $nome "item" .Permalink)) }}
+  {{ $dados = dict "@context" "https://schema.org" "@graph" (slice $hino $trilha) }}
+{{ else if eq .Kind "term" }}
+  {{ $dados = dict "@context" "https://schema.org" "@type" "BreadcrumbList" "itemListElement" (slice $inicio (dict "@type" "ListItem" "position" 2 "name" .Title "item" .Permalink)) }}
+{{ end }}
+{{ with $dados }}<script type="application/ld+json">{{ . | jsonify | safeJS }}</script>{{ end }}

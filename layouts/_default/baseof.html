@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{{ block "titulo" . }}{{ .Site.Title }}{{ end }}</title>
 <meta name="description" content="{{ block "descricao" . }}Letras dos 480 hinos e 6 coros do Hinário 5 da Congregação Cristã no Brasil, com busca por número, título ou trecho.{{ end }}">
-<link rel="canonical" href="{{ .Permalink }}">
+{{ block "indexacao" . }}<link rel="canonical" href="{{ .Permalink }}">{{ end }}
 <meta property="og:site_name" content="{{ .Site.Title }}">
 <meta property="og:type" content="website">
 <meta property="og:url" content="{{ .Permalink }}">
@@ -21,6 +21,7 @@
 <meta property="og:image:alt" content="{{ template "titulo-og" . }}">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#F6F0E4">
+{{ partial "dados-estruturados.html" . }}
 <link rel="icon" href="{{ "favicon.ico" | relURL }}" sizes="48x48">
 <link rel="icon" href="{{ "favicon.svg" | relURL }}" type="image/svg+xml">
 <link rel="apple-touch-icon" href="{{ "apple-touch-icon.png" | relURL }}">

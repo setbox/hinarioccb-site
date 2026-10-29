@@ -21,13 +21,7 @@
   var CUSTO_POR_LINHA = 0.7;
 
   function separarVersos(elemento) {
-    var alvos = elemento.querySelectorAll('p').length ? Array.prototype.slice.call(elemento.querySelectorAll('p')) : [elemento];
-    return alvos.reduce(function (versos, alvo) {
-      alvo.innerHTML = alvo.innerHTML.split(/<br\s*\/?>\s*/i).map(function (linha) {
-        return '<span class="verso">' + linha.trim() + '</span>';
-      }).join('<br>');
-      return versos.concat(Array.prototype.slice.call(alvo.querySelectorAll('.verso')));
-    }, []);
+    return Array.prototype.slice.call(elemento.querySelectorAll('.verso'));
   }
 
   var versosDasEstrofes = estrofes.map(separarVersos);

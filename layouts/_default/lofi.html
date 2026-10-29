@@ -35,11 +35,10 @@
         </div>
 
         <ol class="lofi-faixas">
-          {{ range $ordem, $numero := $album.faixas }}
+          {{ range $numero := $album.faixas }}
             {{ $hino := site.GetPage (printf "/5/%s" $numero) }}
             {{ $destino := partial "lofi-faixa.html" $numero }}
             <li>
-              <span class="lofi-faixa-ordem">{{ add $ordem 1 }}</span>
               {{ with $hino }}
                 <a class="lofi-faixa-hino" href="{{ .RelPermalink }}"><span class="numero-lista">{{ .Params.numero }}</span><span>{{ .Title }}</span></a>
               {{ end }}

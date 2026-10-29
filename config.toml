@@ -9,6 +9,8 @@ enableEmoji = true
 removePathAccents = true
 titleCaseStyle = "none"
 ignoreErrors = ["error-remote-getjson"]
+enableRobotsTXT = true
+enableGitInfo = true
 
 [taxonomies]
 ocasiao = "ocasioes"

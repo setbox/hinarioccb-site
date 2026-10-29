@@ -99,7 +99,7 @@
       <h1>{{ .Title }}</h1>
       {{ with .GetTerms "ocasioes" }}
         <p class="hino-categorias">
-          {{ range $i, $t := . }}{{ if $i }}<span aria-hidden="true"> · </span>{{ end }}<a href="{{ $t.RelPermalink }}">{{ $t.LinkTitle }}</a>{{ end }}
+          {{ range $i, $t := . }}{{ if $i }} {{ end }}<a href="{{ $t.RelPermalink }}">{{ $t.LinkTitle }}</a>{{ end }}
         </p>
       {{ end }}
       {{ partial "ornamento.html" . }}
@@ -107,8 +107,8 @@
       {{ with .Params.tom }}{{ $ficha = $ficha | append . }}{{ end }}
       {{ with .Params.compasso }}{{ $ficha = $ficha | append . }}{{ end }}
       {{ with .Params.estrofes }}{{ $ficha = $ficha | append (printf "%d estrofes" .) }}{{ end }}
-      {{ with .Params.meia_hora }}{{ $ficha = $ficha | append (printf "♩ %v–%v" (index . 0) (index . 1)) }}{{ end }}
-      {{ with $ficha }}<p class="hino-ficha" data-pagefind-ignore>{{ delimit . " · " }}</p>{{ end }}
+      {{ with .Params.meia_hora }}{{ $ficha = $ficha | append (printf "♩ %v-%v" (index . 0) (index . 1)) }}{{ end }}
+      {{ with $ficha }}<p class="hino-ficha" data-pagefind-ignore>{{ delimit . ", " }}</p>{{ end }}
       <button type="button" class="botao-texto" data-culto-alternar data-pagefind-ignore>Adicionar ao culto de hoje</button>
     </header>
 
@@ -130,7 +130,7 @@
     </div>
 
     <article class="letra" data-pagefind-body>
-      {{ .Content }}
+      {{ .Content | replaceRE `<p>` `<p><span class="verso">` | replaceRE `<br>\s*` "</span>\n<span class=\"verso\">" | replaceRE `</p>` `</span></p>` | safeHTML }}
     </article>
 
     {{ with index site.Data.lofi.hinos $slug }}
