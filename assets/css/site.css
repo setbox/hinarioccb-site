@@ -476,16 +476,6 @@ pagefind-searchbox .pf-searchbox-result-excerpt {
 }
 
 .culto:has([data-culto-vazio]:not([hidden])) {
-  padding: 0;
-  border-color: transparent;
-  background: none;
-}
-
-.culto:has([data-culto-vazio]:not([hidden])) h2 {
-  font-size: 19px;
-}
-
-.culto:has([data-culto-vazio]:not([hidden])) .culto-nota {
   display: none;
 }
 
@@ -553,6 +543,42 @@ pagefind-searchbox .pf-searchbox-result-excerpt {
 .lista-curta li + li a,
 .lista-hinos li {
   border-top: 1px dotted var(--pontilhado);
+}
+
+ol[data-culto-lista] {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 18px;
+}
+
+ol[data-culto-lista] li {
+  display: flex;
+  align-items: center;
+  border-top: 0;
+}
+
+ol[data-culto-lista] li a {
+  flex-grow: 0;
+  min-height: 44px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  border-top: 0;
+  color: var(--destaque);
+  font-size: 19px;
+  font-variant-numeric: lining-nums;
+}
+
+ol[data-culto-lista] a[aria-current="page"] {
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+ol[data-culto-lista] button {
+  width: 28px;
+  height: 44px;
+  font-size: 18px;
 }
 
 .recentes {
@@ -1494,20 +1520,50 @@ pagefind-searchbox .pf-searchbox-result-excerpt {
   font-size: 38px;
 }
 
+.menu-lateral {
+  position: sticky;
+  top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.menu-cartao {
+  padding: 14px 16px 8px;
+}
+
+.menu-cartao-titulo {
+  margin: 0 0 4px;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.menu-cartao .culto-topo .menu-cartao-titulo {
+  margin: 0;
+}
+
+.menu-cartao .botao-texto {
+  min-height: 32px;
+  font-size: 15px;
+}
+
 .categorias-lista {
   display: flex;
   flex-direction: column;
 }
 
 .categorias-lista a {
-  min-height: 40px;
+  min-height: 36px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px dotted var(--pontilhado);
   color: var(--tinta);
   font-size: 18px;
   text-decoration: none;
+}
+
+.categorias-lista a:hover {
+  color: var(--destaque);
 }
 
 .categorias-lista a[aria-current="page"] {
@@ -1516,7 +1572,33 @@ pagefind-searchbox .pf-searchbox-result-excerpt {
 }
 
 .categorias-lista em {
+  font-size: 15px;
   color: var(--suave);
+  font-variant-numeric: lining-nums;
+}
+
+.recentes-numeros {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 18px;
+  list-style: none;
+}
+
+.recentes-numeros a {
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  color: var(--destaque);
+  font-size: 19px;
+  font-variant-numeric: lining-nums;
+  text-decoration: none;
+}
+
+.recentes-numeros a:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
 .nao-encontrada {
@@ -2019,6 +2101,10 @@ body.com-aviso {
     align-items: start;
   }
 
+  .pagina > .coluna-esquerda:has(.menu-lateral) {
+    align-self: stretch;
+  }
+
   .conteudo {
     padding: 0;
   }
@@ -2165,6 +2251,26 @@ body.com-aviso {
 
   .culto-lateral {
     padding: 14px 16px 6px;
+  }
+
+  .todos {
+    margin-top: 0;
+    padding-top: 14px;
+  }
+
+  .todos .titulo-secao {
+    margin: 0;
+    text-align: left;
+    font-size: 28px;
+  }
+
+  .todos > .ornamento {
+    display: none;
+  }
+
+  .todos > .subtitulo {
+    margin: 2px 0 0;
+    text-align: left;
   }
 
   .culto-lateral-titulo {

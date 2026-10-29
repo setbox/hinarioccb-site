@@ -5,11 +5,7 @@
 {{ $todos := partial "ordenados.html" (where .Site.RegularPages "Section" "5") }}
 <div class="pagina">
   <aside class="coluna-esquerda so-desktop">
-    {{ partial "categorias-lista.html" . }}
-    <section class="recentes" data-recentes hidden>
-      <h2 class="rotulo">Abertos recentemente</h2>
-      <ol class="lista-curta" data-recentes-lista></ol>
-    </section>
+    {{ partial "menu-lateral.html" . }}
   </aside>
 
   <main class="conteudo" id="conteudo">
@@ -25,7 +21,7 @@
       {{ partial "destaque-lofi.html" "celular" }}
     </div>
 
-    <section class="cartao culto" aria-labelledby="culto-titulo">
+    <section class="cartao culto so-celular" aria-labelledby="culto-titulo">
       <div class="culto-topo">
         <h2 id="culto-titulo">Culto de hoje</h2>
         <button type="button" class="botao-texto" data-culto-limpar hidden>Limpar</button>
@@ -35,9 +31,9 @@
       <p class="culto-vazio" data-culto-vazio>Abra um hino e toque em “Adicionar ao culto de hoje”.</p>
     </section>
 
-    <section class="recentes so-celular" data-recentes hidden>
+    <section class="recentes so-celular" data-recentes data-recentes-numeros hidden>
       <h2 class="rotulo">Abertos recentemente</h2>
-      <ol class="lista-curta" data-recentes-lista></ol>
+      <ol class="recentes-numeros" data-recentes-lista></ol>
     </section>
 
     <section class="categorias so-celular" aria-labelledby="categorias-titulo">

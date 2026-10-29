@@ -241,24 +241,12 @@
         var hino = lista[chave];
         if (!hino) return;
         var li = document.createElement('li');
-        var ordem = document.createElement('span');
-        ordem.className = 'ordem';
-        ordem.textContent = (posicao + 1) + 'º';
-        var a = link(hino, ordem);
+        var a = document.createElement('a');
+        a.href = hino.u;
+        a.textContent = hino.n;
+        a.setAttribute('aria-label', (posicao + 1) + 'º do culto, ' + rotuloDoHino(hino));
         if (chave === chaveAtual) a.setAttribute('aria-current', 'page');
         li.appendChild(a);
-        if (!chaveAtual) {
-          var remover = document.createElement('button');
-          remover.type = 'button';
-          remover.setAttribute('aria-label', 'Tirar ' + hino.n + ' do culto de hoje');
-          remover.textContent = '×';
-          remover.addEventListener('click', function () {
-            culto = culto.filter(function (item) { return item !== chave; });
-            gravar('culto', culto);
-            desenharCulto(lista);
-          });
-          li.appendChild(remover);
-        }
         ol.appendChild(li);
       });
     });
@@ -296,9 +284,18 @@
       secao.hidden = recentes.length === 0;
       var ol = secao.querySelector('[data-recentes-lista]');
       ol.textContent = '';
+      var soNumeros = secao.hasAttribute('data-recentes-numeros');
       recentes.forEach(function (chave) {
         var li = document.createElement('li');
-        li.appendChild(link(lista[chave]));
+        if (soNumeros) {
+          var numero = document.createElement('a');
+          numero.href = lista[chave].u;
+          numero.textContent = lista[chave].n;
+          numero.setAttribute('aria-label', rotuloDoHino(lista[chave]));
+          li.appendChild(numero);
+        } else {
+          li.appendChild(link(lista[chave]));
+        }
         ol.appendChild(li);
       });
     });

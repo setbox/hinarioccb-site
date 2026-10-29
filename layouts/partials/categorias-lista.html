@@ -1,5 +1,5 @@
-<nav class="categorias-lista" aria-label="Categorias">
-  <h2 class="rotulo">Por categoria</h2>
+<nav class="cartao menu-cartao categorias-lista" aria-labelledby="menu-categorias">
+  <h2 class="menu-cartao-titulo" id="menu-categorias">Categorias</h2>
   {{ range partial "categorias.html" . }}
     <a href="{{ .RelPermalink }}" {{ if eq .RelPermalink $.RelPermalink }}aria-current="page"{{ end }}>{{ .Title }}<em>{{ len .Pages }}</em></a>
   {{ end }}

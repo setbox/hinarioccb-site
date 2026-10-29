@@ -1,0 +1,14 @@
+<div class="menu-lateral">
+  {{ partial "categorias-lista.html" . }}
+  <section class="cartao menu-cartao" aria-labelledby="menu-culto" data-culto-lateral hidden>
+    <div class="culto-topo">
+      <h2 class="menu-cartao-titulo" id="menu-culto">Culto de hoje</h2>
+      <button type="button" class="botao-texto" data-culto-limpar hidden>Limpar</button>
+    </div>
+    <ol class="recentes-numeros" data-culto-lista></ol>
+  </section>
+  <section class="cartao menu-cartao" aria-labelledby="menu-recentes" data-recentes data-recentes-numeros hidden>
+    <h2 class="menu-cartao-titulo" id="menu-recentes">Abertos recentemente</h2>
+    <ol class="recentes-numeros" data-recentes-lista></ol>
+  </section>
+</div>
