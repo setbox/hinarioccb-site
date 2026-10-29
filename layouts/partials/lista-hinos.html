@@ -1,0 +1,5 @@
+<ol class="lista-hinos">
+  {{ range . }}
+    <li><a href="{{ .RelPermalink }}"><span class="numero-lista">{{ .Params.numero }}</span><span>{{ .Title }}</span></a></li>
+  {{ end }}
+</ol>

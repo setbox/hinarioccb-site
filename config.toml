@@ -1,12 +1,17 @@
 baseURL = "https://hinarioccb.net/"
-languageCode = "pt-br"
+languageCode = "pt-BR"
 title = "HinárioCCB.net"
 
 DefaultContentLanguage = "pt-br"
 enableInlineShortcodes = true
 summarylength = 10
 enableEmoji = true
+removePathAccents = true
+titleCaseStyle = "none"
 ignoreErrors = ["error-remote-getjson"]
+
+[taxonomies]
+ocasiao = "ocasioes"
 
 [pagination]
 pagerSize = 5

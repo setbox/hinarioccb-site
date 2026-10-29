@@ -1,0 +1,20 @@
+<header class="topo">
+  <a class="marca" href="{{ "/" | relURL }}">
+    <span class="marca-site">HinárioCCB.net</span>
+    <span class="marca-nome">Hinário 5</span>
+  </a>
+  <div class="topo-busca so-desktop">
+    <pagefind-searchbox placeholder="Buscar pelo título ou trecho da letra"></pagefind-searchbox>
+    {{ partial "numero.html" (dict "id" "numero-topo" "compacto" true) }}
+  </div>
+  <div class="topo-acoes">
+    {{ if .IsPage }}
+      <a class="botao-redondo so-celular" href="{{ "/" | relURL }}#numero" aria-label="Ir para o número">Nº</a>
+    {{ end }}
+    <button type="button" class="botao-redondo botao-ampla" data-acao="ampla" aria-label="Leitura ampla" aria-pressed="false">Aa</button>
+    <button type="button" class="botao-redondo" data-acao="tema" aria-label="Alternar tema claro e escuro">
+      <svg class="icone-lua" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M16 12.5A7 7 0 0 1 7.5 4a7 7 0 1 0 8.5 8.5z"></path></svg>
+      <svg class="icone-sol" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="10" cy="10" r="4"></circle><path d="M10 1.5v2M10 16.5v2M1.5 10h2M16.5 10h2M4 4l1.4 1.4M14.6 14.6 16 16M4 16l1.4-1.4M14.6 5.4 16 4"></path></svg>
+    </button>
+  </div>
+</header>

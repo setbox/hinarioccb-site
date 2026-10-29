@@ -1,34 +1,64 @@
+{{ define "titulo" }}Hinário 5 CCB: letras dos 480 hinos e 6 coros | HinárioCCB.net{{ end }}
+{{ define "titulo-og" }}Hinário 5 CCB: letras dos 480 hinos e 6 coros{{ end }}
+
 {{ define "main" -}}
+{{ $todos := partial "ordenados.html" (where .Site.RegularPages "Section" "5") }}
+<div class="pagina">
+  <aside class="coluna-esquerda so-desktop">
+    {{ partial "categorias-lista.html" . }}
+    <section class="recentes" data-recentes hidden>
+      <h2 class="rotulo">Abertos recentemente</h2>
+      <ol class="lista-curta" data-recentes-lista></ol>
+    </section>
+  </aside>
 
-  {{ $hinos := slice }}
-  {{ $coros := slice }}
-  {{ range where .Site.RegularPages "Section" "5" }}
-    {{ if strings.HasPrefix .File.BaseFileName "coro-" }}
-      {{ $coros = $coros | append . }}
-    {{ else }}
-      {{ $hinos = $hinos | append . }}
-    {{ end }}
-  {{ end }}
-  {{ $sortedPosts := (sort $hinos ".Params.numero" "asc") | append (sort $coros ".Params.numero" "asc") }}
+  <main class="conteudo" id="conteudo">
+    <div class="so-celular">
+      {{ partial "numero.html" (dict "id" "numero") }}
+      <div class="busca-inicio">
+        <p class="rotulo">Buscar pelo título ou trecho</p>
+        <pagefind-searchbox placeholder="Ex.: trombeta, Rei dos reis"></pagefind-searchbox>
+      </div>
+    </div>
 
-  <h1>Hinário 5</h1>
+    <section class="cartao culto" aria-labelledby="culto-titulo">
+      <div class="culto-topo">
+        <h2 id="culto-titulo">Culto de hoje</h2>
+        <button type="button" class="botao-texto" data-culto-limpar hidden>Limpar</button>
+      </div>
+      <p class="culto-nota">Guardado só neste aparelho</p>
+      <ol class="lista-culto" data-culto-lista></ol>
+      <p class="culto-vazio" data-culto-vazio>Abra um hino e toque em “Adicionar ao culto de hoje”.</p>
+    </section>
 
-  <link href="{{ "pagefind/pagefind-component-ui.css" | relURL }}" rel="stylesheet">
-  <script src="{{ "pagefind/pagefind-component-ui.js" | relURL }}" type="module"></script>
-  <div class="my-4">
-    <pagefind-input></pagefind-input>
-    <pagefind-summary></pagefind-summary>
-    <pagefind-results></pagefind-results>
-  </div>
+    <section class="recentes so-celular" data-recentes hidden>
+      <h2 class="rotulo">Abertos recentemente</h2>
+      <ol class="lista-curta" data-recentes-lista></ol>
+    </section>
 
-  <ul class="nav flex-column">
-  {{ range $sortedPosts }}
-    {{ if (isset .Params "numero") }}
-      <li class="nav-item">
-        <a class="nav-link" href="{{ .Permalink }}">{{ .Params.numero }} - {{ .Title }}{{ range .Params.ocasioes }} <span class="badge bg-secondary">{{ . }}</span>{{ end }}</a>
-      </li>
-    {{ end }}
-  {{ end }}
-  </ul>
+    <section class="categorias so-celular" aria-labelledby="categorias-titulo">
+      <h2 id="categorias-titulo" class="titulo-secao">Por categoria</h2>
+      {{ partial "ornamento.html" . }}
+      <div class="grade-categorias">
+        {{ range partial "categorias.html" . }}
+          <a href="{{ .RelPermalink }}"><span>{{ .Title }}</span><em>{{ partial "contagem.html" . }}</em></a>
+        {{ end }}
+      </div>
+    </section>
 
+    {{ partial "publicidade.html" "quadrado" }}
+
+    <section class="todos" aria-labelledby="todos-titulo">
+      <h2 id="todos-titulo" class="titulo-secao">Todos os hinos</h2>
+      {{ partial "ornamento.html" . }}
+      <p class="subtitulo">480 hinos e 6 coros</p>
+      {{ partial "lista-hinos.html" $todos }}
+    </section>
+  </main>
+
+  <aside class="coluna-direita">
+    {{ partial "publicidade.html" "torre" }}
+  </aside>
+</div>
+{{ partial "publicidade.html" "banner" }}
 {{- end }}

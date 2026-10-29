@@ -1,0 +1,7 @@
+{{ $categorias := slice }}
+{{ range slice "Abertura" "Palavra" "Oração" "Testemunho" "Batismo" "Santa Ceia" "Encerramento" "Funeral" "Meia-Hora" "Jovens e Menores" "Coros" }}
+  {{ with site.GetPage (printf "/ocasioes/%s" (urlize .)) }}
+    {{ $categorias = $categorias | append . }}
+  {{ end }}
+{{ end }}
+{{ return $categorias }}

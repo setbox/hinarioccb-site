@@ -1,14 +1,34 @@
 <!doctype html>
-<html lang="pt-br">
+<html lang="pt-BR" data-indice="{{ partialCached "indice.html" . }}">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-{{ if (isset .Params "numero") }}
-  <title>{{ .Title }} ({{ .Params.numero }}) - HinárioCCB.net</title>
-{{ else }}
-  <title>HinárioCCB.net</title>
-{{ end }}
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<title>{{ block "titulo" . }}{{ .Site.Title }}{{ end }}</title>
+<meta name="description" content="{{ block "descricao" . }}Letras dos 480 hinos e 6 coros do Hinário 5 da Congregação Cristã no Brasil, com busca por número, título ou trecho.{{ end }}">
+<link rel="canonical" href="{{ .Permalink }}">
+<meta property="og:site_name" content="{{ .Site.Title }}">
+<meta property="og:type" content="website">
+<meta property="og:url" content="{{ .Permalink }}">
+<meta property="og:title" content="{{ block "titulo-og" . }}{{ .Site.Title }}{{ end }}">
+<meta name="theme-color" content="#F6F0E4">
+<script>
+(function () {
+  var raiz = document.documentElement;
+  try {
+    var tema = JSON.parse(localStorage.getItem('tema'));
+    var escuro = tema ? tema === 'escuro' : window.matchMedia('(prefers-color-scheme: dark)').matches;
+    raiz.dataset.tema = escuro ? 'escuro' : 'claro';
+    if (JSON.parse(localStorage.getItem('ampla'))) raiz.classList.add('ampla');
+    var escala = JSON.parse(localStorage.getItem('escala'));
+    if (escala) raiz.style.setProperty('--escala', escala);
+  } catch (e) {}
+})();
+</script>
+<link rel="preload" href="{{ "fonts/eb-garamond.woff2" | relURL }}" as="font" type="font/woff2" crossorigin>
+{{ $css := resources.Get "css/site.css" | minify | fingerprint }}
+<link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}">
+<link rel="stylesheet" href="{{ "pagefind/pagefind-component-ui.css" | relURL }}">
+<script src="{{ "pagefind/pagefind-component-ui.js" | relURL }}" type="module"></script>
 <script>
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
@@ -27,52 +47,35 @@ gtag('config', 'G-R3VKLGHS2N');
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-R3VKLGHS2N"></script>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6135599490918760"
      crossorigin="anonymous"></script>
+{{- if hugo.IsProduction }}
+<script async src="https://vitrine.setbox.com.br/t.js" data-site="hinarioccb"></script>
+{{- end }}
 </head>
-  <style>
-    h1 {
-      text-align: center;
-    }
-    .nav-link:hover {
-      background-color: #e9ecef;
-    }
-  </style>
 <body>
 
-<div class="container mt-5">
-  {{ block "main" . -}}{{- end }}
+{{ partial "cabecalho.html" . }}
+
+{{ block "main" . -}}{{- end }}
+
+{{ partial "rodape.html" . }}
+
+<div id="transicao" class="transicao" hidden>
+  <p class="transicao-rotulo" data-transicao-rotulo>Hino</p>
+  <p class="transicao-numero" data-transicao-numero></p>
+  {{ partial "ornamento.html" . }}
+  <p class="transicao-titulo" data-transicao-titulo></p>
 </div>
 
-<div id="aviso-cookies" class="position-fixed bottom-0 start-0 end-0 bg-light border-top p-3 d-none">
-  <div class="container d-flex flex-column flex-md-row align-items-md-center gap-2">
-    <p class="mb-0 flex-grow-1">Usamos cookies do Google Analytics e do Google AdSense para medir o acesso e exibir anúncios. Você pode aceitar ou recusar.</p>
-    <div class="d-flex gap-2">
-      <button type="button" class="btn btn-outline-secondary" data-consentimento="recusado">Recusar</button>
-      <button type="button" class="btn btn-primary" data-consentimento="aceito">Aceitar</button>
-    </div>
+<div id="aviso-cookies" class="aviso-cookies" hidden>
+  <p>Usamos cookies do Google Analytics e do Google AdSense para medir o acesso e exibir anúncios. Você pode aceitar ou recusar.</p>
+  <div class="aviso-cookies-botoes">
+    <button type="button" class="botao botao-contorno" data-consentimento="recusado">Recusar</button>
+    <button type="button" class="botao botao-cheio" data-consentimento="aceito">Aceitar</button>
   </div>
 </div>
-<script>
-(function () {
-  var aviso = document.getElementById('aviso-cookies');
-  if (consentimento) return;
-  aviso.classList.remove('d-none');
-  aviso.querySelectorAll('[data-consentimento]').forEach(function (botao) {
-    botao.addEventListener('click', function () {
-      var escolha = botao.getAttribute('data-consentimento');
-      try { localStorage.setItem('consentimento', escolha); } catch (e) {}
-      if (escolha === 'aceito') {
-        gtag('consent', 'update', {
-          ad_storage: 'granted',
-          ad_user_data: 'granted',
-          ad_personalization: 'granted',
-          analytics_storage: 'granted'
-        });
-      }
-      aviso.classList.add('d-none');
-    });
-  });
-})();
-</script>
 
+{{ $js := resources.Get "js/site.js" | minify | fingerprint }}
+<script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}"></script>
+{{ block "scripts" . }}{{ end }}
 </body>
 </html>

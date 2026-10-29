@@ -1,0 +1,6 @@
+<nav class="categorias-lista" aria-label="Categorias">
+  <h2 class="rotulo">Por categoria</h2>
+  {{ range partial "categorias.html" . }}
+    <a href="{{ .RelPermalink }}" {{ if eq .RelPermalink $.RelPermalink }}aria-current="page"{{ end }}>{{ .Title }}<em>{{ len .Pages }}</em></a>
+  {{ end }}
+</nav>

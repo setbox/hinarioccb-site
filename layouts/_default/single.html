@@ -1,18 +1,141 @@
+{{ define "titulo" }}{{ partial "rotulo.html" . }} CCB: {{ .Title }} | Hinário 5{{ end }}
+{{ define "titulo-og" }}{{ partial "rotulo.html" . }} CCB: {{ .Title }}{{ end }}
+{{ define "descricao" }}{{ partial "rotulo.html" . }} do Hinário 5 da CCB: {{ .Plain | truncate 140 }}{{ end }}
+
 {{ define "main" -}}
-  <div data-pagefind-body>
-  <h1 class="title {{ if .Params.ocasioes }}mb-2{{ else }}mb-5{{ end }}">{{ .Params.numero }} - {{ .Title }}</h1>
-
-  {{ with .Params.ocasioes }}
-    <p class="text-center mb-5">
-      {{ range . }}<span class="badge bg-secondary me-1">{{ . }}</span>{{ end }}
-    </p>
+{{ $slug := .File.BaseFileName }}
+{{ $todos := partial "ordenados.html" (where .Site.RegularPages "Section" "5") }}
+{{ $anterior := false }}
+{{ $proximo := false }}
+{{ range $i, $p := $todos }}
+  {{ if eq $p.RelPermalink $.RelPermalink }}
+    {{ if gt $i 0 }}{{ $anterior = index $todos (sub $i 1) }}{{ end }}
+    {{ if lt (add $i 1) (len $todos) }}{{ $proximo = index $todos (add $i 1) }}{{ end }}
   {{ end }}
+{{ end }}
+{{ $midi := printf "midi/5/%s.mid" $slug }}
 
-  {{ .Content }}
-  </div>
+<div class="pagina pagina-hino" data-hino="{{ partial "chave.html" . }}">
+  <aside class="coluna-esquerda">
+    <a class="voltar" href="{{ "/" | relURL }}">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M10 3 5 8l5 5"></path></svg>
+      Índice
+    </a>
 
-  <div class="my-5">
-    <a href="{{ "/" | relURL }}" class="btn btn-primary">Voltar</a>
-  </div>
+    <nav class="culto-faixa" aria-label="Culto de hoje" data-culto-faixa hidden>
+      <a href="#" data-culto-anterior hidden></a>
+      <span data-culto-posicao></span>
+      <a href="#" data-culto-proximo hidden></a>
+    </nav>
+
+    {{ if fileExists (printf "static/%s" $midi) }}
+      <section class="cartao player" aria-label="Player do hino" data-player data-midi="{{ $midi | relURL }}">
+        <div class="player-topo">
+          <button type="button" class="player-tocar" aria-label="Tocar" data-player-tocar>
+            <svg class="icone-tocar" width="20" height="20" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M6 3.5v13l11-6.5z"></path></svg>
+            <svg class="icone-pausar" width="20" height="20" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><rect x="5" y="4" width="3.5" height="12" rx="1"></rect><rect x="11.5" y="4" width="3.5" height="12" rx="1"></rect></svg>
+          </button>
+          <div class="player-estado">
+            <p data-player-estado>Ouvir o hino</p>
+            <div class="player-barra" aria-hidden="true"><div data-player-progresso></div></div>
+            <p class="player-tempos"><span data-player-atual>0:00</span><span data-player-total></span></p>
+          </div>
+        </div>
+        <p class="rotulo">Vozes</p>
+        <div class="player-vozes" role="group" aria-label="Vozes">
+          <button type="button" aria-pressed="true" data-voz="todas">Todas</button>
+          <button type="button" aria-pressed="false" data-voz="0">Soprano</button>
+          <button type="button" aria-pressed="false" data-voz="1">Contralto</button>
+          <button type="button" aria-pressed="false" data-voz="2">Tenor</button>
+          <button type="button" aria-pressed="false" data-voz="3">Baixo</button>
+        </div>
+        <div class="player-andamento">
+          <span>Andamento</span>
+          <div>
+            <button type="button" aria-label="Mais lento" data-andamento="-4">−</button>
+            <span data-player-andamento>♩</span>
+            <button type="button" aria-label="Mais rápido" data-andamento="4">+</button>
+          </div>
+        </div>
+        <label class="player-tela">
+          Manter a tela ligada
+          <input type="checkbox" data-tela-ligada>
+        </label>
+      </section>
+    {{ end }}
+
+    <section class="cartao culto culto-lateral so-desktop" aria-label="Culto de hoje" data-culto-lateral hidden>
+      <h2>Culto de hoje</h2>
+      <ol class="lista-curta" data-culto-lista></ol>
+    </section>
+  </aside>
+
+  <main class="conteudo" id="conteudo">
+    <header class="cabecalho-hino" data-pagefind-body data-pagefind-meta="title:{{ partial "rotulo.html" . }} · {{ .Title }}">
+      <p class="hino-numero">{{ replace (string .Params.numero) "Coro " "" }}</p>
+      <h1>{{ .Title }}</h1>
+      {{ with .GetTerms "ocasioes" }}
+        <p class="hino-categorias">
+          {{ range $i, $t := . }}{{ if $i }}<span aria-hidden="true"> · </span>{{ end }}<a href="{{ $t.RelPermalink }}">{{ $t.LinkTitle }}</a>{{ end }}
+        </p>
+      {{ end }}
+      {{ partial "ornamento.html" . }}
+      {{ $ficha := slice }}
+      {{ with .Params.tom }}{{ $ficha = $ficha | append . }}{{ end }}
+      {{ with .Params.compasso }}{{ $ficha = $ficha | append . }}{{ end }}
+      {{ with .Params.estrofes }}{{ $ficha = $ficha | append (printf "%d estrofes" .) }}{{ end }}
+      {{ with .Params.meia_hora }}{{ $ficha = $ficha | append (printf "♩ %v–%v" (index . 0) (index . 1)) }}{{ end }}
+      {{ with $ficha }}<p class="hino-ficha" data-pagefind-ignore>{{ delimit . " · " }}</p>{{ end }}
+      <button type="button" class="botao-texto" data-culto-alternar data-pagefind-ignore>Adicionar ao culto de hoje</button>
+    </header>
+
+    <div class="barra-ampla">
+      <button type="button" class="botao botao-contorno" data-acao="ampla">Sair da leitura ampla</button>
+      <button type="button" class="botao botao-contorno" aria-label="Diminuir letra" data-escala="-0.1">A−</button>
+      <button type="button" class="botao botao-cheio" aria-label="Aumentar letra" data-escala="0.1">A+</button>
+    </div>
+
+    <article class="letra" data-pagefind-body>
+      {{ .Content }}
+    </article>
+
+    {{ with index site.Data.lofi.hinos $slug }}
+      {{ $album := index site.Data.lofi.albuns .album }}
+      {{ $publicado := and .short (le .publicacao (now.Format "2006-01-02T15:04")) }}
+      <section class="lofi" aria-label="Ouça em lofi">
+        <a class="lofi-tocar" href="{{ cond $publicado .short $album.compilacao }}" rel="noopener" aria-label="Ouvir a versão lofi no YouTube">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M6 3.5v13l11-6.5z"></path></svg>
+        </a>
+        <span class="lofi-texto">
+          <strong>Ouça em lofi</strong>
+          <span>{{ $album.titulo }}</span>
+        </span>
+        {{ if $publicado }}
+          <a class="lofi-album" href="{{ $album.compilacao }}" rel="noopener">Álbum</a>
+        {{ end }}
+      </section>
+    {{ end }}
+
+    {{ partial "publicidade.html" "quadrado" }}
+
+    <nav class="vizinhos" aria-label="Hinos vizinhos">
+      {{ with $anterior }}
+        <a href="{{ .RelPermalink }}"><span>Anterior</span>{{ .Params.numero }} · {{ .Title }}</a>
+      {{ else }}<span></span>{{ end }}
+      {{ with $proximo }}
+        <a href="{{ .RelPermalink }}" class="vizinho-proximo"><span>Próximo</span>{{ .Params.numero }} · {{ .Title }}</a>
+      {{ end }}
+    </nav>
+  </main>
+
+  <aside class="coluna-direita">
+    {{ partial "publicidade.html" "torre" }}
+  </aside>
+</div>
+{{ partial "publicidade.html" "banner" }}
 {{- end }}
 
+{{ define "scripts" }}
+{{ $player := resources.Get "js/player.js" | minify | fingerprint }}
+<script src="{{ $player.RelPermalink }}" integrity="{{ $player.Data.Integrity }}"></script>
+{{ end }}

@@ -1,0 +1,10 @@
+{{ $total := len .Pages }}
+{{ $contagem := printf "%d hinos" $total }}
+{{ if eq .Title "Coros" }}
+  {{ $contagem = printf "%d coros" $total }}
+{{ else if eq .Title "Jovens e Menores" }}
+  {{ $contagem = printf "%d hinos · 431–480" $total }}
+{{ else if eq $total 1 }}
+  {{ $contagem = "1 hino" }}
+{{ end }}
+{{ return $contagem }}

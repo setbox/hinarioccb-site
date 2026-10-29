@@ -1,0 +1,13 @@
+{{ define "titulo" }}Todos os hinos | Hinário 5 CCB{{ end }}
+
+{{ define "main" -}}
+<div class="pagina">
+  <main class="conteudo conteudo-largo" id="conteudo">
+    <header class="cabecalho-categoria">
+      <h1>Todos os hinos</h1>
+      <p class="subtitulo">480 hinos e 6 coros</p>
+    </header>
+    {{ partial "lista-hinos.html" (partial "ordenados.html" .Pages) }}
+  </main>
+</div>
+{{- end }}

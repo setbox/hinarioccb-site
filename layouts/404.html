@@ -1,7 +1,14 @@
-{{ define "main" }}
-  <h1 class="title mb-5">404 - Página não encontrada</h1>
+{{ define "titulo" }}Página não encontrada | HinárioCCB.net{{ end }}
 
-  <div class="mt-5">
-    <a href="{{ "/" | relURL }}" class="btn btn-primary">Voltar para a lista de hinos</a>
-  </div>
+{{ define "main" }}
+<div class="pagina">
+  <main class="conteudo conteudo-largo nao-encontrada" id="conteudo">
+    <p class="hino-numero">404</p>
+    <h1>Página não encontrada</h1>
+    {{ partial "ornamento.html" . }}
+    <p>Digite o número do hino:</p>
+    {{ partial "numero.html" (dict "id" "numero-404") }}
+    <p><a href="{{ "/" | relURL }}">Voltar para o índice</a></p>
+  </main>
+</div>
 {{ end }}

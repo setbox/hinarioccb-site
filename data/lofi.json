@@ -1,0 +1,95 @@
+{
+  "albuns": {
+    "em-oracao-1": {
+      "titulo": "Em Oração, Vol. 1",
+      "compilacao": "https://youtu.be/PmpxNAYNJv8"
+    }
+  },
+  "hinos": {
+    "4": {
+      "album": "em-oracao-1",
+      "short": "https://youtube.com/shorts/8YZcPl9cZ6Y",
+      "publicacao": "2026-10-28T00:00"
+    },
+    "17": {
+      "album": "em-oracao-1",
+      "short": "https://youtube.com/shorts/jNsY9RUUDwk",
+      "publicacao": "2026-10-28T00:00"
+    },
+    "32": {
+      "album": "em-oracao-1",
+      "short": "https://youtube.com/shorts/Fzu8_QFW5wc",
+      "publicacao": "2026-11-04T20:00"
+    },
+    "62": {
+      "album": "em-oracao-1",
+      "short": "https://youtube.com/shorts/AXv5feT6EQg",
+      "publicacao": "2026-11-08T20:00"
+    },
+    "79": {
+      "album": "em-oracao-1",
+      "short": "https://youtube.com/shorts/hx98W1duCEY",
+      "publicacao": "2026-10-31T20:00"
+    },
+    "106": {
+      "album": "em-oracao-1",
+      "short": "https://youtube.com/shorts/pBCGgGdm2kk",
+      "publicacao": "2026-11-06T20:00"
+    },
+    "116": {
+      "album": "em-oracao-1",
+      "short": "https://youtube.com/shorts/S-MbEPGlZUU",
+      "publicacao": "2026-11-11T20:00"
+    },
+    "138": {
+      "album": "em-oracao-1",
+      "short": "https://youtube.com/shorts/aLiIZLi7tmI",
+      "publicacao": "2026-11-03T20:00"
+    },
+    "164": {
+      "album": "em-oracao-1",
+      "short": "https://youtube.com/shorts/gRfHYCTSxCE",
+      "publicacao": "2026-11-09T20:00"
+    },
+    "191": {
+      "album": "em-oracao-1",
+      "short": "https://youtube.com/shorts/PzklLr-czV8",
+      "publicacao": "2026-11-05T20:00"
+    },
+    "220": {
+      "album": "em-oracao-1",
+      "short": "https://youtube.com/shorts/3h7h4oTrnKU",
+      "publicacao": "2026-11-02T20:00"
+    },
+    "257": {
+      "album": "em-oracao-1",
+      "short": "https://youtube.com/shorts/WY-K8VxzUbU",
+      "publicacao": "2026-11-07T20:00"
+    },
+    "282": {
+      "album": "em-oracao-1",
+      "short": "https://youtube.com/shorts/arFt9nI_9OI",
+      "publicacao": "2026-11-01T20:00"
+    },
+    "314": {
+      "album": "em-oracao-1",
+      "short": "https://youtube.com/shorts/RxQ6g0Pne74",
+      "publicacao": "2026-10-28T00:00"
+    },
+    "355": {
+      "album": "em-oracao-1",
+      "short": "https://youtube.com/shorts/rdGBC3MwEgs",
+      "publicacao": "2026-11-10T20:00"
+    },
+    "374": {
+      "album": "em-oracao-1",
+      "short": "https://youtube.com/shorts/HKExOhWZaYM",
+      "publicacao": "2026-10-30T20:00"
+    },
+    "403": {
+      "album": "em-oracao-1",
+      "short": "https://youtube.com/shorts/uUf3sZ58uqc",
+      "publicacao": "2026-10-29T20:00"
+    }
+  }
+}

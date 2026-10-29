@@ -1,0 +1,8 @@
+<form class="numero {{ if .compacto }}numero-compacto{{ end }}" action="{{ "/" | relURL }}" data-numero>
+  <label for="{{ .id }}" class="{{ if .compacto }}so-leitor{{ else }}rotulo{{ end }}">Número do hino</label>
+  <input id="{{ .id }}" name="numero" inputmode="numeric" autocomplete="off" {{ if .compacto }}placeholder="Nº"{{ end }} data-numero-campo>
+  <button type="submit" class="numero-abrir" disabled data-numero-botao>
+    <span data-numero-titulo>{{ if .compacto }}Abrir{{ else }}Digite o número{{ end }}</span>
+    <svg width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="m6 3 5 5-5 5"></path></svg>
+  </button>
+</form>

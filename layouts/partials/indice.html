@@ -1,0 +1,6 @@
+{{ $indice := dict }}
+{{ range where site.RegularPages "Section" "5" }}
+  {{ $indice = merge $indice (dict (partial "chave.html" .) (dict "t" .Title "u" .RelPermalink "n" (string .Params.numero))) }}
+{{ end }}
+{{ $arquivo := $indice | jsonify | resources.FromString "indice.json" | fingerprint }}
+{{ return $arquivo.RelPermalink }}

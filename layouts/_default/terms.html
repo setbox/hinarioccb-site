@@ -1,0 +1,17 @@
+{{ define "titulo" }}Categorias | Hinário 5 CCB{{ end }}
+
+{{ define "main" -}}
+<div class="pagina">
+  <main class="conteudo conteudo-largo" id="conteudo">
+    <header class="cabecalho-categoria">
+      <h1>Por categoria</h1>
+      {{ partial "ornamento.html" . }}
+    </header>
+    <div class="grade-categorias">
+      {{ range partial "categorias.html" . }}
+        <a href="{{ .RelPermalink }}"><span>{{ .Title }}</span><em>{{ partial "contagem.html" . }}</em></a>
+      {{ end }}
+    </div>
+  </main>
+</div>
+{{- end }}

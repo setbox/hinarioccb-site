@@ -1,0 +1,31 @@
+{{ define "titulo" }}Hinos de {{ .Title }} | Hinário 5 CCB{{ end }}
+{{ define "titulo-og" }}Hinos de {{ .Title }} do Hinário 5 CCB{{ end }}
+{{ define "descricao" }}{{ partial "contagem.html" . }} do Hinário 5 da CCB para {{ .Title }}.{{ end }}
+
+{{ define "main" -}}
+<div class="pagina">
+  <aside class="coluna-esquerda so-desktop">
+    {{ partial "categorias-lista.html" . }}
+  </aside>
+
+  <main class="conteudo" id="conteudo">
+    <nav class="chips so-celular" aria-label="Categorias">
+      {{ range partial "categorias.html" . }}
+        <a href="{{ .RelPermalink }}" {{ if eq .RelPermalink $.RelPermalink }}aria-current="page"{{ end }}>{{ .Title }}</a>
+      {{ end }}
+    </nav>
+    <header class="cabecalho-categoria">
+      <p class="rotulo">Categoria</p>
+      <h1>{{ .Title }}</h1>
+      <p class="subtitulo">{{ partial "contagem.html" . }}</p>
+    </header>
+    {{ partial "lista-hinos.html" (partial "ordenados.html" .Pages) }}
+    {{ partial "publicidade.html" "quadrado" }}
+  </main>
+
+  <aside class="coluna-direita">
+    {{ partial "publicidade.html" "torre" }}
+  </aside>
+</div>
+{{ partial "publicidade.html" "banner" }}
+{{- end }}

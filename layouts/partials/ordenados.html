@@ -1,0 +1,11 @@
+{{ $hinos := slice }}
+{{ $coros := slice }}
+{{ range . }}
+  {{ if strings.HasPrefix .File.BaseFileName "coro-" }}
+    {{ $coros = $coros | append . }}
+  {{ else }}
+    {{ $hinos = $hinos | append . }}
+  {{ end }}
+{{ end }}
+{{ $ordenados := (sort $hinos ".Params.numero" "asc") | append (sort $coros ".Params.numero" "asc") }}
+{{ return $ordenados }}

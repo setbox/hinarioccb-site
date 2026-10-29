@@ -1,0 +1,10 @@
+{{ $espaco := index (dict "quadrado" "quadrado" "torre" "torre" "banner" "banner-topo") . }}
+{{ $medida := index (dict "quadrado" "250 × 250" "torre" "300 × 600" "banner" "970 × 250") . }}
+<aside class="publicidade publicidade-{{ . }}" aria-label="Publicidade">
+  {{ if hugo.IsProduction }}
+    <div class="publicidade-espaco" data-vitrine-slot="{{ $espaco }}" id="vitrine-{{ $espaco }}"></div>
+  {{ else }}
+    <p class="publicidade-rotulo">Publicidade</p>
+    <div class="publicidade-espaco publicidade-exemplo"><span>Vitrine</span><span>{{ $espaco }} {{ $medida }}</span></div>
+  {{ end }}
+</aside>

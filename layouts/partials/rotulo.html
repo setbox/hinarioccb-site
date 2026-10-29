@@ -1,0 +1,5 @@
+{{ $rotulo := printf "Hino %v" .Params.numero }}
+{{ if strings.HasPrefix (string .Params.numero) "Coro" }}
+  {{ $rotulo = string .Params.numero }}
+{{ end }}
+{{ return $rotulo }}
