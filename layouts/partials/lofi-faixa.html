@@ -1,0 +1,7 @@
+{{ $faixa := index site.Data.lofi.hinos . }}
+{{ $album := index site.Data.lofi.albuns $faixa.album }}
+{{ $destino := dict "url" (printf "%s?t=%d" $album.compilacao (int $faixa.inicio)) "plataforma" "YouTube" }}
+{{ with $faixa.spotify }}
+  {{ $destino = dict "url" . "plataforma" "Spotify" }}
+{{ end }}
+{{ return $destino }}

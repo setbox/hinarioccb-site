@@ -345,33 +345,6 @@ h1, h2 {
   visibility: hidden;
 }
 
-.numero-compacto {
-  margin: 0;
-  display: flex;
-  gap: 8px;
-}
-
-.numero-compacto input {
-  width: 88px;
-  height: 48px;
-  margin: 0;
-  border-width: 1px;
-  font-size: 22px;
-}
-
-.numero-compacto .numero-abrir {
-  width: auto;
-  max-width: 280px;
-  min-height: 48px;
-  margin: 0;
-  font-size: 18px;
-}
-
-.numero-compacto .numero-abrir span {
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
 
 .busca-inicio {
   margin-top: 24px;
@@ -379,6 +352,46 @@ h1, h2 {
 
 pagefind-searchbox {
   display: block;
+}
+
+.atalho-numero {
+  min-height: 48px;
+  margin: 4px 4px 2px;
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-radius: 6px;
+  background: var(--realce);
+  color: var(--tinta);
+  text-decoration: none;
+}
+
+.atalho-numero:hover {
+  color: var(--tinta);
+  background: var(--linha);
+}
+
+.atalho-numero-rotulo {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--destaque);
+}
+
+.atalho-numero-nome {
+  flex-grow: 1;
+  font-size: 18px;
+}
+
+.atalho-numero kbd {
+  padding: 1px 6px;
+  border: 1px solid var(--contorno);
+  border-radius: 4px;
+  font-family: inherit;
+  font-size: 13px;
+  color: var(--suave);
 }
 
 pagefind-searchbox .pf-searchbox-footer {
@@ -1201,8 +1214,66 @@ pagefind-searchbox .pf-searchbox-footer {
   color: #D8CCE4;
 }
 
-.lofi-ouvir {
+.lofi-perfis {
   margin-top: 14px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.lofi-perfis a {
+  min-height: 40px;
+  padding: 0 16px;
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid #8E7CA8;
+  border-radius: 20px;
+  color: #F4ECE6;
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.lofi-perfis a:hover {
+  color: #FFFFFF;
+  background: #45385C;
+}
+
+.lofi-disco {
+  margin-top: 32px;
+}
+
+.lofi-disco h2 {
+  margin: 0;
+  font-size: 30px;
+}
+
+.lofi-disco-detalhe {
+  margin: 4px 0 0;
+  font-style: italic;
+  color: var(--suave);
+}
+
+.lofi-disco-botoes {
+  margin-top: 6px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.lofi-ouvir.lofi-ouvir-secundario {
+  border: 1px solid var(--contorno);
+  background: transparent;
+  color: var(--tinta);
+}
+
+.lofi-ouvir.lofi-ouvir-secundario:hover {
+  background: var(--realce);
+  color: var(--tinta);
+}
+
+.lofi-ouvir {
+  margin-top: 8px;
   min-height: 44px;
   padding: 0 18px;
   display: inline-flex;
@@ -1563,7 +1634,6 @@ body.com-aviso {
     flex-grow: 1;
     display: flex;
     align-items: center;
-    gap: 12px;
   }
 
   .topo-busca pagefind-searchbox {

@@ -88,7 +88,6 @@
     var campo = formulario.querySelector('[data-numero-campo]');
     var botao = formulario.querySelector('[data-numero-botao]');
     var titulo = formulario.querySelector('[data-numero-titulo]');
-    var compacto = formulario.classList.contains('numero-compacto');
     var encontrado = null;
 
     function atualizar() {
@@ -98,8 +97,6 @@
         botao.disabled = !encontrado;
         if (encontrado) {
           titulo.textContent = encontrado.t;
-        } else if (compacto) {
-          titulo.textContent = 'Abrir';
         } else if (campo.value.trim() === '') {
           titulo.textContent = 'Digite o número';
         } else {
@@ -114,6 +111,74 @@
       evento.preventDefault();
       if (encontrado) abrir(encontrado);
     });
+  });
+
+  function rotuloDoHino(hino) {
+    return (hino.n.indexOf('Coro') === 0 ? hino.n : 'Hino ' + hino.n) + ' · ' + hino.t;
+  }
+
+  function prepararBusca(caixa) {
+    var campo = caixa.querySelector('input');
+    if (!campo || caixa.dataset.atalho) return;
+    caixa.dataset.atalho = 'sim';
+    var atalho = document.createElement('a');
+    atalho.className = 'atalho-numero';
+    atalho.hidden = true;
+    var rotulo = document.createElement('span');
+    rotulo.className = 'atalho-numero-rotulo';
+    rotulo.textContent = 'Ir para';
+    var nome = document.createElement('span');
+    nome.className = 'atalho-numero-nome';
+    var tecla = document.createElement('kbd');
+    tecla.textContent = 'Enter';
+    atalho.appendChild(rotulo);
+    atalho.appendChild(nome);
+    atalho.appendChild(tecla);
+    var destino = null;
+    var navegou = false;
+
+    function posicionar() {
+      var lista = caixa.querySelector('.pf-searchbox-dropdown');
+      if (lista && lista.firstChild !== atalho) lista.insertBefore(atalho, lista.firstChild);
+    }
+
+    new MutationObserver(posicionar).observe(caixa, { childList: true, subtree: true });
+
+    campo.addEventListener('input', function () {
+      navegou = false;
+      carregarIndice().then(function (lista) {
+        var chave = chaveDigitada(campo.value);
+        destino = chave ? lista[chave] : null;
+        atalho.hidden = !destino;
+        if (destino) {
+          atalho.href = destino.u;
+          nome.textContent = rotuloDoHino(destino);
+          posicionar();
+        }
+      });
+    });
+
+    caixa.addEventListener('keydown', function (evento) {
+      if (evento.key === 'ArrowDown' || evento.key === 'ArrowUp') navegou = true;
+      if (evento.key !== 'Enter' || !destino || navegou) return;
+      evento.preventDefault();
+      evento.stopPropagation();
+      abrir(destino);
+    }, true);
+
+    atalho.addEventListener('click', function (evento) {
+      evento.preventDefault();
+      if (destino) abrir(destino);
+    });
+  }
+
+  todos('pagefind-searchbox').forEach(function (caixa) {
+    prepararBusca(caixa);
+    new MutationObserver(function (mudancas, observador) {
+      if (!caixa.querySelector('input')) return;
+      observador.disconnect();
+      prepararBusca(caixa);
+    }).observe(caixa, { childList: true, subtree: true });
   });
 
   if (window.location.hash === '#numero') {

@@ -1,44 +1,57 @@
-{{ define "titulo" }}Hinário CCB Lofi: hinos do Hinário 5 em versão lofi | HinárioCCB.net{{ end }}
-{{ define "titulo-og" }}Hinário CCB Lofi: hinos do Hinário 5 em versão lofi{{ end }}
-{{ define "descricao" }}Álbuns com hinos do Hinário 5 da CCB em versão instrumental lofi, para ouvir e orar.{{ end }}
+{{ define "titulo" }}Hinário CCB Lofi: hinos da CCB em lofi para orar, estudar e dormir | HinárioCCB.net{{ end }}
+{{ define "titulo-og" }}Hinário CCB Lofi: hinos da CCB em lofi para orar, estudar e dormir{{ end }}
+{{ define "descricao" }}Hinos do Hinário 5 da CCB em arranjos lofi, para orar, estudar e dormir. Ouça no YouTube, Instagram e TikTok.{{ end }}
 
 {{ define "main" -}}
 <div class="pagina">
   <main class="conteudo conteudo-largo" id="conteudo">
-    {{ range $id, $album := site.Data.lofi.albuns }}
-      <header class="lofi-cabecalho">
-        <span class="lofi-cartao-icone" aria-hidden="true">
-          <svg width="36" height="36" viewBox="0 0 30 30" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 18v-3a10 10 0 0 1 20 0v3"></path><rect x="4" y="17" width="5" height="8" rx="2"></rect><rect x="21" y="17" width="5" height="8" rx="2"></rect></svg>
-        </span>
-        <div>
-          <p class="lofi-cartao-rotulo">Hinário CCB Lofi</p>
-          <h1>{{ $album.titulo }}</h1>
-          <p class="lofi-cabecalho-detalhe">{{ len $album.faixas }} hinos em versão instrumental, para ouvir e orar</p>
-          <a class="lofi-ouvir" href="{{ $album.compilacao }}" rel="noopener">
-            <svg width="16" height="16" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M6 3.5v13l11-6.5z"></path></svg>
-            Ouvir no YouTube
-          </a>
-        </div>
-      </header>
+    <header class="lofi-cabecalho">
+      <span class="lofi-cartao-icone" aria-hidden="true">
+        <svg width="36" height="36" viewBox="0 0 30 30" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 18v-3a10 10 0 0 1 20 0v3"></path><rect x="4" y="17" width="5" height="8" rx="2"></rect><rect x="21" y="17" width="5" height="8" rx="2"></rect></svg>
+      </span>
+      <div>
+        <h1>Hinário CCB Lofi</h1>
+        <p class="lofi-cabecalho-detalhe">Hinos do Hinário 5 em arranjos lofi, para orar, estudar e dormir</p>
+        <nav class="lofi-perfis" aria-label="Hinário CCB Lofi nas plataformas">
+          {{ range site.Data.lofi.perfis }}
+            <a href="{{ .url }}" rel="noopener">{{ .nome }}</a>
+          {{ end }}
+        </nav>
+      </div>
+    </header>
 
-      <ol class="lofi-faixas">
-        {{ range $ordem, $numero := $album.faixas }}
-          {{ $hino := site.GetPage (printf "/5/%s" $numero) }}
-          {{ $faixa := index site.Data.lofi.hinos $numero }}
-          <li>
-            <span class="lofi-faixa-ordem">{{ add $ordem 1 }}</span>
-            {{ with $hino }}
-              <a class="lofi-faixa-hino" href="{{ .RelPermalink }}"><span class="numero-lista">{{ .Params.numero }}</span><span>{{ .Title }}</span></a>
-            {{ end }}
-            {{ if and $faixa.short (le $faixa.publicacao (now.Format "2006-01-02T15:04")) }}
-              <a class="lofi-faixa-ouvir" href="{{ $faixa.short }}" rel="noopener" aria-label="Ouvir {{ with $hino }}{{ .Title }}{{ end }} em lofi no YouTube">
+    {{ range $id, $album := site.Data.lofi.albuns }}
+      <section class="lofi-disco" aria-labelledby="album-{{ $id }}">
+        <p class="rotulo">Álbum</p>
+        <h2 id="album-{{ $id }}">{{ $album.titulo }}</h2>
+        <p class="lofi-disco-detalhe">{{ len $album.faixas }} hinos em versão instrumental</p>
+        <div class="lofi-disco-botoes">
+          <a class="lofi-ouvir" href="{{ or $album.spotify $album.compilacao }}" rel="noopener">
+            <svg width="16" height="16" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M6 3.5v13l11-6.5z"></path></svg>
+            Álbum completo
+          </a>
+          {{ with $album.versao8h }}
+            <a class="lofi-ouvir lofi-ouvir-secundario" href="{{ . }}" rel="noopener">Versão de 8 horas para dormir</a>
+          {{ end }}
+        </div>
+
+        <ol class="lofi-faixas">
+          {{ range $ordem, $numero := $album.faixas }}
+            {{ $hino := site.GetPage (printf "/5/%s" $numero) }}
+            {{ $destino := partial "lofi-faixa.html" $numero }}
+            <li>
+              <span class="lofi-faixa-ordem">{{ add $ordem 1 }}</span>
+              {{ with $hino }}
+                <a class="lofi-faixa-hino" href="{{ .RelPermalink }}"><span class="numero-lista">{{ .Params.numero }}</span><span>{{ .Title }}</span></a>
+              {{ end }}
+              <a class="lofi-faixa-ouvir" href="{{ $destino.url }}" rel="noopener" aria-label="Ouvir {{ with $hino }}{{ .Title }}{{ end }} em lofi no {{ $destino.plataforma }}">
                 <svg width="14" height="14" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M6 3.5v13l11-6.5z"></path></svg>
                 Ouvir
               </a>
-            {{ end }}
-          </li>
-        {{ end }}
-      </ol>
+            </li>
+          {{ end }}
+        </ol>
+      </section>
     {{ end }}
     <p class="lofi-aviso">O Hinário CCB Lofi é um projeto independente, sem vínculo oficial com a CCB.</p>
   </main>

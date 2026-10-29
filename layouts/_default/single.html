@@ -132,18 +132,16 @@
 
     {{ with index site.Data.lofi.hinos $slug }}
       {{ $album := index site.Data.lofi.albuns .album }}
-      {{ $publicado := and .short (le .publicacao (now.Format "2006-01-02T15:04")) }}
+      {{ $destino := partial "lofi-faixa.html" $slug }}
       <section class="lofi" aria-label="Ouça em lofi">
-        <a class="lofi-tocar" href="{{ cond $publicado .short $album.compilacao }}" rel="noopener" aria-label="Ouvir a versão lofi no YouTube">
+        <a class="lofi-tocar" href="{{ $destino.url }}" rel="noopener" aria-label="Ouvir a versão lofi no {{ $destino.plataforma }}">
           <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M6 3.5v13l11-6.5z"></path></svg>
         </a>
         <span class="lofi-texto">
           <strong>Ouça em lofi</strong>
           <span>{{ $album.titulo }}</span>
         </span>
-        {{ if $publicado }}
-          <a class="lofi-album" href="{{ $album.compilacao }}" rel="noopener">Álbum</a>
-        {{ end }}
+        <a class="lofi-album" href="{{ "lofi/" | relURL }}">Ver mais</a>
       </section>
     {{ end }}
 

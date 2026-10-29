@@ -9,7 +9,7 @@ Arquivos em `static/midi/5/`, publicados em `/midi/5/`. Um conjunto por hino (1 
 
 ## Origem
 
-MIDIs do app Android do hinário, pasta `backup/` do arquivo `~/drive/pessoal/hinarioccblofi-masters/fonte-hinario-apk.zip` (desde 29/10/2026 o zip guarda as versões já corrigidas descritas abaixo, as mesmas desta pasta; o zip original do app foi para a Lixeira) (`001.mid` a `480.mid`, `coro1.mid` a `coro6.mid`). É a versão com a introdução (a primeira frase do hino antes da 1ª estrofe), como é tocado no culto. Ficaram de fora os arquivos do Hinário 4 (`*h4.mid`) e as cópias duplicadas (`1.mid` e `01.mid` são iguais a `001.mid`).
+MIDIs do app Android do hinário, pasta `backup/` do arquivo `~/obsidian/pessoal/projetos/hinarioccblofi/fonte-hinario-apk.zip` (desde 29/10/2026 o zip guarda as versões já corrigidas descritas abaixo, as mesmas desta pasta; o zip original do app foi para a Lixeira) (`001.mid` a `480.mid`, `coro1.mid` a `coro6.mid`). É a versão com a introdução (a primeira frase do hino antes da 1ª estrofe), como é tocado no culto. Ficaram de fora os arquivos do Hinário 4 (`*h4.mid`) e as cópias duplicadas (`1.mid` e `01.mid` são iguais a `001.mid`).
 
 **Licença:** decisão do usuário (29/10/2026): o uso dos arquivos no site não é uma preocupação; não tratar como pendência.
 
