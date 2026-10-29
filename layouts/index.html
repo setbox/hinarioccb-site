@@ -10,15 +10,13 @@
       <h2 class="rotulo">Abertos recentemente</h2>
       <ol class="lista-curta" data-recentes-lista></ol>
     </section>
-    {{ partial "sem-internet.html" (dict "id" "sem-internet-lateral" "comoFunciona" true) }}
   </aside>
 
   <main class="conteudo" id="conteudo">
     <div class="so-celular">
-      {{ partial "numero.html" (dict "id" "numero") }}
-      <div class="busca-inicio">
-        <p class="rotulo">Buscar pelo título ou trecho</p>
-        <pagefind-searchbox placeholder="Ex.: trombeta, Rei dos reis"></pagefind-searchbox>
+      <div class="busca-inicio" id="busca">
+        <p class="rotulo">Número, título ou trecho do hino</p>
+        <pagefind-searchbox placeholder="Ex.: 314 ou Rei dos reis"></pagefind-searchbox>
         <p class="busca-sem-sinal" role="status" data-sem-sinal hidden>A busca por trecho precisa de internet. Sem sinal, abra pelo número do hino.</p>
       </div>
     </div>
@@ -51,8 +49,6 @@
         {{ end }}
       </div>
     </section>
-
-    {{ partial "link-sem-internet.html" "Usar sem internet" }}
 
     {{ partial "publicidade.html" "quadrado" }}
 

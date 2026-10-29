@@ -117,6 +117,20 @@
     return (hino.n.indexOf('Coro') === 0 ? hino.n : 'Hino ' + hino.n) + ': ' + hino.t;
   }
 
+  function separarNumero(titulo) {
+    if (titulo.querySelector('.resultado-numero')) return;
+    var partes = titulo.textContent.match(/^(?:Hino (\d+)|(Coro \d)): (.+)$/);
+    if (!partes) return;
+    var numero = document.createElement('span');
+    numero.className = 'resultado-numero';
+    numero.textContent = partes[1] || partes[2];
+    var texto = document.createElement('span');
+    texto.textContent = partes[3];
+    titulo.textContent = '';
+    titulo.appendChild(numero);
+    titulo.appendChild(texto);
+  }
+
   function prepararBusca(caixa) {
     var campo = caixa.querySelector('input');
     if (!campo || caixa.dataset.atalho) return;
@@ -126,20 +140,26 @@
     atalho.hidden = true;
     var rotulo = document.createElement('span');
     rotulo.className = 'atalho-numero-rotulo';
-    rotulo.textContent = 'Ir para';
     var nome = document.createElement('span');
     nome.className = 'atalho-numero-nome';
     var tecla = document.createElement('kbd');
     tecla.textContent = 'Enter';
+    var seta = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    seta.setAttribute('viewBox', '0 0 16 16');
+    seta.setAttribute('aria-hidden', 'true');
+    seta.setAttribute('class', 'atalho-numero-seta');
+    seta.innerHTML = '<path d="m6 3 5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.6"></path>';
     atalho.appendChild(rotulo);
     atalho.appendChild(nome);
     atalho.appendChild(tecla);
+    atalho.appendChild(seta);
     var destino = null;
     var navegou = false;
 
     function posicionar() {
       var lista = caixa.querySelector('.pf-searchbox-dropdown');
       if (lista && lista.firstChild !== atalho) lista.insertBefore(atalho, lista.firstChild);
+      todos('.pf-searchbox-result-title', caixa).forEach(separarNumero);
     }
 
     new MutationObserver(posicionar).observe(caixa, { childList: true, subtree: true });
@@ -152,7 +172,9 @@
         atalho.hidden = !destino;
         if (destino) {
           atalho.href = destino.u;
-          nome.textContent = rotuloDoHino(destino);
+          atalho.setAttribute('aria-label', 'Abrir ' + rotuloDoHino(destino));
+          rotulo.textContent = destino.n;
+          nome.textContent = destino.t;
           posicionar();
         }
       });
@@ -172,6 +194,13 @@
     });
   }
 
+  if (window.location.hash === '#busca') {
+    window.addEventListener('load', function () {
+      var campoBusca = document.querySelector('.busca-inicio input');
+      if (campoBusca) campoBusca.focus();
+    });
+  }
+
   todos('pagefind-searchbox').forEach(function (caixa) {
     prepararBusca(caixa);
     new MutationObserver(function (mudancas, observador) {
@@ -180,11 +209,6 @@
       prepararBusca(caixa);
     }).observe(caixa, { childList: true, subtree: true });
   });
-
-  if (window.location.hash === '#numero') {
-    var campoInicio = document.getElementById('numero');
-    if (campoInicio) campoInicio.focus();
-  }
 
   var paginaHino = document.querySelector('[data-hino]');
   var chaveAtual = paginaHino ? paginaHino.dataset.hino : null;
@@ -482,24 +506,30 @@
   }
 
   var aviso = document.getElementById('aviso-cookies');
-  if (aviso && !window.consentimento) {
-    aviso.hidden = false;
-    document.body.classList.add('com-aviso');
+  if (aviso) {
+    var mostrarAviso = function () {
+      aviso.hidden = false;
+      document.body.classList.add('com-aviso');
+    };
+    if (!window.consentimento) mostrarAviso();
     todos('[data-consentimento]', aviso).forEach(function (botao) {
       botao.addEventListener('click', function () {
         var escolha = botao.getAttribute('data-consentimento');
+        var estadoGoogle = escolha === 'aceito' ? 'granted' : 'denied';
         try { localStorage.setItem('consentimento', escolha); } catch (e) {}
-        if (escolha === 'aceito') {
-          gtag('consent', 'update', {
-            ad_storage: 'granted',
-            ad_user_data: 'granted',
-            ad_personalization: 'granted',
-            analytics_storage: 'granted'
-          });
-        }
+        window.consentimento = escolha;
+        gtag('consent', 'update', {
+          ad_storage: estadoGoogle,
+          ad_user_data: estadoGoogle,
+          ad_personalization: estadoGoogle,
+          analytics_storage: estadoGoogle
+        });
         aviso.hidden = true;
         document.body.classList.remove('com-aviso');
       });
+    });
+    todos('[data-consentimento-abrir]').forEach(function (botao) {
+      botao.addEventListener('click', mostrarAviso);
     });
   }
 })();

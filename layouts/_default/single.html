@@ -95,7 +95,7 @@
 
   <main class="conteudo" id="conteudo">
     <header class="cabecalho-hino" data-pagefind-body data-pagefind-meta="title:{{ partial "rotulo.html" . }}: {{ .Title }}">
-      <p class="hino-numero">{{ replace (string .Params.numero) "Coro " "" }}</p>
+      <p class="hino-numero" data-pagefind-ignore>{{ replace (string .Params.numero) "Coro " "" }}</p>
       <h1>{{ .Title }}</h1>
       {{ with .GetTerms "ocasioes" }}
         <p class="hino-categorias">
@@ -130,7 +130,7 @@
     </div>
 
     <article class="letra" data-pagefind-body>
-      {{ .Content | replaceRE `<p>` `<p><span class="verso">` | replaceRE `<br>\s*` "</span>\n<span class=\"verso\">" | replaceRE `</p>` `</span></p>` | safeHTML }}
+      {{ .Content | replaceRE `<li>\s*<p>` `<li>` | replaceRE `</p>\s*</li>` `</li>` | replaceRE `<li>` `<li><span class="verso">` | replaceRE `</li>` `</span></li>` | replaceRE `<p>` `<p><span class="verso">` | replaceRE `</p>` `</span></p>` | replaceRE `<br>\s*` "</span>\n<span class=\"verso\">" | safeHTML }}
     </article>
 
     {{ with index site.Data.lofi.hinos $slug }}
@@ -149,8 +149,6 @@
     {{ end }}
 
     {{ partial "publicidade.html" "quadrado" }}
-
-    {{ partial "link-sem-internet.html" "Abrir os hinos sem internet" }}
 
     <nav class="vizinhos" aria-label="Hinos vizinhos">
       {{ with $anterior }}

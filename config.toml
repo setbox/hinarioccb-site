@@ -20,3 +20,6 @@ pagerSize = 5
 
 [markup.goldmark.renderer]
 hardWraps = true
+
+[params]
+contato = "contato@setbox.com.br"

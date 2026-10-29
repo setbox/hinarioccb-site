@@ -2,6 +2,10 @@
   var player = document.querySelector('[data-player]');
   if (!player) return;
 
+  if (navigator.audioSession) {
+    try { navigator.audioSession.type = 'playback'; } catch (e) {}
+  }
+
   var BIBLIOTECAS = [
     'https://cdn.jsdelivr.net/npm/tone@14.7.77/build/Tone.js',
     'https://cdn.jsdelivr.net/npm/@tonejs/midi@2.0.28/build/Midi.js'
@@ -257,6 +261,9 @@
             volume: -16
           }).toDestination();
           batidas = calcularBatidas(midi);
+          Tone.getContext().rawContext.addEventListener('statechange', function () {
+            if (tocando && Tone.getContext().rawContext.state !== 'running') pausar();
+          });
           tempoTotal.textContent = formatar(duracao);
           mostrarAndamento();
         })

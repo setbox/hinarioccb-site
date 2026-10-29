@@ -1,0 +1,14 @@
+{{ define "titulo" }}{{ .Title }} | HinárioCCB.net{{ end }}
+{{ define "titulo-og" }}{{ .Title }} do HinárioCCB.net{{ end }}
+{{ define "descricao" }}{{ .Description }}{{ end }}
+
+{{ define "main" -}}
+<div class="pagina">
+  <main class="conteudo conteudo-largo pagina-texto" id="conteudo">
+    <h1>{{ .Title }}</h1>
+    {{ with .Description }}<p class="pagina-texto-resumo">{{ . }}</p>{{ end }}
+    {{ with .Lastmod }}<p class="pagina-texto-data">Última atualização: {{ .Format "02/01/2006" }}</p>{{ end }}
+    {{ .Content }}
+  </main>
+</div>
+{{- end }}

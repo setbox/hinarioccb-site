@@ -1,5 +1,36 @@
 <footer class="rodape">
-  <p>Letras do Hinário 5 da Congregação Cristã no Brasil</p>
-  <p class="rodape-aviso">Projeto independente, sem vínculo oficial com a CCB</p>
-  <p><a href="{{ "lofi/" | relURL }}">Hinário CCB Lofi</a></p>
+  <div class="rodape-colunas">
+    <div class="rodape-marca">
+      <a class="rodape-nome" href="{{ "/" | relURL }}"><img src="{{ "favicon.svg" | relURL }}" alt="" width="30" height="30">HinárioCCB.net</a>
+      <p>O site HinárioCCB.net não é um site oficial da Congregação Cristã no Brasil.</p>
+    </div>
+    <nav aria-labelledby="rodape-hinario">
+      <h2 id="rodape-hinario">Hinário</h2>
+      <ul>
+        <li><a href="{{ "/" | relURL }}">Início</a></li>
+        <li><a href="{{ "ocasioes/" | relURL }}">Categorias</a></li>
+        <li><a class="rodape-baixar" href="{{ "sem-internet/" | relURL }}">Usar sem internet{{ partial "icone-baixar.html" . }}</a></li>
+      </ul>
+    </nav>
+    <nav aria-labelledby="rodape-ouvir">
+      <h2 id="rodape-ouvir">Ouvir</h2>
+      <ul>
+        <li><a href="{{ "lofi/" | relURL }}">Hinário CCB Lofi</a></li>
+        {{ range site.Data.lofi.perfis }}
+          <li><a href="{{ .url }}" target="_blank" rel="noopener">{{ .nome }}</a></li>
+        {{ end }}
+      </ul>
+    </nav>
+    <nav aria-labelledby="rodape-legal">
+      <h2 id="rodape-legal">Legal</h2>
+      <ul>
+        <li><a href="{{ "privacidade/" | relURL }}">Política de Privacidade</a></li>
+        <li><button type="button" class="rodape-cookies" data-consentimento-abrir>Preferências de cookies</button></li>
+      </ul>
+    </nav>
+  </div>
+  <div class="rodape-base">
+    <a class="rodape-setbox" href="https://setbox.com.br" target="_blank" rel="noopener">Um produto <img src="{{ "imagens/setbox.png" | relURL }}" alt="Setbox" width="72" height="24"></a>
+    <p>© {{ now.Year }} Setbox Serviços Digitais, CNPJ 08.889.601/0001-09<br>Av. Carneiro Leão, 563 - Zona 01, Maringá / PR - 87014-010</p>
+  </div>
 </footer>
