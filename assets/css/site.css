@@ -27,6 +27,7 @@
   --superficie: #FBF8F1;
   --realce: #EFE6D4;
   --realce-verso: #E6D6B8;
+  --veu: rgba(246, 240, 228, 0.86);
   --tinta: #2B2420;
   --suave: #6B5F55;
   --destaque: #7A1F2B;
@@ -59,6 +60,7 @@
   --superficie: #1C1C1C;
   --realce: #262626;
   --realce-verso: #3A3631;
+  --veu: rgba(18, 18, 18, 0.86);
   --tinta: #EFE6D2;
   --suave: #A9A39A;
   --destaque: #E6D3A3;
@@ -568,7 +570,6 @@ pagefind-searchbox .pf-searchbox-footer {
 .pagina-hino .conteudo { order: 3; display: contents; }
 .pagina-hino .cabecalho-hino { order: 3; }
 .pagina-hino .player { order: 4; }
-.pagina-hino .introducao { order: 5; }
 .pagina-hino .barra-ampla { order: 5; }
 .pagina-hino .letra { order: 6; }
 .pagina-hino .lofi { order: 7; }
@@ -692,15 +693,30 @@ pagefind-searchbox .pf-searchbox-footer {
 }
 
 .player-barra {
-  height: 4px;
-  margin: 10px 0 6px;
-  border-radius: 2px;
-  background: var(--realce);
+  margin: 2px 0 -2px;
+  padding: 8px 0;
+  cursor: pointer;
+  touch-action: manipulation;
 }
 
-.player-barra div {
-  width: 0;
+.player-barra:focus-visible {
+  outline-offset: 0;
+}
+
+.player-trilho {
   height: 4px;
+  border-radius: 2px;
+  background: var(--realce);
+  transition: height 0.15s;
+}
+
+.player-barra:hover .player-trilho {
+  height: 6px;
+}
+
+.player-trilho div {
+  width: 0;
+  height: 100%;
   border-radius: 2px;
   background: var(--destaque);
 }
@@ -802,23 +818,64 @@ pagefind-searchbox .pf-searchbox-footer {
 }
 
 .introducao {
-  padding: 20px 16px 4px;
+  position: fixed;
+  inset: 0;
+  z-index: 45;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0 24px;
+  background: var(--veu);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
   text-align: center;
   color: var(--destaque);
+  pointer-events: none;
+  animation: aparecer 0.25s ease-out;
 }
 
 .introducao .colcheia {
   animation: pulsar 1.2s ease-in-out infinite;
 }
 
-.introducao-titulo {
-  margin: 10px 0 0;
-  font-size: 22px;
+.introducao-fechar {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--contorno);
+  border-radius: 22px;
+  background: var(--superficie);
   color: var(--tinta);
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+.introducao-hino {
+  margin: 12px 0 0;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--destaque);
+}
+
+.introducao-nome {
+  margin: 4px 0 0;
+  font-size: 30px;
+  font-weight: 500;
+  line-height: 1.15;
+  color: var(--tinta);
+  text-wrap: balance;
 }
 
 .introducao-convite {
-  margin: 2px 0 0;
+  margin: 22px 0 0;
   font-size: 17px;
   font-style: italic;
   color: var(--suave);
@@ -853,6 +910,65 @@ pagefind-searchbox .pf-searchbox-footer {
   width: 22px;
   height: 22px;
   accent-color: var(--destaque);
+}
+
+.player-tela-rotulo {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.dica {
+  position: relative;
+  display: inline-flex;
+}
+
+.dica-botao {
+  width: 32px;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  background: none;
+  color: var(--suave);
+  font-style: italic;
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.dica-botao::before {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  top: 6px;
+  left: 6px;
+  border: 1px solid var(--contorno);
+  border-radius: 50%;
+}
+
+.dica-botao[aria-expanded="true"] {
+  color: var(--destaque);
+}
+
+.dica-texto {
+  position: absolute;
+  z-index: 30;
+  bottom: calc(100% + 6px);
+  left: 50%;
+  width: 240px;
+  transform: translateX(-50%);
+  padding: 10px 12px;
+  border: 1px solid var(--linha);
+  border-radius: 8px;
+  background: var(--superficie);
+  box-shadow: 0 6px 18px rgba(43, 36, 32, 0.12);
+  color: var(--tinta);
+  font-size: 15px;
+  line-height: 1.4;
+  text-align: left;
 }
 
 .barra-ampla {
@@ -919,7 +1035,8 @@ pagefind-searchbox .pf-searchbox-footer {
 }
 
 .letra.tocando:has(li.atual) li:not(.atual),
-.letra.tocando:has(li.atual) > p {
+.letra.tocando:has(li.atual) > p,
+.letra.tocando.no-coro li {
   color: var(--suave);
 }
 
@@ -1416,8 +1533,14 @@ body.com-aviso {
 
   .player-andamento,
   .player-tom {
-    flex-wrap: wrap;
-    gap: 4px 8px;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 6px;
+  }
+
+  .player-andamento div,
+  .player-tom div {
+    justify-content: space-between;
   }
 
   .pagina-hino .voltar {

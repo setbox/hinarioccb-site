@@ -18,6 +18,7 @@
   var VOGAIS = 'aeiouáàâãéêíóôõúü';
   var DITONGO = /^(ai|au|ei|eu|éi|éu|oi|ói|ou|ui|iu|ão|ãe|õe|ãi)$/;
   var CUSTO_ACEITO = 4;
+  var CUSTO_POR_LINHA = 0.5;
 
   function separarVersos(elemento) {
     var alvos = elemento.querySelectorAll('p').length ? Array.prototype.slice.call(elemento.querySelectorAll('p')) : [elemento];
@@ -34,6 +35,10 @@
     return versos.concat(separarVersos(p));
   }, []);
   var inicioDosVersos = [];
+  var listasDeEstrofes = letra ? letra.querySelectorAll(':scope > ol') : [];
+  var coroNoFim = versosDoCoro.length > 0 && listasDeEstrofes.length > 0 &&
+    !!(listasDeEstrofes[listasDeEstrofes.length - 1].compareDocumentPosition(versosDoCoro[0]) & Node.DOCUMENT_POSITION_FOLLOWING);
+  var linhasDoHino = null;
 
   function faixaDeSilabas(linha) {
     var texto = linha.toLowerCase()
@@ -60,7 +65,7 @@
     return [Math.max(1, maximo - reducoes), maximo];
   }
 
-  function alinhar(notas, linhas, ppq) {
+  function alinhar(notas, linhas, ppq, limite) {
     var total = notas.length;
     var fimDeFrase = notas.map(function (nota, indice) {
       var seguinte = notas[indice + 1];
@@ -90,7 +95,7 @@
         }
       }
     }
-    if (custo[linhas.length][total] > CUSTO_ACEITO) return null;
+    if (custo[linhas.length][total] > limite) return null;
     var cortes = [];
     var posicaoCorte = total;
     for (i = linhas.length; i > 0; i--) {
@@ -117,9 +122,30 @@
     return 1;
   }
 
+  function alinharHinoInteiro(midi, soprano) {
+    var primeira = marcadores.filter(function (marcador) { return /^Estrofe /.test(marcador.texto); })[0];
+    if (!primeira) return;
+    var partes = [];
+    versosDasEstrofes.forEach(function (versos, estrofe) {
+      versos.forEach(function (verso) { partes.push({ verso: verso, estrofe: estrofe }); });
+    });
+    versosDoCoro.forEach(function (verso) { partes.push({ verso: verso, estrofe: -1 }); });
+    var notas = soprano.notes.filter(function (nota) { return nota.time >= primeira.tempo - 0.001; });
+    if (notas.length < partes.length) return;
+    var trechos = alinhar(notas, partes.map(function (parte) { return parte.verso.textContent; }), midi.header.ppq, partes.length * CUSTO_POR_LINHA);
+    if (!trechos) return;
+    linhasDoHino = partes.map(function (parte, indice) {
+      return { verso: parte.verso, estrofe: parte.estrofe, notas: trechos[indice].notas, fim: trechos[indice].fim };
+    });
+  }
+
   function alinharEstrofes(midi) {
     var soprano = vozes[0];
     if (!soprano) return;
+    if (coroNoFim) {
+      alinharHinoInteiro(midi, soprano);
+      if (linhasDoHino) return;
+    }
     marcadores.forEach(function (marcador, indice) {
       var numero = /^Estrofe (\d+)$/.exec(marcador.texto);
       if (!numero) return;
@@ -131,7 +157,7 @@
         return nota.time >= marcador.tempo - 0.001 && (!proximo || nota.time < proximo.tempo - 0.001);
       });
       if (notas.length < versos.length) return;
-      inicioDosVersos[estrofe] = alinhar(notas, versos.map(function (verso) { return verso.textContent; }), midi.header.ppq);
+      inicioDosVersos[estrofe] = alinhar(notas, versos.map(function (verso) { return verso.textContent; }), midi.header.ppq, CUSTO_ACEITO);
     });
   }
 
@@ -148,6 +174,11 @@
   var transposicao = 0;
   var introducaoBloco = document.querySelector('[data-introducao]');
   var introducaoProgresso = document.querySelector('[data-introducao-progresso]');
+  var introducaoFechada = false;
+  var ANTECEDENCIA_DO_AVISO = 1.5;
+  var ESPERA_ANTES_DA_INTRODUCAO = 800;
+  var iniciando = false;
+  var barra = player.querySelector('[data-player-barra]');
   var posicao = 0;
   var inicio = 0;
   var tocando = false;
@@ -170,8 +201,7 @@
       carregado = BIBLIOTECAS.reduce(function (anterior, endereco) {
         return anterior.then(function () { return carregarScript(endereco); });
       }, Promise.resolve())
-        .then(function () { return fetch(player.dataset.midi); })
-        .then(function (resposta) { return resposta.arrayBuffer(); })
+        .then(function () { return arquivoMidi; })
         .then(function (dados) {
           var midi = new Midi(dados);
           vozes = midi.tracks.filter(function (faixa) { return faixa.notes.length; }).slice(0, 4);
@@ -218,6 +248,25 @@
   function mostrarAndamento() {
     andamentoTexto.textContent = '♩ ' + andamento;
   }
+
+  function andamentoGravado(dados) {
+    var bytes = new Uint8Array(dados);
+    for (var i = 0; i + 5 < bytes.length; i++) {
+      if (bytes[i] === 0xFF && bytes[i + 1] === 0x51 && bytes[i + 2] === 0x03) {
+        return Math.round(60000000 / ((bytes[i + 3] << 16) | (bytes[i + 4] << 8) | bytes[i + 5]));
+      }
+    }
+    return null;
+  }
+
+  var arquivoMidi = fetch(player.dataset.midi).then(function (resposta) { return resposta.arrayBuffer(); });
+  arquivoMidi.then(function (dados) {
+    var gravado = andamentoGravado(dados);
+    if (!gravado || carregado) return;
+    andamentoBase = gravado;
+    andamento = gravado;
+    mostrarAndamento();
+  }).catch(function () {});
 
   function soltar() {
     Tone.Transport.stop();
@@ -266,16 +315,32 @@
     }
   }
 
+  function destacarEstrofe(atual, porVerso) {
+    if (atual === estrofeMarcada) return;
+    estrofeMarcada = atual;
+    estrofes.forEach(function (li, indice) {
+      li.classList.toggle('atual', indice === atual);
+      li.classList.toggle('por-verso', indice === atual && porVerso);
+    });
+    mostrarNaTela(estrofes[atual]);
+  }
+
+  function linhaCantada(agora) {
+    if (!linhasDoHino || agora < linhasDoHino[0].notas[0]) return null;
+    return linhasDoHino.filter(function (linha) { return linha.notas[0] <= agora; }).pop();
+  }
+
+  function marcarLinhaDoHino(linha, agora) {
+    destacarEstrofe(linha.estrofe, true);
+    if (letra) letra.classList.toggle('no-coro', linha.estrofe < 0);
+    marcarVerso(linha.verso);
+    linha.verso.style.setProperty('--progresso', (progressoDoVerso(linha, agora) * 100).toFixed(1) + '%');
+  }
+
   function marcarEstrofe(atual, agora) {
     var inicios = inicioDosVersos[atual];
-    if (atual !== estrofeMarcada) {
-      estrofeMarcada = atual;
-      estrofes.forEach(function (li, indice) {
-        li.classList.toggle('atual', indice === atual);
-        li.classList.toggle('por-verso', indice === atual && !!inicios);
-      });
-      mostrarNaTela(estrofes[atual]);
-    }
+    if (letra) letra.classList.remove('no-coro');
+    destacarEstrofe(atual, !!inicios);
     if (!inicios) {
       marcarVerso(null);
       return;
@@ -295,30 +360,42 @@
     var agora = Math.min(duracao, posicaoAtual());
     progresso.style.width = (duracao ? (agora / duracao) * 100 : 0) + '%';
     tempoAtual.textContent = formatar(agora);
+    barra.setAttribute('aria-valuenow', Math.round(agora));
+    barra.setAttribute('aria-valuetext', formatar(agora) + ' de ' + formatar(duracao));
     var marcador = marcadores.filter(function (item) { return item.tempo <= agora; }).pop();
     var texto = marcador ? marcador.texto : '';
     var estrofe = /^Estrofe (\d+)$/.exec(texto);
-    var total = marcadores.filter(function (item) { return /^Estrofe /.test(item.texto); }).length;
-    if (estrofe) {
-      estado.textContent = 'Tocando a estrofe ' + estrofe[1] + ' de ' + total;
+    var linha = linhaCantada(agora);
+    if (linha) {
+      marcarLinhaDoHino(linha, agora);
+      estado.textContent = linha.estrofe < 0 ? 'Coro' : 'Estrofe ' + (linha.estrofe + 1);
+    } else if (estrofe) {
       marcarEstrofe(Number(estrofe[1]) - 1, agora);
+      var noCoro = !estrofes.length || versosDoCoro.indexOf(versoMarcado) >= 0;
+      estado.textContent = noCoro ? 'Coro' : 'Estrofe ' + estrofe[1];
     } else if (texto === 'Repetição') {
       estado.textContent = 'Repetição';
     } else {
       estado.textContent = texto || 'Tocando';
-      marcarEstrofe(-1);
+      marcarEstrofe(texto === 'Introdução' && agora >= fimDoAviso() ? 0 : -1, agora);
     }
-    mostrarIntroducao(texto === 'Introdução' && tocando, agora);
+    mostrarIntroducao(texto === 'Introdução' && tocando && agora < fimDoAviso(), agora);
     if (tocando) quadro = requestAnimationFrame(atualizar);
+  }
+
+  function fimDoAviso() {
+    var primeiraEstrofe = marcadores.filter(function (item) { return /^Estrofe /.test(item.texto); })[0];
+    var inicioDoCanto = primeiraEstrofe ? primeiraEstrofe.tempo : duracao;
+    return Math.max(0, inicioDoCanto - ANTECEDENCIA_DO_AVISO * razao());
   }
 
   function mostrarIntroducao(visivel, agora) {
     if (!introducaoBloco) return;
+    visivel = visivel && !introducaoFechada;
     if (introducaoBloco.hidden === visivel) introducaoBloco.hidden = !visivel;
     if (!visivel) return;
-    var primeiraEstrofe = marcadores.filter(function (item) { return /^Estrofe /.test(item.texto); })[0];
-    var fim = primeiraEstrofe ? primeiraEstrofe.tempo : duracao;
-    introducaoProgresso.style.width = Math.min(100, (agora / fim) * 100).toFixed(1) + '%';
+    var fim = fimDoAviso();
+    introducaoProgresso.style.width = (fim ? Math.min(100, (agora / fim) * 100) : 100).toFixed(1) + '%';
   }
 
   function nomeDaDistancia(semitons) {
@@ -347,17 +424,34 @@
   }
 
   function tocar() {
-    carregar().then(function () {
+    if (iniciando) return;
+    if (posicao >= duracao) posicao = 0;
+    var doComeco = posicao === 0;
+    if (doComeco) {
+      introducaoFechada = false;
+      introducaoProgresso.style.width = '0%';
+      if (introducaoBloco) introducaoBloco.hidden = false;
+    }
+    var espera = new Promise(function (resolver) {
+      setTimeout(resolver, doComeco && introducaoBloco ? ESPERA_ANTES_DA_INTRODUCAO : 0);
+    });
+    iniciando = true;
+    if (window.Tone) Tone.start();
+    Promise.all([carregar(), espera]).then(function () {
       return Tone.start();
     }).then(function () {
-      if (posicao >= duracao) posicao = 0;
+      iniciando = false;
+      if (introducaoFechada && introducaoBloco) introducaoBloco.hidden = true;
       tocando = true;
       player.classList.add('tocando');
       if (letra) letra.classList.add('tocando');
       botaoTocar.setAttribute('aria-label', 'Pausar');
       agendar();
       atualizar();
-    }).catch(function () {});
+    }).catch(function () {
+      iniciando = false;
+      if (introducaoBloco) introducaoBloco.hidden = true;
+    });
   }
 
   function pausar() {
@@ -391,6 +485,46 @@
 
   botaoTocar.addEventListener('click', function () {
     if (tocando) pausar(); else tocar();
+  });
+
+  function irPara(segundos) {
+    reiniciarSeTocando(function () {
+      posicao = Math.min(duracao, Math.max(0, segundos));
+    });
+    barra.setAttribute('aria-valuemax', Math.round(duracao));
+    atualizar();
+    if (!tocando) estado.textContent = 'Pausado';
+  }
+
+  barra.addEventListener('click', function (evento) {
+    var caixa = barra.getBoundingClientRect();
+    var fracao = (evento.clientX - caixa.left) / caixa.width;
+    carregar().then(function () {
+      irPara(fracao * duracao);
+    }).catch(function () {});
+  });
+
+  barra.addEventListener('keydown', function (evento) {
+    var passos = { ArrowRight: 5, ArrowUp: 5, ArrowLeft: -5, ArrowDown: -5, PageUp: 15, PageDown: -15 };
+    if (!(evento.key in passos) && evento.key !== 'Home' && evento.key !== 'End') return;
+    evento.preventDefault();
+    carregar().then(function () {
+      if (evento.key === 'Home') irPara(0);
+      else if (evento.key === 'End') irPara(duracao);
+      else irPara(posicaoAtual() + passos[evento.key]);
+    }).catch(function () {});
+  });
+
+  function fecharIntroducao() {
+    introducaoFechada = true;
+    if (introducaoBloco) introducaoBloco.hidden = true;
+  }
+
+  var botaoFecharIntroducao = document.querySelector('[data-introducao-fechar]');
+  if (botaoFecharIntroducao) botaoFecharIntroducao.addEventListener('click', fecharIntroducao);
+
+  document.addEventListener('keydown', function (evento) {
+    if (evento.key === 'Escape' && introducaoBloco && !introducaoBloco.hidden) fecharIntroducao();
   });
 
   Array.prototype.slice.call(player.querySelectorAll('[data-voz]')).forEach(function (botao) {
@@ -434,7 +568,7 @@
 
   var telaLigada = player.querySelector('[data-tela-ligada]');
   if (!('wakeLock' in navigator)) {
-    telaLigada.closest('label').hidden = true;
+    player.querySelector('[data-tela-linha]').hidden = true;
   }
 
   function pedirTrava() {

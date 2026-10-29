@@ -37,7 +37,7 @@
           </button>
           <div class="player-estado">
             <p data-player-estado>Ouvir o hino</p>
-            <div class="player-barra" aria-hidden="true"><div data-player-progresso></div></div>
+            <div class="player-barra" role="slider" tabindex="0" aria-label="Posição no hino" aria-valuemin="0" aria-valuemax="0" aria-valuenow="0" aria-valuetext="0:00" data-player-barra><div class="player-trilho"><div data-player-progresso></div></div></div>
             <p class="player-tempos"><span data-player-atual>0:00</span><span data-player-total></span></p>
           </div>
         </div>
@@ -65,10 +65,16 @@
           </div>
         </div>
         <p class="player-tom-legenda" data-tom-legenda hidden></p>
-        <label class="player-tela">
-          Manter a tela ligada
-          <input type="checkbox" data-tela-ligada>
-        </label>
+        <div class="player-tela" data-tela-linha>
+          <span class="player-tela-rotulo">
+            <label for="tela-ligada">Manter a tela ligada</label>
+            <span class="dica">
+              <button type="button" class="dica-botao" aria-label="O que é manter a tela ligada?" aria-expanded="false" aria-controls="dica-tela" data-dica>i</button>
+              <span class="dica-texto" id="dica-tela" role="tooltip" hidden>Impede que a tela do celular apague sozinha enquanto o hino está aberto, para você acompanhar a letra sem precisar tocar na tela.</span>
+            </span>
+          </span>
+          <input type="checkbox" id="tela-ligada" data-tela-ligada>
+        </div>
       </section>
     {{ end }}
 
@@ -98,9 +104,13 @@
     </header>
 
     <div class="introducao" data-introducao role="status" hidden>
+      <button type="button" class="introducao-fechar" aria-label="Fechar o aviso da introdução" data-introducao-fechar>
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="m5 5 10 10M15 5 5 15"></path></svg>
+      </button>
       {{ partial "colcheia.html" . }}
-      <p class="introducao-titulo">Ouça a introdução</p>
-      <p class="introducao-convite">e prepare-se para cantar</p>
+      <p class="introducao-hino">{{ partial "rotulo.html" . }}</p>
+      <p class="introducao-nome">{{ .Title }}</p>
+      <p class="introducao-convite">Ouça a introdução e prepare-se para cantar</p>
       <div class="introducao-barra" aria-hidden="true"><div data-introducao-progresso></div></div>
     </div>
 

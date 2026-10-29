@@ -249,6 +249,30 @@
     });
   });
 
+  function fecharDicas(exceto) {
+    todos('[data-dica]').forEach(function (botao) {
+      if (botao === exceto) return;
+      botao.setAttribute('aria-expanded', 'false');
+      document.getElementById(botao.getAttribute('aria-controls')).hidden = true;
+    });
+  }
+
+  todos('[data-dica]').forEach(function (botao) {
+    var texto = document.getElementById(botao.getAttribute('aria-controls'));
+    botao.addEventListener('click', function (evento) {
+      evento.stopPropagation();
+      var abrir = texto.hidden;
+      fecharDicas(botao);
+      texto.hidden = !abrir;
+      botao.setAttribute('aria-expanded', abrir ? 'true' : 'false');
+    });
+  });
+
+  document.addEventListener('click', function () { fecharDicas(null); });
+  document.addEventListener('keydown', function (evento) {
+    if (evento.key === 'Escape') fecharDicas(null);
+  });
+
   var aviso = document.getElementById('aviso-cookies');
   if (aviso && !window.consentimento) {
     aviso.hidden = false;
