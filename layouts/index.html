@@ -1,9 +1,25 @@
 {{ define "main" -}}
 
-  {{ $posts := where .Site.Pages "Section" "5" }}
-  {{ $sortedPosts := sort $posts ".Params.numero" "asc" }}
+  {{ $hinos := slice }}
+  {{ $coros := slice }}
+  {{ range where .Site.RegularPages "Section" "5" }}
+    {{ if strings.HasPrefix .File.BaseFileName "coro-" }}
+      {{ $coros = $coros | append . }}
+    {{ else }}
+      {{ $hinos = $hinos | append . }}
+    {{ end }}
+  {{ end }}
+  {{ $sortedPosts := (sort $hinos ".Params.numero" "asc") | append (sort $coros ".Params.numero" "asc") }}
 
   <h1>Hinário 5</h1>
+
+  <link href="{{ "pagefind/pagefind-component-ui.css" | relURL }}" rel="stylesheet">
+  <script src="{{ "pagefind/pagefind-component-ui.js" | relURL }}" type="module"></script>
+  <div class="my-4">
+    <pagefind-input></pagefind-input>
+    <pagefind-summary></pagefind-summary>
+    <pagefind-results></pagefind-results>
+  </div>
 
   <ul class="nav flex-column">
   {{ range $sortedPosts }}

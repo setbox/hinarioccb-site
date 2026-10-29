@@ -1,4 +1,5 @@
 {{ define "main" -}}
+  <div data-pagefind-body>
   <h1 class="title {{ if .Params.ocasioes }}mb-2{{ else }}mb-5{{ end }}">{{ .Params.numero }} - {{ .Title }}</h1>
 
   {{ with .Params.ocasioes }}
@@ -8,6 +9,7 @@
   {{ end }}
 
   {{ .Content }}
+  </div>
 
   <div class="my-5">
     <a href="{{ "/" | relURL }}" class="btn btn-primary">Voltar</a>
