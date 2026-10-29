@@ -18,13 +18,13 @@ MIDIs do app Android do hinário, pasta `backup/` do arquivo `~/drive/pessoal/hi
 - **Andamento das vozes:** os arquivos por voz do app tinham andamento mais lento que o completo, e 8 tinham arranjo diferente ou estavam quebrados (277 nas 4 vozes, 281 baixo, 303 baixo com 66 de 196 notas, 441 soprano e contralto). Por decisão do usuário, o andamento correto é o do arquivo completo: todas as vozes foram regeradas extraindo a faixa do completo. Notas, andamento e duração conferem com o completo nos 1.944 arquivos de voz.
 - **Hino 136:** estava em Ré; transposto meio tom abaixo para o tom oficial, Ré♭ (só alturas; tempos e duração iguais).
 - **Metadados** (sem alterar notas): título na faixa 0 (`Hino 314 CCB: O Teu poder supremo`, `Coro 1 CCB: Aleluia! Aleluia!`), armadura de clave do tom oficial e nome de cada faixa (Soprano, Contralto, Tenor, Baixo).
+- **Timbre:** as 4 faixas usam coral, General MIDI 52 "Choir Aahs" (no app eram oboé 68, sax soprano 64, trombone 57 e tuba 58). Escolha do usuário em 29/10/2026, depois de ouvir orquestra, órgão, coral, cordas, madeiras e piano. Vale para quem toca o arquivo com um banco General MIDI (GarageBand, FluidSynth, download); o player do site sintetiza com timbre próprio e ignora o programa.
+- **Oitava do baixo:** no app a linha do baixo soava uma oitava abaixo da partitura; subida uma oitava (+12) nos 486 arquivos, na altura em que o baixo canta.
 
 Todos os 486 arranjos conferem com o tom oficial (`recursos/guia-hinario5.json` do projeto lofi-ccb).
 
 ## Características mantidas do app
 
-- Instrumentos (General MIDI): soprano oboé (68), contralto sax soprano (64), tenor trombone (57), baixo tuba (58).
-- O baixo soa uma oitava abaixo da partitura, nos 486 arquivos.
 - Os hinos 64, 157, 378 e 422 mudam de andamento dentro do arquivo, de propósito.
 - Compassos de anacruse aparecem como compassos curtos (`1/4`, `1/8`); 13 hinos diferem do compasso oficial só na notação (por exemplo 2/2 escrito como 4/4), sem efeito no som.
 

@@ -11,6 +11,10 @@
 <meta property="og:url" content="{{ .Permalink }}">
 <meta property="og:title" content="{{ block "titulo-og" . }}{{ .Site.Title }}{{ end }}">
 <meta name="theme-color" content="#F6F0E4">
+<link rel="icon" href="{{ "favicon.ico" | relURL }}" sizes="48x48">
+<link rel="icon" href="{{ "favicon.svg" | relURL }}" type="image/svg+xml">
+<link rel="apple-touch-icon" href="{{ "apple-touch-icon.png" | relURL }}">
+<link rel="manifest" href="{{ "site.webmanifest" | relURL }}">
 <script>
 (function () {
   var raiz = document.documentElement;
@@ -64,6 +68,7 @@ gtag('config', 'G-R3VKLGHS2N');
   <p class="transicao-numero" data-transicao-numero></p>
   {{ partial "ornamento.html" . }}
   <p class="transicao-titulo" data-transicao-titulo></p>
+  <div class="transicao-barra" aria-hidden="true"><div></div></div>
 </div>
 
 <div id="aviso-cookies" class="aviso-cookies" hidden>
