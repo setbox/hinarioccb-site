@@ -906,6 +906,20 @@ pagefind-searchbox .pf-searchbox-footer {
   }
 }
 
+.player-opcoes {
+  margin-top: 12px;
+  padding-top: 8px;
+  border-top: 1px dotted var(--pontilhado);
+}
+
+.player-opcoes .player-tela {
+  min-height: 38px;
+}
+
+.player-opcoes label {
+  cursor: pointer;
+}
+
 .player-tela input {
   width: 22px;
   height: 22px;

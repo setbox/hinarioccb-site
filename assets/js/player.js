@@ -18,7 +18,7 @@
   var VOGAIS = 'aeiouáàâãéêíóôõúü';
   var DITONGO = /^(ai|au|ei|eu|éi|éu|oi|ói|ou|ui|iu|ão|ãe|õe|ãi)$/;
   var CUSTO_ACEITO = 4;
-  var CUSTO_POR_LINHA = 0.5;
+  var CUSTO_POR_LINHA = 0.7;
 
   function separarVersos(elemento) {
     var alvos = elemento.querySelectorAll('p').length ? Array.prototype.slice.call(elemento.querySelectorAll('p')) : [elemento];
@@ -35,9 +35,17 @@
     return versos.concat(separarVersos(p));
   }, []);
   var inicioDosVersos = [];
-  var listasDeEstrofes = letra ? letra.querySelectorAll(':scope > ol') : [];
-  var coroNoFim = versosDoCoro.length > 0 && listasDeEstrofes.length > 0 &&
-    !!(listasDeEstrofes[listasDeEstrofes.length - 1].compareDocumentPosition(versosDoCoro[0]) & Node.DOCUMENT_POSITION_FOLLOWING);
+  var blocosDaLetra = [];
+  Array.prototype.slice.call(letra ? letra.children : []).forEach(function (elemento) {
+    if (elemento.tagName === 'OL') {
+      Array.prototype.slice.call(elemento.children).forEach(function (li) {
+        var indice = estrofes.indexOf(li);
+        blocosDaLetra.push({ tipo: 'estrofe', estrofe: indice, versos: versosDasEstrofes[indice] });
+      });
+    } else if (elemento.tagName === 'P') {
+      blocosDaLetra.push({ tipo: 'coro', estrofe: -1, versos: Array.prototype.slice.call(elemento.querySelectorAll('.verso')) });
+    }
+  });
   var linhasDoHino = null;
 
   function faixaDeSilabas(linha) {
@@ -102,7 +110,7 @@
       posicaoCorte = volta[i][posicaoCorte];
       cortes.unshift(posicaoCorte);
     }
-    return cortes.map(function (corte, indice) {
+    var trechos = cortes.map(function (corte, indice) {
       var proximoCorte = indice + 1 < cortes.length ? cortes[indice + 1] : total;
       var notasDoVerso = notas.slice(corte, proximoCorte);
       var ultima = notasDoVerso[notasDoVerso.length - 1];
@@ -111,6 +119,8 @@
         fim: proximoCorte < total ? notas[proximoCorte].time : ultima.time + ultima.duration
       };
     });
+    trechos.custo = custo[linhas.length][total];
+    return trechos;
   }
 
   function progressoDoVerso(verso, agora) {
@@ -122,27 +132,51 @@
     return 1;
   }
 
+  function ordensPossiveis() {
+    var soEstrofes = blocosDaLetra.filter(function (bloco) { return bloco.tipo === 'estrofe'; });
+    var coros = blocosDaLetra.filter(function (bloco) { return bloco.tipo === 'coro'; });
+    var ordens = [blocosDaLetra];
+    if (!coros.length) return ordens;
+    var coroDepoisDeCada = [];
+    var coroVigente = null;
+    blocosDaLetra.forEach(function (bloco, indice) {
+      if (bloco.tipo !== 'estrofe') return;
+      var seguintes = [];
+      for (var j = indice + 1; j < blocosDaLetra.length && blocosDaLetra[j].tipo === 'coro'; j++) seguintes.push(blocosDaLetra[j]);
+      if (seguintes.length) coroVigente = seguintes;
+      coroDepoisDeCada = coroDepoisDeCada.concat([bloco], coroVigente || [coros[0]]);
+    });
+    ordens.push(coroDepoisDeCada, soEstrofes.concat(coros));
+    return ordens;
+  }
+
   function alinharHinoInteiro(midi, soprano) {
     var primeira = marcadores.filter(function (marcador) { return /^Estrofe /.test(marcador.texto); })[0];
     if (!primeira) return;
-    var partes = [];
-    versosDasEstrofes.forEach(function (versos, estrofe) {
-      versos.forEach(function (verso) { partes.push({ verso: verso, estrofe: estrofe }); });
-    });
-    versosDoCoro.forEach(function (verso) { partes.push({ verso: verso, estrofe: -1 }); });
     var notas = soprano.notes.filter(function (nota) { return nota.time >= primeira.tempo - 0.001; });
-    if (notas.length < partes.length) return;
-    var trechos = alinhar(notas, partes.map(function (parte) { return parte.verso.textContent; }), midi.header.ppq, partes.length * CUSTO_POR_LINHA);
-    if (!trechos) return;
-    linhasDoHino = partes.map(function (parte, indice) {
-      return { verso: parte.verso, estrofe: parte.estrofe, notas: trechos[indice].notas, fim: trechos[indice].fim };
+    var melhor = null;
+    ordensPossiveis().forEach(function (ordem) {
+      var partes = [];
+      ordem.forEach(function (bloco) {
+        bloco.versos.forEach(function (verso) { partes.push({ verso: verso, estrofe: bloco.estrofe }); });
+      });
+      if (!partes.length || notas.length < partes.length) return;
+      var trechos = alinhar(notas, partes.map(function (parte) { return parte.verso.textContent; }), midi.header.ppq, partes.length * CUSTO_POR_LINHA);
+      if (!trechos) return;
+      var custoPorLinha = trechos.custo / partes.length;
+      if (melhor && melhor.custoPorLinha <= custoPorLinha) return;
+      melhor = { custoPorLinha: custoPorLinha, partes: partes, trechos: trechos };
+    });
+    if (!melhor) return;
+    linhasDoHino = melhor.partes.map(function (parte, indice) {
+      return { verso: parte.verso, estrofe: parte.estrofe, notas: melhor.trechos[indice].notas, fim: melhor.trechos[indice].fim };
     });
   }
 
   function alinharEstrofes(midi) {
     var soprano = vozes[0];
     if (!soprano) return;
-    if (coroNoFim) {
+    if (estrofes.length) {
       alinharHinoInteiro(midi, soprano);
       if (linhasDoHino) return;
     }
@@ -177,6 +211,9 @@
   var introducaoFechada = false;
   var ANTECEDENCIA_DO_AVISO = 1.5;
   var ESPERA_ANTES_DA_INTRODUCAO = 800;
+  var clique = null;
+  var batidas = [];
+  var metronomoLigado = false;
   var iniciando = false;
   var barra = player.querySelector('[data-player-barra]');
   var posicao = 0;
@@ -220,6 +257,12 @@
               volume: -14
             }).toDestination();
           });
+          clique = new Tone.Synth({
+            oscillator: { type: 'square' },
+            envelope: { attack: 0.001, decay: 0.04, sustain: 0, release: 0.02 },
+            volume: -16
+          }).toDestination();
+          batidas = calcularBatidas(midi);
           tempoTotal.textContent = formatar(duracao);
           mostrarAndamento();
         })
@@ -274,6 +317,26 @@
     sintetizadores.forEach(function (sintetizador) { sintetizador.releaseAll(); });
   }
 
+  function calcularBatidas(midi) {
+    var ppq = midi.header.ppq;
+    var fimTicks = midi.durationTicks;
+    var compassos = midi.header.timeSignatures.length ? midi.header.timeSignatures : [{ ticks: 0, timeSignature: [4, 4] }];
+    var lista = [];
+    compassos.forEach(function (compasso, indice) {
+      var inicioTicks = compasso.ticks;
+      var proximo = compassos[indice + 1];
+      var limite = proximo ? proximo.ticks : fimTicks;
+      var numerador = compasso.timeSignature[0];
+      var denominador = compasso.timeSignature[1];
+      var tamanho = numerador * ppq * 4 / denominador;
+      var batida = denominador === 8 && numerador % 3 === 0 && numerador > 3 ? ppq * 1.5 : ppq * 4 / denominador;
+      for (var t = inicioTicks; t < limite; t += batida) {
+        lista.push({ tempo: midi.header.ticksToSeconds(t), forte: (t - inicioTicks) % tamanho === 0 });
+      }
+    });
+    return lista;
+  }
+
   function agendar() {
     soltar();
     var r = razao();
@@ -287,6 +350,14 @@
         }, (nota.time - posicao) / r);
       });
     });
+    if (metronomoLigado) {
+      batidas.forEach(function (batida) {
+        if (batida.tempo < posicao) return;
+        Tone.Transport.schedule(function (quando) {
+          clique.triggerAttackRelease(batida.forte ? 2000 : 1400, 0.03, quando);
+        }, (batida.tempo - posicao) / r);
+      });
+    }
     Tone.Transport.schedule(function () {
       Tone.Draw.schedule(terminar, Tone.now());
     }, (duracao - posicao) / r + 0.5);
@@ -316,13 +387,13 @@
   }
 
   function destacarEstrofe(atual, porVerso) {
-    if (atual === estrofeMarcada) return;
+    var mudou = atual !== estrofeMarcada;
     estrofeMarcada = atual;
     estrofes.forEach(function (li, indice) {
       li.classList.toggle('atual', indice === atual);
       li.classList.toggle('por-verso', indice === atual && porVerso);
     });
-    mostrarNaTela(estrofes[atual]);
+    if (mudou) mostrarNaTela(estrofes[atual]);
   }
 
   function linhaCantada(agora) {
@@ -377,7 +448,12 @@
       estado.textContent = 'Repetição';
     } else {
       estado.textContent = texto || 'Tocando';
-      marcarEstrofe(texto === 'Introdução' && agora >= fimDoAviso() ? 0 : -1, agora);
+      var antesDoCanto = texto === 'Introdução' && agora >= fimDoAviso();
+      if (antesDoCanto && linhasDoHino) {
+        marcarLinhaDoHino(linhasDoHino[0], agora);
+      } else {
+        marcarEstrofe(antesDoCanto ? 0 : -1, agora);
+      }
     }
     mostrarIntroducao(texto === 'Introdução' && tocando && agora < fimDoAviso(), agora);
     if (tocando) quadro = requestAnimationFrame(atualizar);
@@ -563,6 +639,13 @@
           mostrarAndamento();
         });
       }).catch(function () {});
+    });
+  });
+
+  var metronomo = player.querySelector('[data-metronomo]');
+  metronomo.addEventListener('change', function () {
+    reiniciarSeTocando(function () {
+      metronomoLigado = metronomo.checked;
     });
   });
 
