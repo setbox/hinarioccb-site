@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="pt-BR" data-indice="{{ partialCached "indice.html" . }}">
+<html lang="pt-BR" data-indice="{{ partialCached "indice.html" . }}"{{ if hugo.IsProduction }}{{ $sw := resources.Get "js/sw.js" | resources.ExecuteAsTemplate "sw.js" . | minify }} data-sw="{{ $sw.RelPermalink }}"{{ end }}>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -69,6 +69,7 @@ gtag('config', 'G-R3VKLGHS2N');
 <body>
 
 {{ partial "cabecalho.html" . }}
+<p class="sem-sinal" role="status" data-sem-sinal hidden>Sem internet. Mostrando a versão guardada.</p>
 
 {{ block "main" . -}}{{- end }}
 

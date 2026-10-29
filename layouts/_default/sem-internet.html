@@ -1,0 +1,32 @@
+{{ define "titulo" }}Usar sem internet | HinárioCCB.net{{ end }}
+{{ define "titulo-og" }}Hinário 5 CCB sem internet{{ end }}
+{{ define "descricao" }}Baixe as letras dos 480 hinos e 6 coros do Hinário 5 da CCB e abra mesmo sem sinal.{{ end }}
+
+{{ define "main" -}}
+<div class="pagina">
+  <main class="conteudo conteudo-largo pagina-sem-internet" id="conteudo">
+    <h1>Usar sem internet</h1>
+    <p class="sem-internet-intro">Quando o sinal estiver fraco, os hinos abrem do mesmo jeito: baixe uma vez, com internet, e eles ficam guardados neste aparelho.</p>
+    {{ partial "sem-internet.html" (dict "id" "sem-internet-pagina" "titulo" "Os 486 hinos" "comoFunciona" false) }}
+    <p class="sem-internet-sem-suporte" data-sem-internet-sem-suporte hidden>Este navegador não permite guardar os hinos. Tente pelo Chrome, Edge, Firefox ou Safari atualizados.</p>
+
+    <h2>O que funciona sem sinal</h2>
+    <ul>
+      <li>Abrir qualquer hino pelo número ou pela lista</li>
+      <li>Culto de hoje, leitura ampla e tema escuro</li>
+      <li>O player, nos hinos já tocados neste aparelho</li>
+    </ul>
+
+    <h2>O que precisa de internet</h2>
+    <ul>
+      <li>Busca por título ou trecho da letra</li>
+      <li>O player nos outros hinos</li>
+    </ul>
+
+    <h2>Instalar como aplicativo</h2>
+    <p>No Android, toque em “Instalar app” no menu do Chrome. No iPhone, toque em Compartilhar e depois em “Adicionar à Tela de Início”. O ícone abre o hinário direto, sem a barra do navegador.</p>
+
+    <p class="sem-internet-nota">Os hinos ficam só neste aparelho. Para apagar, use “Remover do aparelho” nesta página.</p>
+  </main>
+</div>
+{{- end }}

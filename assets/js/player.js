@@ -262,7 +262,7 @@
         })
         .catch(function () {
           carregado = null;
-          estado.textContent = 'Não foi possível carregar o áudio';
+          estado.textContent = navigator.onLine ? 'Não foi possível carregar o áudio' : 'O player precisa de internet';
           throw new Error('player');
         });
     }

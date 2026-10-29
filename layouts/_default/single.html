@@ -150,6 +150,8 @@
 
     {{ partial "publicidade.html" "quadrado" }}
 
+    {{ partial "link-sem-internet.html" "Abrir os hinos sem internet" }}
+
     <nav class="vizinhos" aria-label="Hinos vizinhos">
       {{ with $anterior }}
         <a href="{{ .RelPermalink }}"><span>Anterior</span><strong class="vizinho-numero">{{ .Params.numero }}</strong> {{ .Title }}</a>

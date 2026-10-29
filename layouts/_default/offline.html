@@ -1,0 +1,15 @@
+{{ define "titulo" }}Sem internet | HinárioCCB.net{{ end }}
+{{ define "indexacao" }}<meta name="robots" content="noindex">{{ end }}
+
+{{ define "main" -}}
+<div class="pagina">
+  <main class="conteudo conteudo-largo nao-encontrada" id="conteudo" data-offline>
+    <p class="hino-numero" data-offline-numero hidden></p>
+    <p class="offline-nome" data-offline-nome hidden></p>
+    <h1 data-offline-titulo>Esta página não está guardada</h1>
+    {{ partial "ornamento.html" . }}
+    <p>Ela abre quando o sinal voltar. Para ter todos os hinos sem internet, use “Baixar os hinos” em <a href="{{ "sem-internet/" | relURL }}">Usar sem internet</a>, com sinal.</p>
+    {{ partial "numero.html" (dict "id" "numero-offline") }}
+  </main>
+</div>
+{{- end }}

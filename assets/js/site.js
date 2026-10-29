@@ -352,6 +352,135 @@
     if (evento.key === 'Escape') fecharDicas(null);
   });
 
+  function mostrarSinal() {
+    raiz.classList.toggle('sem-rede', !navigator.onLine);
+    todos('[data-sem-sinal]').forEach(function (elemento) {
+      elemento.hidden = navigator.onLine || !!document.querySelector('[data-offline]');
+    });
+  }
+  mostrarSinal();
+  window.addEventListener('online', mostrarSinal);
+  window.addEventListener('offline', mostrarSinal);
+
+  if ('serviceWorker' in navigator && raiz.dataset.sw) {
+    navigator.serviceWorker.register(raiz.dataset.sw).catch(function () {});
+  }
+
+  var paginaOffline = document.querySelector('[data-offline]');
+  if (paginaOffline) {
+    var caminho = location.pathname.match(/\/5\/(\d+|coro-\d)\/?$/);
+    if (caminho) {
+      var chaveOffline = caminho[1].replace('coro-', 'c');
+      carregarIndice().then(function (lista) {
+        var hino = lista[chaveOffline];
+        if (!hino) return;
+        var numero = paginaOffline.querySelector('[data-offline-numero]');
+        var nome = paginaOffline.querySelector('[data-offline-nome]');
+        numero.textContent = hino.n.replace('Coro ', '');
+        nome.textContent = hino.t;
+        numero.hidden = false;
+        nome.hidden = false;
+        paginaOffline.querySelector('[data-offline-titulo]').textContent = 'Este hino não está guardado';
+      }).catch(function () {});
+    }
+  }
+
+  var PAGINAS_GUARDADAS = 'hinario-paginas';
+  var blocosSemInternet = todos('[data-sem-internet]');
+  var suportaSemInternet = 'serviceWorker' in navigator && 'caches' in window;
+  todos('[data-sem-internet-sem-suporte]').forEach(function (aviso) { aviso.hidden = suportaSemInternet; });
+  var baixando = null;
+
+  function mostrarSemInternet(estadoAtual, progresso, total) {
+    var guardados = ler('hinos-guardados', null);
+    blocosSemInternet.forEach(function (bloco) {
+      bloco.hidden = !suportaSemInternet;
+      bloco.classList.toggle('sem-internet-pronto', estadoAtual === 'guardados');
+      todos('[data-sem-internet-estado]', bloco).forEach(function (parte) {
+        parte.hidden = parte.getAttribute('data-sem-internet-estado') !== estadoAtual;
+      });
+      if (total) {
+        todos('[data-sem-internet-total]', bloco).forEach(function (campo) { campo.textContent = total; });
+      }
+      if (estadoAtual === 'baixando') {
+        bloco.querySelector('[data-sem-internet-progresso]').textContent = 'Baixando ' + progresso + ' de ' + total + ' hinos';
+        bloco.querySelector('[data-sem-internet-barra]').style.width = (total ? progresso / total * 100 : 0) + '%';
+      }
+      if (estadoAtual === 'guardados' && guardados) {
+        bloco.querySelector('[data-sem-internet-resumo]').textContent = 'Os ' + guardados.total + ' hinos abrem sem internet neste aparelho. Guardados em ' + guardados.data + '.';
+      }
+    });
+  }
+
+  function baixarHinos() {
+    var execucao = { cancelado: false };
+    baixando = execucao;
+    Promise.all([carregarIndice(), caches.open(PAGINAS_GUARDADAS)]).then(function (resultado) {
+      var enderecos = Object.keys(resultado[0]).map(function (chave) { return resultado[0][chave].u; });
+      var cache = resultado[1];
+      var total = enderecos.length;
+      var feitos = 0;
+      var falhas = 0;
+      mostrarSemInternet('baixando', 0, total);
+      function proximo() {
+        if (execucao.cancelado || !enderecos.length) return Promise.resolve();
+        var endereco = enderecos.shift();
+        var completo = location.origin + endereco;
+        return fetch(completo).then(function (resposta) {
+          if (!resposta.ok) throw new Error(endereco);
+          return cache.put(completo, resposta);
+        }).catch(function () { falhas += 1; }).then(function () {
+          feitos += 1;
+          if (!execucao.cancelado) mostrarSemInternet('baixando', feitos, total);
+          return proximo();
+        });
+      }
+      return Promise.all([proximo(), proximo(), proximo(), proximo(), proximo(), proximo()]).then(function () {
+        if (execucao.cancelado) return;
+        if (falhas) {
+          mostrarSemInternet('inicial', 0, total);
+          return;
+        }
+        gravar('hinos-guardados', { total: total, data: new Date().toLocaleDateString('pt-BR') });
+        mostrarSemInternet('guardados', total, total);
+      });
+    }).catch(function () {
+      mostrarSemInternet('inicial');
+    }).then(function () {
+      if (baixando === execucao) baixando = null;
+    });
+  }
+
+  function removerHinos() {
+    caches.open(PAGINAS_GUARDADAS).then(function (cache) {
+      return cache.keys().then(function (chaves) {
+        return Promise.all(chaves.filter(function (requisicao) {
+          return /\/5\/[^/]+\/$/.test(new URL(requisicao.url).pathname);
+        }).map(function (requisicao) { return cache.delete(requisicao); }));
+      });
+    }).catch(function () {}).then(function () {
+      try { localStorage.removeItem('hinos-guardados'); } catch (e) {}
+      mostrarSemInternet('inicial');
+    });
+  }
+
+  if (blocosSemInternet.length) {
+    mostrarSemInternet(ler('hinos-guardados', null) ? 'guardados' : 'inicial');
+    todos('[data-sem-internet-baixar]').forEach(function (botao) {
+      botao.addEventListener('click', function () { if (!baixando) baixarHinos(); });
+    });
+    todos('[data-sem-internet-cancelar]').forEach(function (botao) {
+      botao.addEventListener('click', function () {
+        if (baixando) baixando.cancelado = true;
+        baixando = null;
+        mostrarSemInternet('inicial');
+      });
+    });
+    todos('[data-sem-internet-remover]').forEach(function (botao) {
+      botao.addEventListener('click', removerHinos);
+    });
+  }
+
   var aviso = document.getElementById('aviso-cookies');
   if (aviso && !window.consentimento) {
     aviso.hidden = false;

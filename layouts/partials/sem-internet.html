@@ -1,0 +1,17 @@
+<section class="sem-internet" aria-labelledby="{{ .id }}" data-sem-internet hidden>
+  <h2 id="{{ .id }}" class="sem-internet-titulo">{{ partial "icone-baixar.html" . }}{{ .titulo | default "Usar sem internet" }}</h2>
+  <div data-sem-internet-estado="inicial">
+    <p>Guarda as letras dos <span data-sem-internet-total>486</span> hinos neste aparelho. Cerca de 7 MB.</p>
+    <button type="button" class="botao botao-cheio" data-sem-internet-baixar>Baixar os hinos</button>
+    {{ if .comoFunciona }}<a class="sem-internet-como" href="{{ "sem-internet/" | relURL }}">Como funciona</a>{{ end }}
+  </div>
+  <div data-sem-internet-estado="baixando" hidden>
+    <p role="status" data-sem-internet-progresso>Baixando…</p>
+    <div class="sem-internet-barra" aria-hidden="true"><div data-sem-internet-barra></div></div>
+    <button type="button" class="botao-texto" data-sem-internet-cancelar>Cancelar</button>
+  </div>
+  <div data-sem-internet-estado="guardados" hidden>
+    <p class="sem-internet-guardados" role="status" data-sem-internet-resumo>Os hinos estão guardados neste aparelho.</p>
+    <button type="button" class="botao-texto" data-sem-internet-remover>Remover do aparelho</button>
+  </div>
+</section>

@@ -482,8 +482,9 @@ pagefind-searchbox .pf-searchbox-footer {
 }
 
 .numero-lista {
-  width: 40px;
+  width: 3em;
   flex-shrink: 0;
+  white-space: nowrap;
   text-align: right;
   color: var(--destaque);
   font-size: 18px;
@@ -603,7 +604,8 @@ pagefind-searchbox .pf-searchbox-footer {
 .pagina-hino .letra { order: 6; }
 .pagina-hino .lofi { order: 7; }
 .pagina-hino .publicidade-quadrado { order: 8; }
-.pagina-hino .vizinhos { order: 9; }
+.pagina-hino .link-sem-internet { order: 9; }
+.pagina-hino .vizinhos { order: 10; }
 
 .culto-faixa {
   margin-top: 8px;
@@ -1633,6 +1635,197 @@ body.com-aviso {
   .transicao {
     animation: none;
   }
+}
+
+.sem-sinal {
+  margin: 0;
+  padding: 10px 20px;
+  background: var(--realce);
+  font-size: 16px;
+  text-align: center;
+}
+
+.sem-rede .destaque-lofi,
+.sem-rede .publicidade {
+  display: none;
+}
+
+.coluna-esquerda .sem-internet {
+  margin-top: 28px;
+}
+
+.busca-sem-sinal {
+  margin: 8px 0 0;
+  padding: 12px 14px;
+  border-radius: 8px;
+  background: var(--realce);
+  font-size: 17px;
+  line-height: 1.4;
+}
+
+.link-sem-internet {
+  min-height: 48px;
+  margin: 28px 16px 0;
+  padding: 0 4px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-top: 1px dotted var(--pontilhado);
+  border-bottom: 1px dotted var(--pontilhado);
+  color: var(--tinta);
+  font-size: 18px;
+  text-decoration: none;
+}
+
+.link-sem-internet span {
+  flex-grow: 1;
+}
+
+.link-sem-internet svg {
+  flex-shrink: 0;
+  color: var(--destaque);
+}
+
+.link-sem-internet svg:last-child {
+  color: var(--suave);
+}
+
+.conteudo > .link-sem-internet {
+  margin: 32px 0 0;
+}
+
+.sem-internet {
+  padding: 16px;
+  border: 1px solid var(--linha);
+  border-radius: 10px;
+  background: var(--superficie);
+}
+
+.sem-internet.sem-internet-pronto {
+  padding: 0;
+  border-color: transparent;
+  background: none;
+}
+
+.sem-internet-titulo {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.sem-internet-titulo svg {
+  flex-shrink: 0;
+  color: var(--destaque);
+}
+
+.sem-internet p {
+  margin: 6px 0 0;
+  font-size: 16px;
+  line-height: 1.4;
+}
+
+.sem-internet .botao {
+  margin-top: 12px;
+  min-height: 44px;
+  border-radius: 22px;
+  font: inherit;
+  font-size: 17px;
+  font-weight: 500;
+}
+
+.sem-internet .botao-texto {
+  font-size: 16px;
+}
+
+.sem-internet-como {
+  display: block;
+  margin-top: 6px;
+  font-size: 15px;
+}
+
+.sem-internet-barra {
+  height: 4px;
+  margin-top: 10px;
+  border-radius: 2px;
+  background: var(--realce);
+}
+
+.sem-internet-barra div {
+  width: 0;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--destaque);
+}
+
+.sem-internet-guardados {
+  font-style: italic;
+  color: var(--suave);
+}
+
+.pagina-sem-internet {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 24px 20px 0;
+}
+
+.pagina-sem-internet h1 {
+  margin: 0;
+  font-size: 36px;
+  font-weight: 500;
+}
+
+.pagina-sem-internet h2 {
+  margin: 28px 0 0;
+  font-size: 23px;
+  font-weight: 500;
+}
+
+.pagina-sem-internet .sem-internet {
+  margin-top: 20px;
+}
+
+.pagina-sem-internet .sem-internet-titulo {
+  margin: 0;
+}
+
+.pagina-sem-internet .sem-internet .botao {
+  width: 100%;
+  min-height: 48px;
+}
+
+.pagina-sem-internet ul {
+  margin: 8px 0 0;
+  padding-left: 1.2em;
+  font-size: 19px;
+  line-height: 1.5;
+}
+
+.pagina-sem-internet p {
+  font-size: 19px;
+  line-height: 1.5;
+}
+
+.sem-internet-intro {
+  margin: 12px 0 0;
+}
+
+.sem-internet-nota,
+.sem-internet-sem-suporte {
+  font-style: italic;
+  color: var(--suave);
+}
+
+.pagina-sem-internet .sem-internet p {
+  font-size: 17px;
+}
+
+.offline-nome {
+  margin: 8px 0 0;
+  font-size: 26px;
+  font-weight: 500;
 }
 
 @media (min-width: 1024px) {
