@@ -1125,6 +1125,153 @@ pagefind-searchbox .pf-searchbox-footer {
   color: #FFFFFF;
 }
 
+.destaque-lofi {
+  margin-top: 24px;
+  container-type: inline-size;
+}
+
+.destaque-lofi-espaco {
+  min-height: 104px;
+  display: flex;
+  justify-content: center;
+}
+
+@container (min-width: 350px) {
+  .destaque-lofi-espaco {
+    min-height: 118px;
+  }
+}
+
+.destaque-lofi .publicidade-exemplo {
+  min-height: 100px;
+}
+
+.coluna-direita .destaque-lofi {
+  margin: 0 0 24px;
+}
+
+.lofi-cartao-icone {
+  width: 64px;
+  height: 64px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 16px;
+  background: #E8A87C;
+  color: #3B2F4F;
+}
+
+.lofi-cartao-rotulo {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #E8A87C;
+}
+
+.lofi-cabecalho {
+  margin-top: 24px;
+  padding: 20px;
+  display: flex;
+  gap: 18px;
+  align-items: flex-start;
+  border-radius: 22px;
+  background: #3B2F4F;
+  color: #F4ECE6;
+  font-family: "Nunito", system-ui, sans-serif;
+}
+
+.lofi-cabecalho .lofi-cartao-icone {
+  width: 76px;
+  height: 76px;
+  border-radius: 18px;
+}
+
+.lofi-cabecalho h1 {
+  margin: 2px 0 0;
+  font-size: 26px;
+  font-weight: 800;
+}
+
+.lofi-cabecalho-detalhe {
+  margin: 4px 0 0;
+  font-size: 15px;
+  color: #D8CCE4;
+}
+
+.lofi-ouvir {
+  margin-top: 14px;
+  min-height: 44px;
+  padding: 0 18px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border-radius: 22px;
+  background: #E8A87C;
+  color: #3B2F4F;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.lofi-ouvir:hover {
+  color: #3B2F4F;
+  background: #F0B993;
+}
+
+.lofi-faixas {
+  margin: 20px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.lofi-faixas li {
+  min-height: 52px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 1px dotted var(--pontilhado);
+}
+
+.lofi-faixa-ordem {
+  width: 22px;
+  flex-shrink: 0;
+  font-size: 15px;
+  color: var(--suave);
+  font-variant-numeric: lining-nums tabular-nums;
+}
+
+.lofi-faixa-hino {
+  flex-grow: 1;
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--tinta);
+  text-decoration: none;
+}
+
+.lofi-faixa-ouvir {
+  min-height: 36px;
+  padding: 0 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+  border: 1px solid var(--contorno);
+  border-radius: 18px;
+  font-size: 15px;
+  text-decoration: none;
+}
+
+.lofi-aviso {
+  margin: 20px 0 0;
+  font-size: 15px;
+  font-style: italic;
+  color: var(--suave);
+}
+
 .vizinhos {
   margin-top: 28px;
   display: flex;

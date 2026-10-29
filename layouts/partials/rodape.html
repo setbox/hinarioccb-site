@@ -1,7 +1,5 @@
 <footer class="rodape">
   <p>Letras do Hinário 5 da Congregação Cristã no Brasil</p>
   <p class="rodape-aviso">Projeto independente, sem vínculo oficial com a CCB</p>
-  {{ with index site.Data.lofi.albuns "em-oracao-1" }}
-    <p><a href="{{ .compilacao }}" rel="noopener">Hinário CCB Lofi</a></p>
-  {{ end }}
+  <p><a href="{{ "lofi/" | relURL }}">Hinário CCB Lofi</a></p>
 </footer>

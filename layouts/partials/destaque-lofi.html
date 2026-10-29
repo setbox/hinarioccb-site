@@ -1,0 +1,7 @@
+<div class="destaque-lofi">
+  {{ if hugo.IsProduction }}
+    <div class="destaque-lofi-espaco" data-vitrine-slot="lofi" id="vitrine-lofi-{{ . }}"></div>
+  {{ else }}
+    <div class="destaque-lofi-espaco publicidade-exemplo"><span>Vitrine</span><span>lofi 350 × 100</span></div>
+  {{ end }}
+</div>

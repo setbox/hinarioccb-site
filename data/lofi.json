@@ -2,7 +2,26 @@
   "albuns": {
     "em-oracao-1": {
       "titulo": "Em Oração, Vol. 1",
-      "compilacao": "https://youtu.be/PmpxNAYNJv8"
+      "compilacao": "https://youtu.be/PmpxNAYNJv8",
+      "faixas": [
+        "314",
+        "403",
+        "374",
+        "17",
+        "4",
+        "79",
+        "282",
+        "220",
+        "138",
+        "32",
+        "191",
+        "106",
+        "257",
+        "62",
+        "164",
+        "355",
+        "116"
+      ]
     }
   },
   "hinos": {
