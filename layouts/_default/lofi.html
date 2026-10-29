@@ -14,7 +14,7 @@
         <p class="lofi-cabecalho-detalhe">Hinos do Hinário 5 em arranjos lofi, para orar, estudar e dormir</p>
         <nav class="lofi-perfis" aria-label="Hinário CCB Lofi nas plataformas">
           {{ range site.Data.lofi.perfis }}
-            <a href="{{ .url }}" rel="noopener">{{ .nome }}</a>
+            <a href="{{ .url }}" target="_blank" rel="noopener">{{ .nome }}</a>
           {{ end }}
         </nav>
       </div>
@@ -26,12 +26,12 @@
         <h2 id="album-{{ $id }}">{{ $album.titulo }}</h2>
         <p class="lofi-disco-detalhe">{{ len $album.faixas }} hinos em versão instrumental</p>
         <div class="lofi-disco-botoes">
-          <a class="lofi-ouvir" href="{{ or $album.spotify $album.compilacao }}" rel="noopener">
+          <a class="lofi-ouvir" href="{{ or $album.spotify $album.compilacao }}" target="_blank" rel="noopener">
             <svg width="16" height="16" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M6 3.5v13l11-6.5z"></path></svg>
             Álbum completo
           </a>
           {{ with $album.versao8h }}
-            <a class="lofi-ouvir lofi-ouvir-secundario" href="{{ . }}" rel="noopener">Versão de 8 horas para dormir</a>
+            <a class="lofi-ouvir lofi-ouvir-secundario" href="{{ . }}" target="_blank" rel="noopener">Versão de 8 horas para dormir</a>
           {{ end }}
         </div>
 
@@ -44,7 +44,7 @@
               {{ with $hino }}
                 <a class="lofi-faixa-hino" href="{{ .RelPermalink }}"><span class="numero-lista">{{ .Params.numero }}</span><span>{{ .Title }}</span></a>
               {{ end }}
-              <a class="lofi-faixa-ouvir" href="{{ $destino.url }}" rel="noopener" aria-label="Ouvir {{ with $hino }}{{ .Title }}{{ end }} em lofi no {{ $destino.plataforma }}">
+              <a class="lofi-faixa-ouvir" href="{{ $destino.url }}" target="_blank" rel="noopener" aria-label="Ouvir {{ with $hino }}{{ .Title }}{{ end }} em lofi no {{ $destino.plataforma }}">
                 <svg width="14" height="14" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M6 3.5v13l11-6.5z"></path></svg>
                 Ouvir
               </a>

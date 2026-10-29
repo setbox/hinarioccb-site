@@ -134,7 +134,7 @@
       {{ $album := index site.Data.lofi.albuns .album }}
       {{ $destino := partial "lofi-faixa.html" $slug }}
       <section class="lofi" aria-label="Ouça em lofi">
-        <a class="lofi-tocar" href="{{ $destino.url }}" rel="noopener" aria-label="Ouvir a versão lofi no {{ $destino.plataforma }}">
+        <a class="lofi-tocar" href="{{ $destino.url }}" target="_blank" rel="noopener" aria-label="Ouvir a versão lofi no {{ $destino.plataforma }}">
           <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M6 3.5v13l11-6.5z"></path></svg>
         </a>
         <span class="lofi-texto">
