@@ -1742,10 +1742,12 @@ pagefind-searchbox .pf-searchbox-result-excerpt {
 
 .aviso-cookies p {
   margin: 0;
+  text-align: center;
 }
 
 .aviso-cookies-botoes {
   display: flex;
+  justify-content: center;
   gap: 8px;
 }
 
@@ -2236,6 +2238,7 @@ body.com-aviso {
   .aviso-cookies {
     flex-direction: row;
     align-items: center;
+    justify-content: center;
     padding: 16px 40px;
   }
 
