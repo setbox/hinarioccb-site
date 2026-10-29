@@ -1,8 +1,10 @@
 <header class="topo">
+  {{ if .IsHome }}<h1 class="marca-titulo">{{ end }}
   <a class="marca" href="{{ "/" | relURL }}">
     <span class="marca-site">HinárioCCB.net</span>
     <span class="marca-nome">Hinário 5</span>
   </a>
+  {{ if .IsHome }}</h1>{{ end }}
   <div class="topo-busca so-desktop">
     <pagefind-searchbox placeholder="Buscar pelo número, título ou trecho da letra"></pagefind-searchbox>
   </div>

@@ -3,7 +3,7 @@
 {{ if eq .Title "Coros" }}
   {{ $contagem = printf "%d coros" $total }}
 {{ else if eq .Title "Jovens e Menores" }}
-  {{ $contagem = printf "%d hinos · 431–480" $total }}
+  {{ $contagem = printf "%d hinos, do 431 ao 480" $total }}
 {{ else if eq $total 1 }}
   {{ $contagem = "1 hino" }}
 {{ end }}

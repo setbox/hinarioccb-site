@@ -1,0 +1,15 @@
+{{ $base := resources.Get "og/base.png" }}
+{{ $fonte := resources.Get "og/eb-garamond-500.ttf" }}
+{{ $rotulo := "Hinário 5" }}
+{{ $titulo := "Letras dos 480 hinos e 6 coros" }}
+{{ if .Params.numero }}
+  {{ $rotulo = partial "rotulo.html" . }}
+  {{ $titulo = .Title }}
+{{ else if not .IsHome }}
+  {{ $titulo = .Title }}
+{{ end }}
+{{ $imagem := $base | images.Filter
+  (images.Text $rotulo (dict "font" $fonte "color" "#7A1F2B" "size" 96 "x" 600 "y" 170 "alignx" "center"))
+  (images.Text $titulo (dict "font" $fonte "color" "#2B2420" "size" 64 "linespacing" 8 "x" 600 "y" 300 "alignx" "center"))
+}}
+{{ return $imagem }}

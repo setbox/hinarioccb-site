@@ -114,7 +114,7 @@
   });
 
   function rotuloDoHino(hino) {
-    return (hino.n.indexOf('Coro') === 0 ? hino.n : 'Hino ' + hino.n) + ' · ' + hino.t;
+    return (hino.n.indexOf('Coro') === 0 ? hino.n : 'Hino ' + hino.n) + ': ' + hino.t;
   }
 
   function prepararBusca(caixa) {
@@ -252,7 +252,7 @@
       var posicao = culto.indexOf(chaveAtual);
       faixa.hidden = posicao < 0;
       if (posicao >= 0) {
-        faixa.querySelector('[data-culto-posicao]').textContent = 'Culto de hoje · ' + (posicao + 1) + 'º de ' + culto.length;
+        faixa.querySelector('[data-culto-posicao]').textContent = 'Culto de hoje, ' + (posicao + 1) + 'º de ' + culto.length;
         [['[data-culto-anterior]', culto[posicao - 1], '‹ '], ['[data-culto-proximo]', culto[posicao + 1], ' ›']].forEach(function (item) {
           var a = faixa.querySelector(item[0]);
           var hino = item[1] && lista[item[1]];
@@ -321,6 +321,20 @@
       document.getElementById(botao.getAttribute('aria-controls')).hidden = true;
     });
   }
+
+  todos('[data-player-ajustes]').forEach(function (botao) {
+    var player = botao.closest('[data-player]');
+    function mostrarAjustes(abertos) {
+      player.classList.toggle('ajustes-abertos', abertos);
+      botao.setAttribute('aria-expanded', abertos ? 'true' : 'false');
+    }
+    mostrarAjustes(ler('ajustes', false));
+    botao.addEventListener('click', function () {
+      var abertos = !player.classList.contains('ajustes-abertos');
+      mostrarAjustes(abertos);
+      gravar('ajustes', abertos);
+    });
+  });
 
   todos('[data-dica]').forEach(function (botao) {
     var texto = document.getElementById(botao.getAttribute('aria-controls'));

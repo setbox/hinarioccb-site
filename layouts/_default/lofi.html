@@ -22,7 +22,6 @@
 
     {{ range $id, $album := site.Data.lofi.albuns }}
       <section class="lofi-disco" aria-labelledby="album-{{ $id }}">
-        <p class="rotulo">Álbum</p>
         <h2 id="album-{{ $id }}">{{ $album.titulo }}</h2>
         <p class="lofi-disco-detalhe">{{ len $album.faixas }} hinos em versão instrumental</p>
         <div class="lofi-disco-botoes">

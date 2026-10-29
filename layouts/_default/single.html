@@ -1,6 +1,6 @@
 {{ define "titulo" }}{{ partial "rotulo.html" . }} CCB: {{ .Title }} | Hinário 5{{ end }}
 {{ define "titulo-og" }}{{ partial "rotulo.html" . }} CCB: {{ .Title }}{{ end }}
-{{ define "descricao" }}{{ partial "rotulo.html" . }} do Hinário 5 da CCB: {{ .Plain | truncate 140 }}{{ end }}
+{{ define "descricao" }}{{ partial "rotulo.html" . }} do Hinário 5 da CCB: {{ .Plain | replaceRE `\s+` " " | strings.TrimSpace | truncate 140 }}{{ end }}
 
 {{ define "main" -}}
 {{ $slug := .File.BaseFileName }}
@@ -40,7 +40,9 @@
             <div class="player-barra" role="slider" tabindex="0" aria-label="Posição no hino" aria-valuemin="0" aria-valuemax="0" aria-valuenow="0" aria-valuetext="0:00" data-player-barra><div class="player-trilho"><div data-player-progresso></div></div></div>
             <p class="player-tempos"><span data-player-atual>0:00</span><span data-player-total></span></p>
           </div>
+          <button type="button" class="botao-texto player-ajustes-botao" aria-expanded="false" aria-controls="player-ajustes" data-player-ajustes>Ajustes</button>
         </div>
+        <div class="player-ajustes" id="player-ajustes">
         <p class="rotulo">Vozes</p>
         <div class="player-vozes" role="group" aria-label="Vozes">
           <button type="button" aria-pressed="true" data-voz="0">Soprano</button>
@@ -81,17 +83,18 @@
           <input type="checkbox" id="tela-ligada" data-tela-ligada>
         </div>
         </div>
+        </div>
       </section>
     {{ end }}
 
     <section class="cartao culto culto-lateral so-desktop" aria-label="Culto de hoje" data-culto-lateral hidden>
-      <h2>Culto de hoje</h2>
+      <p class="culto-lateral-titulo">Culto de hoje</p>
       <ol class="lista-curta" data-culto-lista></ol>
     </section>
   </aside>
 
   <main class="conteudo" id="conteudo">
-    <header class="cabecalho-hino" data-pagefind-body data-pagefind-meta="title:{{ partial "rotulo.html" . }} · {{ .Title }}">
+    <header class="cabecalho-hino" data-pagefind-body data-pagefind-meta="title:{{ partial "rotulo.html" . }}: {{ .Title }}">
       <p class="hino-numero">{{ replace (string .Params.numero) "Coro " "" }}</p>
       <h1>{{ .Title }}</h1>
       {{ with .GetTerms "ocasioes" }}
@@ -149,10 +152,10 @@
 
     <nav class="vizinhos" aria-label="Hinos vizinhos">
       {{ with $anterior }}
-        <a href="{{ .RelPermalink }}"><span>Anterior</span>{{ .Params.numero }} · {{ .Title }}</a>
+        <a href="{{ .RelPermalink }}"><span>Anterior</span><strong class="vizinho-numero">{{ .Params.numero }}</strong> {{ .Title }}</a>
       {{ else }}<span></span>{{ end }}
       {{ with $proximo }}
-        <a href="{{ .RelPermalink }}" class="vizinho-proximo"><span>Próximo</span>{{ .Params.numero }} · {{ .Title }}</a>
+        <a href="{{ .RelPermalink }}" class="vizinho-proximo"><span>Próximo</span><strong class="vizinho-numero">{{ .Params.numero }}</strong> {{ .Title }}</a>
       {{ end }}
     </nav>
   </main>

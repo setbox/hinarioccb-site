@@ -141,11 +141,9 @@ h1, h2 {
 }
 
 .rotulo {
-  margin: 0 0 8px;
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
+  margin: 0 0 6px;
+  font-size: 16px;
+  font-style: italic;
   color: var(--suave);
 }
 
@@ -249,6 +247,11 @@ h1, h2 {
   gap: 16px;
   padding: 24px 20px 16px;
   border-bottom: 1px solid var(--linha);
+}
+
+.marca-titulo {
+  margin: 0;
+  font: inherit;
 }
 
 .marca {
@@ -373,10 +376,8 @@ pagefind-searchbox {
 }
 
 .atalho-numero-rotulo {
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+  font-size: 15px;
+  font-style: italic;
   color: var(--destaque);
 }
 
@@ -641,6 +642,8 @@ pagefind-searchbox .pf-searchbox-footer {
 }
 
 .hino-categorias a {
+  display: inline-block;
+  padding: 6px 2px;
   color: var(--suave);
   text-decoration: none;
 }
@@ -871,10 +874,8 @@ pagefind-searchbox .pf-searchbox-footer {
 
 .introducao-hino {
   margin: 12px 0 0;
-  font-size: 14px;
-  font-weight: 600;
-  letter-spacing: 0.24em;
-  text-transform: uppercase;
+  font-size: 22px;
+  font-weight: 500;
   color: var(--destaque);
 }
 
@@ -917,6 +918,20 @@ pagefind-searchbox .pf-searchbox-footer {
   .introducao .colcheia {
     animation: none;
   }
+}
+
+.player-ajustes-botao {
+  flex: none;
+  align-self: flex-start;
+  font-size: 16px;
+}
+
+.player-ajustes {
+  display: none;
+}
+
+.player.ajustes-abertos .player-ajustes {
+  display: block;
 }
 
 .player-opcoes {
@@ -1175,15 +1190,6 @@ pagefind-searchbox .pf-searchbox-footer {
   color: #3B2F4F;
 }
 
-.lofi-cartao-rotulo {
-  margin: 0;
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: #E8A87C;
-}
-
 .lofi-cabecalho {
   margin-top: 24px;
   padding: 20px;
@@ -1371,6 +1377,11 @@ pagefind-searchbox .pf-searchbox-footer {
   color: var(--suave);
 }
 
+.vizinho-numero {
+  font-weight: 500;
+  font-variant-numeric: lining-nums;
+}
+
 .vizinho-proximo {
   text-align: right;
 }
@@ -1486,9 +1497,8 @@ pagefind-searchbox .pf-searchbox-footer {
 }
 
 .transicao-rotulo {
-  font-size: 15px;
-  letter-spacing: 0.28em;
-  text-transform: uppercase;
+  font-size: 22px;
+  font-style: italic;
   color: #E9CFC9;
 }
 
@@ -1786,13 +1796,22 @@ body.com-aviso {
     margin: 0;
   }
 
+  .player-ajustes-botao {
+    display: none;
+  }
+
+  .player .player-ajustes {
+    display: block;
+  }
+
   .culto-lateral {
     padding: 14px 16px 6px;
   }
 
-  .culto-lateral h2 {
+  .culto-lateral-titulo {
     margin: 0 0 4px;
     font-size: 20px;
+    font-weight: 500;
   }
 
   .cabecalho-hino {
