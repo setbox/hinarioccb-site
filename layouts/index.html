@@ -9,7 +9,7 @@
   {{ range $sortedPosts }}
     {{ if (isset .Params "numero") }}
       <li class="nav-item">
-        <a class="nav-link" href="{{ .Permalink }}">{{ .Params.numero }} - {{ .Title }}</a>
+        <a class="nav-link" href="{{ .Permalink }}">{{ .Params.numero }} - {{ .Title }}{{ range .Params.ocasioes }} <span class="badge bg-secondary">{{ . }}</span>{{ end }}</a>
       </li>
     {{ end }}
   {{ end }}
