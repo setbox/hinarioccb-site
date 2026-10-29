@@ -545,6 +545,10 @@ pagefind-searchbox .pf-searchbox-result-excerpt {
   border-top: 1px dotted var(--pontilhado);
 }
 
+.lista-hinos li:first-child {
+  border-top: 0;
+}
+
 ol[data-culto-lista] {
   display: flex;
   flex-wrap: wrap;
@@ -2157,6 +2161,10 @@ body.com-aviso {
     column-gap: 32px;
   }
 
+  .lista-hinos li:nth-child(2) {
+    border-top: 0;
+  }
+
   .recentes {
     margin-top: 28px;
   }
@@ -2256,21 +2264,6 @@ body.com-aviso {
   .todos {
     margin-top: 0;
     padding-top: 14px;
-  }
-
-  .todos .titulo-secao {
-    margin: 0;
-    text-align: left;
-    font-size: 28px;
-  }
-
-  .todos > .ornamento {
-    display: none;
-  }
-
-  .todos > .subtitulo {
-    margin: 2px 0 0;
-    text-align: left;
   }
 
   .culto-lateral-titulo {
