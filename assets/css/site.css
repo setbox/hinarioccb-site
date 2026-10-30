@@ -1581,6 +1581,85 @@ ol[data-culto-lista] button {
   font-variant-numeric: lining-nums;
 }
 
+.relatorio-cartao {
+  padding-bottom: 14px;
+}
+
+.relatorio-cartao p {
+  margin: 0 0 12px;
+  font-size: 17px;
+  line-height: 1.35;
+  color: var(--suave);
+}
+
+.relatorio-botao {
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 1px solid var(--destaque);
+  border-radius: 8px;
+  color: var(--destaque);
+  font-size: 18px;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.relatorio-botao:hover {
+  background: var(--realce);
+}
+
+.relatorio-cartao .relatorio-assinatura {
+  margin: 8px 0 0;
+  font-size: 14px;
+  font-style: italic;
+  text-align: center;
+}
+
+.relatorio-linha {
+  margin-top: 24px;
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  color: var(--tinta);
+  text-decoration: none;
+}
+
+.relatorio-linha > svg {
+  flex-shrink: 0;
+  color: var(--destaque);
+}
+
+.relatorio-icone {
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: 22px;
+  background: var(--realce);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--destaque);
+}
+
+.relatorio-texto {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.relatorio-texto strong {
+  font-size: 19px;
+  font-weight: 500;
+}
+
+.relatorio-texto span {
+  font-size: 15px;
+  color: var(--suave);
+}
+
 .recentes-numeros {
   margin: 0;
   padding: 0;
@@ -2309,7 +2388,7 @@ body.com-aviso {
   .rodape-colunas {
     margin: 0 auto;
     padding: 48px 40px 0;
-    grid-template-columns: 1.3fr 1fr 1fr 1fr;
+    grid-template-columns: 1.3fr 1fr 1fr 1fr 1fr;
     gap: 32px;
   }
 
