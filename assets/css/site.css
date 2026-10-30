@@ -1582,7 +1582,7 @@ ol[data-culto-lista] button {
 }
 
 .relatorio-cartao {
-  padding-bottom: 14px;
+  padding-bottom: 16px;
 }
 
 .relatorio-cartao p {
@@ -1608,13 +1608,6 @@ ol[data-culto-lista] button {
 
 .relatorio-botao:hover {
   background: var(--realce);
-}
-
-.relatorio-cartao .relatorio-assinatura {
-  margin: 8px 0 0;
-  font-size: 14px;
-  font-style: italic;
-  text-align: center;
 }
 
 .relatorio-linha {
