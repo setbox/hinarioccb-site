@@ -24,3 +24,4 @@ hardWraps = true
 [params]
 contato = "contato@setbox.com.br"
 relatorio = "https://relatorioccb.net/ccb-perto-de-mim"
+relatorio_site = "https://relatorioccb.net"

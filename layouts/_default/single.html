@@ -150,6 +150,12 @@
 
     {{ partial "publicidade.html" "quadrado" }}
 
+    <a class="cartao relatorio-linha" href="{{ partial "link-relatorio.html" "hino" }}" target="_blank" rel="noopener">
+      <span class="relatorio-icone"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"></path><circle cx="12" cy="9.5" r="2.5"></circle></svg></span>
+      <span class="relatorio-texto"><strong>Onde tem culto hoje?</strong><span>Horários e endereços das casas de oração no RelatórioCCB.net</span></span>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg>
+    </a>
+
     <nav class="vizinhos" aria-label="Hinos vizinhos">
       {{ with $anterior }}
         <a href="{{ .RelPermalink }}"><span>Anterior</span><strong class="vizinho-numero">{{ .Params.numero }}</strong> {{ .Title }}</a>
