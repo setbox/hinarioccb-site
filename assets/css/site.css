@@ -693,6 +693,7 @@ ol[data-culto-lista] button {
 .pagina-hino .letra { order: 6; }
 .pagina-hino .lofi { order: 7; }
 .pagina-hino .publicidade-quadrado { order: 8; }
+.pagina-hino .relatorio-linha { order: 9; margin: 32px 16px 0; }
 .pagina-hino .vizinhos { order: 10; }
 
 .culto-faixa {
