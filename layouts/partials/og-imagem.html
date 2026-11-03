@@ -5,6 +5,10 @@
 {{ if .Params.numero }}
   {{ $rotulo = partial "rotulo.html" . }}
   {{ $titulo = .Title }}
+{{ else if .Params.hino }}
+  {{ $hino := partial "hino-da-aba.html" . }}
+  {{ $rotulo = printf "%s do %s" (cond (eq .Section "cifras") "Cifra" "Partitura") (partial "rotulo.html" $hino) }}
+  {{ $titulo = $hino.Title }}
 {{ else if not .IsHome }}
   {{ $titulo = .Title }}
 {{ end }}

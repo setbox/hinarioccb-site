@@ -1,0 +1,59 @@
+{{ define "titulo" }}{{ $hino := partial "hino-da-aba.html" . }}Partitura do {{ partial "rotulo.html" $hino }} CCB: {{ $hino.Title }} | Hinário 5{{ end }}
+{{ define "titulo-og" }}{{ $hino := partial "hino-da-aba.html" . }}Partitura do {{ partial "rotulo.html" $hino }} CCB: {{ $hino.Title }}{{ end }}
+{{ define "descricao" }}{{ $hino := partial "hino-da-aba.html" . }}Partitura do {{ partial "rotulo.html" $hino }} do Hinário 5 da CCB, {{ $hino.Title }}, a 4 vozes{{ with $hino.Params.tom }} em {{ . }}{{ end }}, com a nota tocada destacada, estudo de voz e transposição para clarinete, saxofone, trompete, trompa e outros instrumentos.{{ end }}
+
+{{ define "main" -}}
+{{ $hino := partial "hino-da-aba.html" . }}
+
+<div class="pagina pagina-hino pagina-aba pagina-partitura" data-hino="{{ partial "chave.html" $hino }}">
+  {{ partial "coluna-esquerda-hino.html" (dict "pagina" $hino) }}
+
+  <main class="conteudo" id="conteudo">
+    {{ partial "cabecalho-hino.html" (dict "pagina" $hino "aba" "partitura") }}
+    {{ partial "abas.html" (dict "pagina" $hino "aba" "partitura") }}
+
+    {{ partial "introducao.html" $hino }}
+
+    <section class="partitura" aria-label="Partitura" data-partitura data-musicxml="{{ partial "versionado.html" (printf "partituras/5/%s.musicxml" .Params.hino) }}" data-sincronia="{{ partial "versionado.html" (printf "partituras/5/%s.json" .Params.hino) }}">
+      <div class="partitura-barra">
+        <div class="partitura-afinacao">
+          <span>Partitura em</span>
+          <div class="player-escolhas player-escolha-unica" role="group" aria-label="Afinação do instrumento">
+            {{- range $grupo := slice "Dó" "Si♭" "Mi♭" "Fá" }}
+              {{- $instrumentos := where site.Data.instrumentos "grupo" $grupo }}
+              <button type="button" aria-pressed="{{ if eq $grupo "Dó" }}true{{ else }}false{{ end }}" data-afinacao="{{ $grupo }}" data-semitons="{{ (index $instrumentos 0).semitons }}">{{ $grupo }}</button>
+            {{- end }}
+          </div>
+        </div>
+        <span class="partitura-estudo" data-estudo-barra hidden><span data-estudo-rotulo></span></span>
+      </div>
+
+      <div class="partitura-folhas" data-partitura-folhas>
+        <p class="partitura-estado" role="status" data-partitura-estado>Carregando a partitura…</p>
+      </div>
+
+      {{ partial "aba-rodape.html" (dict "pagina" $hino "aba" "partitura" "texto" "Nota ou sílaba errada?") }}
+    </section>
+
+
+    {{ partial "publicidade.html" "quadrado" }}
+    {{ partial "relatorio-linha.html" . }}
+    {{ partial "vizinhos.html" (dict "pagina" $hino "aba" "partitura") }}
+  </main>
+
+  <aside class="coluna-direita">
+    {{ partial "destaque-lofi.html" "lateral" }}
+    {{ partial "publicidade.html" "torre" }}
+  </aside>
+</div>
+{{ partial "publicidade.html" "banner" }}
+{{- end }}
+
+{{ define "scripts" }}
+{{ $player := resources.Get "js/player.js" | minify | fingerprint }}
+<script src="{{ $player.RelPermalink }}" integrity="{{ $player.Data.Integrity }}"></script>
+{{ $partitura := resources.Get "js/partitura.js" | minify | fingerprint }}
+<script src="{{ $partitura.RelPermalink }}" integrity="{{ $partitura.Data.Integrity }}"></script>
+{{ $abas := resources.Get "js/abas.js" | minify | fingerprint }}
+<script src="{{ $abas.RelPermalink }}" integrity="{{ $abas.Data.Integrity }}"></script>
+{{ end }}

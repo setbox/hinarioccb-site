@@ -1,0 +1,21 @@
+{{ $pagina := .pagina }}
+{{ $letra := eq .aba "letra" }}
+<header class="cabecalho-hino"{{ if $letra }} data-pagefind-body data-pagefind-meta="title:{{ partial "rotulo.html" $pagina }}: {{ $pagina.Title }}"{{ end }}>
+  <p class="hino-numero"{{ if $letra }} data-pagefind-ignore{{ end }}>{{ replace (string $pagina.Params.numero) "Coro " "" }}</p>
+  <div class="cabecalho-hino-texto">
+  <h1>{{ $pagina.Title }}</h1>
+  {{ with $pagina.GetTerms "ocasioes" }}
+    <p class="hino-categorias">
+      {{ range $i, $t := . }}{{ if $i }} {{ end }}<a href="{{ $t.RelPermalink }}">{{ $t.LinkTitle }}</a>{{ end }}
+    </p>
+  {{ end }}
+  {{ partial "ornamento.html" . }}
+  {{ $ficha := slice }}
+  {{ with $pagina.Params.tom }}{{ $ficha = $ficha | append . }}{{ end }}
+  {{ with $pagina.Params.compasso }}{{ $ficha = $ficha | append . }}{{ end }}
+  {{ with $pagina.Params.estrofes }}{{ $ficha = $ficha | append (printf "%d estrofes" .) }}{{ end }}
+  {{ with $pagina.Params.meia_hora }}{{ $ficha = $ficha | append (printf "♩ %v-%v" (index . 0) (index . 1)) }}{{ end }}
+  {{ with $ficha }}<p class="hino-ficha"{{ if $letra }} data-pagefind-ignore{{ end }}>{{ delimit . ", " }}</p>{{ end }}
+  </div>
+  {{ if $letra }}<button type="button" class="botao-texto" data-culto-alternar data-pagefind-ignore>Adicionar ao culto de hoje</button>{{ end }}
+</header>

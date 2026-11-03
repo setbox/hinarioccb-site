@@ -1,0 +1,15 @@
+<section class="cartao cifra-controles so-cifra" aria-label="Cifra">
+  <div class="player-escolhas player-escolha-unica" role="group" aria-label="Instrumento da cifra">
+    <button type="button" aria-pressed="true" data-cifra-instrumento="violao">Violão</button>
+    <button type="button" aria-pressed="false" data-cifra-instrumento="teclado">Teclado</button>
+  </div>
+  {{ partial "player-tom.html" . }}
+  <div class="player-capotraste" data-cifra-capotraste>
+    <span>Capotraste</span>
+    <div>
+      <button type="button" aria-label="Capotraste uma casa abaixo" data-cifra-capo="-1">−</button>
+      <span data-cifra-capo-nome>sem</span>
+      <button type="button" aria-label="Capotraste uma casa acima" data-cifra-capo="1">+</button>
+    </div>
+  </div>
+</section>

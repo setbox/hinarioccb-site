@@ -1,0 +1,3 @@
+{{ range $slug, $partitura := site.Data.partituras }}
+  {{ $.AddPage (dict "path" $slug "kind" "page" "title" $partitura.titulo "params" (dict "hino" $slug)) }}
+{{ end }}

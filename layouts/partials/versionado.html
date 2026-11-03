@@ -1,0 +1,3 @@
+{{ $versao := readFile (printf "static/%s" .) | md5 | truncate 10 "" }}
+{{ $endereco := printf "%s?v=%s" (. | relURL) $versao }}
+{{ return $endereco }}

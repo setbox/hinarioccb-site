@@ -1,0 +1,20 @@
+<aside class="coluna-esquerda">
+  <a class="voltar" href="{{ "/" | relURL }}">
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M10 3 5 8l5 5"></path></svg>
+    Índice
+  </a>
+
+  <nav class="culto-faixa" aria-label="Culto de hoje" data-culto-faixa hidden>
+    <a href="#" data-culto-anterior hidden></a>
+    <span data-culto-posicao></span>
+    <a href="#" data-culto-proximo hidden></a>
+  </nav>
+
+  {{ partial "player.html" . }}
+  {{ partial "cifra-controles.html" .pagina }}
+
+  <section class="cartao culto culto-lateral so-desktop" aria-label="Culto de hoje" data-culto-lateral hidden>
+    <p class="culto-lateral-titulo">Culto de hoje</p>
+    <ol class="lista-curta" data-culto-lista></ol>
+  </section>
+</aside>

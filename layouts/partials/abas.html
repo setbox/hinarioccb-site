@@ -1,0 +1,6 @@
+{{ $pagina := .pagina }}
+<nav class="abas" aria-label="Formas de ver o hino">
+  {{ range slice (dict "id" "letra" "nome" "Letra" "url" $pagina.RelPermalink) (dict "id" "cifra" "nome" "Cifra" "url" (printf "%scifra/" $pagina.RelPermalink)) (dict "id" "partitura" "nome" "Partitura" "url" (printf "%spartitura/" $pagina.RelPermalink)) }}
+    <a href="{{ .url }}"{{ if eq .id $.aba }} aria-current="page"{{ end }}>{{ .nome }}</a>
+  {{ end }}
+</nav>

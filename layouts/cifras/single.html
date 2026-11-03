@@ -1,0 +1,64 @@
+{{ define "titulo" }}{{ $hino := partial "hino-da-aba.html" . }}Cifra do {{ partial "rotulo.html" $hino }} CCB: {{ $hino.Title }} | Hinário 5{{ end }}
+{{ define "titulo-og" }}{{ $hino := partial "hino-da-aba.html" . }}Cifra do {{ partial "rotulo.html" $hino }} CCB: {{ $hino.Title }}{{ end }}
+{{ define "descricao" }}{{ $hino := partial "hino-da-aba.html" . }}Cifra do {{ partial "rotulo.html" $hino }} do Hinário 5 da CCB, {{ $hino.Title }}, no tom original{{ with $hino.Params.tom }} ({{ . }}){{ end }}, com os acordes sobre a letra, mudança de tom, capotraste e desenho dos acordes.{{ end }}
+
+{{ define "main" -}}
+{{ $hino := partial "hino-da-aba.html" . }}
+{{ $cifra := index site.Data.cifras .Params.hino }}
+
+<div class="pagina pagina-hino pagina-aba pagina-cifra" data-hino="{{ partial "chave.html" $hino }}">
+  {{ partial "coluna-esquerda-hino.html" (dict "pagina" $hino) }}
+
+  <main class="conteudo" id="conteudo">
+    {{ partial "cabecalho-hino.html" (dict "pagina" $hino "aba" "cifra") }}
+    {{ partial "abas.html" (dict "pagina" $hino "aba" "cifra") }}
+
+    {{ partial "introducao.html" $hino }}
+
+    <section class="cifra" aria-label="Cifra" data-cifra data-tom="{{ $cifra.tom }}">
+      <div class="cifra-acordes" data-cifra-acordes>
+        {{ range $cifra.acordes }}<figure class="acorde-cartao" data-acorde-cartao="{{ . }}"><figcaption class="acorde-nome" data-acorde="{{ . }}">{{ . }}</figcaption><div class="acorde-desenho" data-acorde-desenho></div></figure>{{ end }}
+      </div>
+
+      <article class="cifra-letra">
+        {{ with $cifra.introducao }}
+          <p class="cifra-rotulo">Introdução</p>
+          <p class="cifra-introducao">{{ range . }}<span class="acorde" data-acorde="{{ . }}">{{ . }}</span> {{ end }}</p>
+        {{ end }}
+        {{ range $cifra.blocos }}
+          <p class="cifra-rotulo">{{ if eq .tipo "coro" }}Coro{{ else }}{{ .n }}ª estrofe{{ end }}</p>
+          <div class="cifra-bloco{{ if eq .tipo "coro" }} cifra-coro{{ end }}">
+            {{ range .linhas }}
+              <p class="cifra-linha">{{- range . -}}<span class="cifra-palavra">{{- range . -}}<span class="cifra-trecho"><span class="acorde"{{ with index . 0 }} data-acorde="{{ . }}"{{ end }}>{{ index . 0 }}</span><span class="cifra-texto">{{ index . 1 }}</span></span>{{- end -}}</span>{{- end -}}</p>
+            {{ end }}
+          </div>
+        {{ end }}
+      </article>
+
+      {{ with index site.Data.partituras .Params.hino }}{{ with .extensao }}{{ partial "extensao-vozes.html" (dict "extensao" .) }}{{ end }}{{ end }}
+
+      {{ with $cifra.batida }}<p class="cifra-batida">Batida: {{ . }}</p>{{ end }}
+      {{ partial "aba-rodape.html" (dict "pagina" $hino "aba" "cifra" "texto" "Esta cifra ainda está em revisão. Encontrou um acorde errado?") }}
+    </section>
+
+    {{ partial "publicidade.html" "quadrado" }}
+    {{ partial "relatorio-linha.html" . }}
+    {{ partial "vizinhos.html" (dict "pagina" $hino "aba" "cifra") }}
+  </main>
+
+  <aside class="coluna-direita">
+    {{ partial "destaque-lofi.html" "lateral" }}
+    {{ partial "publicidade.html" "torre" }}
+  </aside>
+</div>
+{{ partial "publicidade.html" "banner" }}
+{{- end }}
+
+{{ define "scripts" }}
+{{ $player := resources.Get "js/player.js" | minify | fingerprint }}
+<script src="{{ $player.RelPermalink }}" integrity="{{ $player.Data.Integrity }}"></script>
+{{ $cifra := resources.Get "js/cifra.js" | minify | fingerprint }}
+<script src="{{ $cifra.RelPermalink }}" integrity="{{ $cifra.Data.Integrity }}"></script>
+{{ $abas := resources.Get "js/abas.js" | minify | fingerprint }}
+<script src="{{ $abas.RelPermalink }}" integrity="{{ $abas.Data.Integrity }}"></script>
+{{ end }}

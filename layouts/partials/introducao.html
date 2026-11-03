@@ -1,0 +1,10 @@
+<div class="introducao" data-introducao role="status" hidden>
+  <button type="button" class="introducao-fechar" aria-label="Fechar o aviso da introdução" data-introducao-fechar>
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="m5 5 10 10M15 5 5 15"></path></svg>
+  </button>
+  {{ partial "colcheia.html" . }}
+  <p class="introducao-hino">{{ partial "rotulo.html" . }}</p>
+  <p class="introducao-nome">{{ .Title }}</p>
+  <p class="introducao-convite">Ouça a introdução e prepare-se para cantar</p>
+  <div class="introducao-barra" aria-hidden="true"><div data-introducao-progresso></div></div>
+</div>

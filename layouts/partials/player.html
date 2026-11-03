@@ -1,0 +1,72 @@
+{{ $pagina := .pagina }}
+{{ $midi := printf "midi/5/%s.mid" $pagina.File.BaseFileName }}
+{{ if fileExists (printf "static/%s" $midi) }}
+  <section class="cartao player" aria-label="Player do hino" data-player data-midi="{{ $midi | relURL }}" data-tom-do-hino="{{ $pagina.Params.tom }}">
+    <div class="player-topo">
+      <button type="button" class="player-tocar" aria-label="Tocar" data-player-tocar>
+        <svg class="icone-tocar" width="20" height="20" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M6 3.5v13l11-6.5z"></path></svg>
+        <svg class="icone-pausar" width="20" height="20" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><rect x="5" y="4" width="3.5" height="12" rx="1"></rect><rect x="11.5" y="4" width="3.5" height="12" rx="1"></rect></svg>
+      </button>
+      <div class="player-estado">
+        <p data-player-estado>Ouvir o hino</p>
+        <div class="player-barra" role="slider" tabindex="0" aria-label="Posição no hino" aria-valuemin="0" aria-valuemax="0" aria-valuenow="0" aria-valuetext="0:00" data-player-barra><div class="player-trilho"><div data-player-progresso></div></div></div>
+        <p class="player-tempos"><span data-player-atual>0:00</span><span data-player-total></span></p>
+      </div>
+      <button type="button" class="player-ajustes-botao" aria-label="Ajustes" aria-expanded="false" aria-controls="player-ajustes" data-player-ajustes>
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M3 6h9M15 6h2M3 14h2M8 14h9"></path><circle cx="13.5" cy="6" r="1.8"></circle><circle cx="6.5" cy="14" r="1.8"></circle></svg>
+      </button>
+    </div>
+    <div class="player-estudo sem-cifra">
+      <p class="rotulo"><span class="so-letra">Vozes</span><span class="so-partitura">Estudar a voz</span></p>
+      {{ partial "player-vozes.html" . }}
+    </div>
+    <div class="player-veu" data-player-fechar></div>
+    <div class="player-ajustes" id="player-ajustes" role="group" aria-label="Ajustes">
+      <div class="player-ajustes-topo">
+        <p class="rotulo">Ajustes</p>
+        <button type="button" class="player-ajustes-fechar" aria-label="Fechar os ajustes" data-player-fechar>
+          <svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="m5 5 10 10M15 5 5 15"></path></svg>
+        </button>
+      </div>
+      <div class="so-cifra">
+        {{ partial "player-andamento.html" . }}
+      </div>
+      <div class="player-passos sem-cifra">
+        {{ partial "player-andamento.html" . }}
+        {{ partial "player-tom.html" $pagina }}
+      </div>
+      <div class="player-opcoes">
+        <div class="player-tela">
+          <label for="pular-introducao">Pular a introdução</label>
+          <input type="checkbox" id="pular-introducao" data-pular-introducao>
+        </div>
+        <div class="player-tela">
+          <label for="marcar-letra">Marcar a letra cantada</label>
+          <input type="checkbox" id="marcar-letra" checked data-marcar-letra>
+        </div>
+        <div class="player-tela so-partitura">
+          <label for="partitura-seguir">Rolar com o player</label>
+          <input type="checkbox" id="partitura-seguir" checked data-partitura-seguir>
+        </div>
+        <div class="player-tela sem-partitura">
+          <label for="rolagem-automatica">Rolagem automática</label>
+          <input type="checkbox" id="rolagem-automatica" checked data-rolagem-automatica>
+        </div>
+        <div class="player-tela sem-letra">
+          <label for="metronomo">Metrônomo</label>
+          <input type="checkbox" id="metronomo" data-metronomo>
+        </div>
+        <div class="player-tela" data-tela-linha>
+          <span class="player-tela-rotulo">
+            <label for="tela-ligada">Manter a tela ligada</label>
+            <span class="dica">
+              <button type="button" class="dica-botao" aria-label="O que é manter a tela ligada?" aria-expanded="false" aria-controls="dica-tela" data-dica>i</button>
+              <span class="dica-texto" id="dica-tela" role="tooltip" hidden>Impede que a tela do celular apague sozinha enquanto o hino está aberto, para você acompanhar a letra sem precisar tocar na tela.</span>
+            </span>
+          </span>
+          <input type="checkbox" id="tela-ligada" data-tela-ligada>
+        </div>
+      </div>
+    </div>
+  </section>
+{{ end }}

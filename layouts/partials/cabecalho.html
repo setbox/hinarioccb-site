@@ -12,7 +12,35 @@
     {{ if .IsPage }}
       <a class="botao-redondo so-celular" href="{{ "/" | relURL }}#busca" aria-label="Buscar pelo número ou título">Nº</a>
     {{ end }}
-    <button type="button" class="botao-redondo botao-ampla" data-acao="ampla" aria-label="Leitura ampla" aria-pressed="false">Aa</button>
+    {{ $partitura := eq .Section "partituras" }}
+    {{ $texto := and .IsPage (or (eq .Section "cifras") (isset .Params "numero")) }}
+    <div class="tamanho" data-tamanho>
+      <button type="button" class="botao-redondo" aria-label="Tamanho e leitura ampla" aria-expanded="false" aria-controls="tamanho-painel" data-tamanho-botao>Aa</button>
+      <div class="tamanho-painel" id="tamanho-painel" role="dialog" aria-label="Tamanho e leitura ampla" hidden data-tamanho-painel>
+        {{ if or $partitura $texto }}
+          <div class="so-partitura">
+            <p class="tamanho-titulo">Tamanho da partitura</p>
+            <div class="tamanho-passo">
+              <button type="button" aria-label="Diminuir partitura" data-partitura-escala="-4">−</button>
+              <span data-partitura-escala-nome>100%</span>
+              <button type="button" aria-label="Aumentar partitura" data-partitura-escala="4">+</button>
+            </div>
+          </div>
+          <div class="sem-partitura">
+            <p class="tamanho-titulo">Tamanho da letra</p>
+            <div class="tamanho-passo">
+              <button type="button" aria-label="Diminuir letra" data-escala="-0.1">−</button>
+              <span data-escala-nome>100%</span>
+              <button type="button" aria-label="Aumentar letra" data-escala="0.1">+</button>
+            </div>
+          </div>
+        {{ end }}
+        <div class="player-tela tamanho-ampla">
+          <label for="leitura-ampla">Leitura ampla<span>letra grande e alto contraste</span></label>
+          <input type="checkbox" id="leitura-ampla" data-leitura-ampla>
+        </div>
+      </div>
+    </div>
     <button type="button" class="botao-redondo" data-acao="tema" aria-label="Alternar tema claro e escuro">
       <svg class="icone-lua" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M16 12.5A7 7 0 0 1 7.5 4a7 7 0 1 0 8.5 8.5z"></path></svg>
       <svg class="icone-sol" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="10" cy="10" r="4"></circle><path d="M10 1.5v2M10 16.5v2M1.5 10h2M16.5 10h2M4 4l1.4 1.4M14.6 14.6 16 16M4 16l1.4-1.4M14.6 5.4 16 4"></path></svg>

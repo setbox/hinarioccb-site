@@ -21,9 +21,15 @@
   }
 
   function marcarAmpla() {
-    todos('.botao-ampla').forEach(function (botao) {
-      botao.setAttribute('aria-pressed', raiz.classList.contains('ampla') ? 'true' : 'false');
+    todos('[data-leitura-ampla]').forEach(function (caixa) {
+      caixa.checked = raiz.classList.contains('ampla');
     });
+  }
+
+  function alternarAmpla() {
+    raiz.classList.toggle('ampla');
+    gravar('ampla', raiz.classList.contains('ampla'));
+    marcarAmpla();
   }
 
   todos('[data-acao="tema"]').forEach(function (botao) {
@@ -33,21 +39,41 @@
     });
   });
 
-  todos('[data-acao="ampla"]').forEach(function (botao) {
-    botao.addEventListener('click', function () {
-      raiz.classList.toggle('ampla');
-      gravar('ampla', raiz.classList.contains('ampla'));
-      marcarAmpla();
-    });
+  todos('[data-leitura-ampla]').forEach(function (caixa) {
+    caixa.addEventListener('change', alternarAmpla);
   });
   marcarAmpla();
 
-  todos('[data-escala]').forEach(function (botao) {
+  function escalaAtual() {
+    return parseFloat(getComputedStyle(raiz).getPropertyValue('--escala')) || 1;
+  }
+
+  function mostrarEscala() {
+    todos('[data-escala-nome]').forEach(function (nome) {
+      nome.textContent = Math.round(escalaAtual() * 100) + '%';
+    });
+  }
+
+  mostrarEscala();
+
+  todos('[data-tamanho]').forEach(function (tamanho) {
+    var botao = tamanho.querySelector('[data-tamanho-botao]');
+    var painel = tamanho.querySelector('[data-tamanho-painel]');
+    function mostrarPainel(aberto) {
+      painel.hidden = !aberto;
+      botao.setAttribute('aria-expanded', aberto ? 'true' : 'false');
+    }
     botao.addEventListener('click', function () {
-      var atual = parseFloat(getComputedStyle(raiz).getPropertyValue('--escala')) || 1;
-      var nova = Math.min(1.6, Math.max(0.8, Math.round((atual + parseFloat(botao.dataset.escala)) * 10) / 10));
-      raiz.style.setProperty('--escala', nova);
-      gravar('escala', nova);
+      mostrarPainel(painel.hidden);
+    });
+    document.addEventListener('click', function (evento) {
+      if (!tamanho.contains(evento.target)) mostrarPainel(false);
+    });
+    document.addEventListener('keydown', function (evento) {
+      if (evento.key === 'Escape' && !painel.hidden) {
+        mostrarPainel(false);
+        botao.focus();
+      }
     });
   });
 
@@ -314,8 +340,41 @@
         });
       });
 
-      var alternar = document.querySelector('[data-culto-alternar]');
-      if (alternar) {
+    });
+  }
+
+  function ligarConteudo(contexto) {
+    todos('[data-acao="ampla"]', contexto).forEach(function (botao) {
+      botao.addEventListener('click', alternarAmpla);
+    });
+
+    todos('[data-escala]', contexto).forEach(function (botao) {
+      botao.addEventListener('click', function () {
+        var nova = Math.min(1.6, Math.max(0.8, Math.round((escalaAtual() + parseFloat(botao.dataset.escala)) * 10) / 10));
+        raiz.style.setProperty('--escala', nova);
+        gravar('escala', nova);
+        mostrarEscala();
+      });
+    });
+
+    todos('[data-imprimir]', contexto).forEach(function (botao) {
+      botao.addEventListener('click', function () {
+        window.print();
+      });
+    });
+
+    todos('.letra li', contexto).forEach(function (estrofe) {
+      estrofe.addEventListener('click', function () {
+        var marcada = estrofe.classList.contains('atual');
+        todos('.letra li.atual').forEach(function (li) { li.classList.remove('atual'); });
+        if (!marcada) estrofe.classList.add('atual');
+      });
+    });
+
+    var alternar = contexto.querySelector('[data-culto-alternar]');
+    if (alternar) {
+      carregarIndice().then(function (lista) {
+        desenharCulto(lista);
         alternar.addEventListener('click', function () {
           culto = culto.indexOf(chaveAtual) >= 0
             ? culto.filter(function (item) { return item !== chaveAtual; })
@@ -323,16 +382,13 @@
           gravar('culto', culto);
           desenharCulto(lista);
         });
-      }
-    });
+      });
+    }
   }
 
-  todos('.letra li').forEach(function (estrofe) {
-    estrofe.addEventListener('click', function () {
-      var marcada = estrofe.classList.contains('atual');
-      todos('.letra li.atual').forEach(function (li) { li.classList.remove('atual'); });
-      if (!marcada) estrofe.classList.add('atual');
-    });
+  ligarConteudo(document);
+  document.addEventListener('hino:aba', function (evento) {
+    ligarConteudo(evento.detail.conteudo);
   });
 
   function fecharDicas(exceto) {
@@ -349,11 +405,17 @@
       player.classList.toggle('ajustes-abertos', abertos);
       botao.setAttribute('aria-expanded', abertos ? 'true' : 'false');
     }
-    mostrarAjustes(ler('ajustes', false));
     botao.addEventListener('click', function () {
-      var abertos = !player.classList.contains('ajustes-abertos');
-      mostrarAjustes(abertos);
-      gravar('ajustes', abertos);
+      mostrarAjustes(!player.classList.contains('ajustes-abertos'));
+    });
+    todos('[data-player-fechar]', player).forEach(function (fechar) {
+      fechar.addEventListener('click', function () {
+        mostrarAjustes(false);
+        botao.focus();
+      });
+    });
+    document.addEventListener('keydown', function (evento) {
+      if (evento.key === 'Escape' && player.classList.contains('ajustes-abertos')) mostrarAjustes(false);
     });
   });
 

@@ -77,7 +77,7 @@ self.addEventListener('fetch', function (evento) {
   var requisicao = evento.request;
   if (requisicao.method !== 'GET') return;
   var url = new URL(requisicao.url);
-  if (url.origin === 'https://cdn.jsdelivr.net' && /^\/npm\/(tone|@tonejs\/midi)@/.test(url.pathname)) {
+  if (url.origin === 'https://cdn.jsdelivr.net' && /^\/npm\/(tone|@tonejs\/midi|verovio)@/.test(url.pathname)) {
     evento.respondWith(primeiroCache(requisicao));
     return;
   }
@@ -87,7 +87,7 @@ self.addEventListener('fetch', function (evento) {
     return;
   }
   if (url.pathname.indexOf('/pagefind/') === 0 && ESSENCIAIS.indexOf(url.pathname) < 0) return;
-  if (/\.(css|js|json|woff2|svg|png|ico|mid|webmanifest)$/.test(url.pathname)) {
+  if (/\.(css|js|json|woff2|svg|png|ico|mid|musicxml|webmanifest)$/.test(url.pathname)) {
     evento.respondWith(primeiroCache(requisicao));
   }
 });

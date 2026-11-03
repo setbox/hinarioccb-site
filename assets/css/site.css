@@ -689,6 +689,7 @@ ol[data-culto-lista] button {
 .pagina-hino .conteudo { order: 3; display: contents; }
 .pagina-hino .cabecalho-hino { order: 3; }
 .pagina-hino .player { order: 4; }
+.pagina-hino .cifra-controles { order: 4; }
 .pagina-hino .barra-ampla { order: 5; }
 .pagina-hino .letra { order: 6; }
 .pagina-hino .lofi { order: 7; }
@@ -858,13 +859,13 @@ ol[data-culto-lista] button {
   margin: 14px 0 6px;
 }
 
-.player-vozes {
+.player-escolhas {
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
 }
 
-.player-vozes button {
+.player-escolhas button {
   min-height: 40px;
   padding: 0 14px;
   border: 1px dashed var(--contorno);
@@ -875,31 +876,50 @@ ol[data-culto-lista] button {
   cursor: pointer;
 }
 
-.player-vozes button[aria-pressed="true"] {
+.player-escolhas button[aria-pressed="true"] {
   border-style: solid;
   border-color: var(--destaque);
   background: var(--realce);
   color: var(--destaque);
 }
 
+.player-escolha-unica button {
+  border-style: solid;
+  color: var(--tinta);
+}
+
+.player-escolha-unica button[aria-pressed="true"] {
+  color: var(--destaque);
+}
+
 .player-andamento,
 .player-tom,
+.player-capotraste,
 .player-tela {
   min-height: 44px;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 8px;
   font-size: 17px;
 }
 
-.player-andamento {
-  margin-top: 14px;
-  padding-top: 12px;
-  border-top: 1px dotted var(--pontilhado);
+body:has(.pagina-letra) :is(.so-cifra, .so-partitura, .sem-letra),
+body:has(.pagina-cifra) :is(.so-letra, .so-partitura, .sem-cifra),
+body:has(.pagina-partitura) :is(.so-letra, .so-cifra, .sem-partitura) {
+  display: none !important;
 }
 
-.player-tom {
-  margin-top: 6px;
+.pagina-hino .conteudo {
+  transition: opacity 0.15s;
+}
+
+.pagina-hino.trocando-aba .conteudo {
+  opacity: 0.6;
+}
+
+.player-capotraste[hidden] {
+  display: none;
 }
 
 .player-tom .botao-texto {
@@ -909,37 +929,103 @@ ol[data-culto-lista] button {
 }
 
 .player-andamento div,
-.player-tom div {
+.player-tom div,
+.player-capotraste div {
   display: flex;
   align-items: center;
   gap: 8px;
 }
 
 .player-andamento button,
-.player-tom div button {
-  width: 44px;
-  height: 44px;
+.player-tom div button,
+.player-capotraste div button {
+  width: 40px;
+  height: 40px;
+  flex: none;
+  padding: 0;
   border: 1px solid var(--contorno);
-  border-radius: 22px;
+  border-radius: 20px;
   background: transparent;
-  font-size: 22px;
+  color: var(--tinta);
+  font-size: 20px;
+  line-height: 1;
   cursor: pointer;
 }
 
 .player-andamento span[data-player-andamento],
-.player-tom span[data-tom-nome] {
-  min-width: 64px;
+.player-tom span[data-tom-nome],
+.player-capotraste span[data-cifra-capo-nome] {
+  min-width: 60px;
   text-align: center;
-  font-size: 20px;
+  font-size: 18px;
+  white-space: nowrap;
   font-variant-numeric: lining-nums;
 }
 
-.player .player-tom-legenda {
+.player-tom-legenda {
   margin: 0;
-  text-align: right;
   font-size: 14px;
-  font-style: italic;
   color: var(--suave);
+}
+
+.player-passos {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.player-passos .player-tom-legenda {
+  grid-column: 1 / -1;
+}
+
+.player-passos .player-andamento,
+.player-passos .player-tom {
+  min-height: 0;
+  padding: 6px 8px;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 4px;
+  border: 1px solid var(--linha);
+  border-radius: 10px;
+  font-size: 13px;
+  color: var(--suave);
+}
+
+.player-passos .player-andamento div,
+.player-passos .player-tom div {
+  justify-content: space-between;
+  gap: 4px;
+}
+
+.player-passos .player-andamento button,
+.player-passos .player-tom div button {
+  width: 30px;
+  height: 30px;
+  border-radius: 15px;
+  font-size: 17px;
+}
+
+.player-passos span[data-player-andamento],
+.player-passos span[data-tom-nome] {
+  min-width: 0;
+  font-size: 16px;
+  color: var(--tinta);
+}
+
+.player-passos .player-tom .botao-texto {
+  margin-left: 4px;
+  font-size: 13px;
+}
+
+.cifra-controles {
+  margin: 12px 16px 0;
+  padding: 16px;
+}
+
+.cifra-controles .player-escolhas {
+  margin-bottom: 4px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
 .introducao {
@@ -1030,37 +1116,149 @@ ol[data-culto-lista] button {
 }
 
 .player-ajustes-botao {
+  width: 44px;
+  height: 44px;
   flex: none;
   align-self: flex-start;
-  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--contorno);
+  border-radius: 22px;
+  background: transparent;
+  color: var(--tinta);
+  cursor: pointer;
 }
 
+.player-ajustes-botao[aria-expanded="true"] {
+  border-color: var(--destaque);
+  background: var(--realce);
+  color: var(--destaque);
+}
+
+.player-veu,
 .player-ajustes {
   display: none;
 }
 
-.player.ajustes-abertos .player-ajustes {
+.player.ajustes-abertos .player-veu {
+  position: fixed;
+  inset: 0;
+  z-index: 55;
   display: block;
+  background: rgba(43, 36, 32, 0.32);
+}
+
+.player.ajustes-abertos .player-ajustes {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 56;
+  max-height: 85vh;
+  overflow-y: auto;
+  display: block;
+  padding: 12px 20px calc(24px + env(safe-area-inset-bottom));
+  border-radius: 18px 18px 0 0;
+  background: var(--superficie);
+  box-shadow: 0 -8px 24px rgba(43, 36, 32, 0.12);
+  animation: subir 0.2s ease-out;
+}
+
+@keyframes subir {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .player.ajustes-abertos .player-ajustes {
+    animation: none;
+  }
+}
+
+.player-ajustes-topo {
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.player .player-ajustes-topo .rotulo {
+  margin: 0;
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 500;
+  color: var(--tinta);
+}
+
+.player-ajustes-fechar {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--contorno);
+  border-radius: 20px;
+  background: transparent;
+  color: var(--tinta);
+  cursor: pointer;
 }
 
 .player-opcoes {
-  margin-top: 12px;
-  padding-top: 8px;
-  border-top: 1px dotted var(--pontilhado);
-}
-
-.player-opcoes .player-tela {
-  min-height: 38px;
+  margin-top: 8px;
 }
 
 .player-opcoes label {
   cursor: pointer;
 }
 
-.player-tela input {
-  width: 22px;
+.player-tela input[type="checkbox"] {
+  position: relative;
+  flex: none;
+  width: 40px;
   height: 22px;
-  accent-color: var(--destaque);
+  margin: 0;
+  border-radius: 11px;
+  background: var(--linha);
+  -webkit-appearance: none;
+  appearance: none;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.player-tela input[type="checkbox"]::before {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 18px;
+  height: 18px;
+  border-radius: 9px;
+  background: var(--superficie);
+  box-shadow: 0 1px 2px rgba(43, 36, 32, 0.25);
+  transition: transform 0.15s;
+}
+
+.player-tela input[type="checkbox"]:checked {
+  background: var(--destaque);
+}
+
+.player-tela input[type="checkbox"]:checked::before {
+  transform: translateX(18px);
+}
+
+.player-tela input[type="checkbox"]:focus-visible {
+  outline: 2px solid var(--destaque);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .player-tela input[type="checkbox"],
+  .player-tela input[type="checkbox"]::before {
+    transition: none;
+  }
 }
 
 .player-tela-rotulo {
@@ -2284,8 +2482,6 @@ body.com-aviso {
     display: flex;
     flex-direction: column;
     gap: 20px;
-    position: sticky;
-    top: 24px;
   }
 
   .pagina-hino .coluna-esquerda > *,
@@ -2298,18 +2494,6 @@ body.com-aviso {
     display: block;
   }
 
-  .player-andamento,
-  .player-tom {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 6px;
-  }
-
-  .player-andamento div,
-  .player-tom div {
-    justify-content: space-between;
-  }
-
   .pagina-hino .voltar {
     padding: 0;
   }
@@ -2318,16 +2502,107 @@ body.com-aviso {
     display: none !important;
   }
 
-  .pagina-hino .player {
+  .pagina-hino .player,
+  .pagina-hino .cifra-controles {
     margin: 0;
   }
 
-  .player-ajustes-botao {
-    display: none;
+  .player-ajustes-botao,
+  .player-veu,
+  .player-ajustes-fechar {
+    display: none !important;
   }
 
-  .player .player-ajustes {
+  .player .player-ajustes,
+  .player.ajustes-abertos .player-ajustes {
+    position: static;
+    max-height: none;
+    overflow: visible;
     display: block;
+    margin-top: 16px;
+    padding: 12px 0 0;
+    border-top: 1px dotted var(--pontilhado);
+    border-radius: 0;
+    background: none;
+    box-shadow: none;
+    animation: none;
+  }
+
+  .player .player-ajustes-topo .rotulo {
+    font-size: 16px;
+    font-style: italic;
+    font-weight: 400;
+    color: var(--suave);
+  }
+
+  .player-opcoes .player-tela {
+    min-height: 36px;
+    font-size: 16px;
+  }
+
+  .player-tela input[type="checkbox"] {
+    width: 36px;
+    height: 20px;
+    border-radius: 10px;
+  }
+
+  .player-tela input[type="checkbox"]::before {
+    width: 16px;
+    height: 16px;
+    border-radius: 8px;
+  }
+
+  .player-tela input[type="checkbox"]:checked::before {
+    transform: translateX(16px);
+  }
+
+  .player-andamento,
+  .player-tom,
+  .player-capotraste {
+    min-height: 40px;
+  }
+
+  .player-andamento button,
+  .player-tom div button,
+  .player-capotraste div button {
+    width: 32px;
+    height: 32px;
+    border-radius: 16px;
+    font-size: 18px;
+  }
+
+  .player-andamento span[data-player-andamento],
+  .player-tom span[data-tom-nome],
+  .player-capotraste span[data-cifra-capo-nome] {
+    font-size: 17px;
+  }
+
+  .player-passos .player-andamento,
+  .player-passos .player-tom {
+    min-height: 0;
+  }
+
+  .player-passos .player-andamento,
+  .player-passos .player-tom {
+    padding: 6px;
+  }
+
+  .player-passos .player-andamento button,
+  .player-passos .player-tom div button {
+    width: 24px;
+    height: 24px;
+    border-radius: 12px;
+    font-size: 14px;
+  }
+
+  .pagina-partitura .player-vozes {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .player-passos span[data-player-andamento],
+  .player-passos span[data-tom-nome] {
+    font-size: 14px;
   }
 
   .culto-lateral {
@@ -2417,5 +2692,777 @@ body.com-aviso {
 
   body.com-aviso {
     padding-bottom: 96px;
+  }
+}
+
+:root {
+  --sem-serifa: "Nunito", system-ui, sans-serif;
+  --nota-tocando: #B4532A;
+}
+
+:root[data-tema="escuro"] {
+  --nota-tocando: #F2B66D;
+}
+
+.abas {
+  margin: 4px 8px 0;
+  display: flex;
+  border-bottom: 1px solid var(--linha);
+}
+
+.abas a {
+  flex: 1;
+  min-height: 46px;
+  margin-bottom: -1px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 3px solid transparent;
+  font-size: 17px;
+  color: var(--suave);
+  text-decoration: none;
+}
+
+.abas a:hover {
+  color: var(--destaque);
+}
+
+.abas a[aria-current="page"] {
+  border-bottom-color: var(--destaque);
+  font-weight: 600;
+  color: var(--tinta);
+}
+
+.pagina-hino .abas { order: 3; }
+.pagina-hino .cifra,
+.pagina-hino .partitura { order: 6; }
+
+.pagina-aba .cabecalho-hino {
+  padding: 14px 16px 0;
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  text-align: left;
+}
+
+.pagina-aba .hino-numero {
+  font-size: 38px;
+}
+
+.pagina-aba .cabecalho-hino h1 {
+  margin: 0;
+  font-size: 22px;
+  line-height: 1.15;
+}
+
+.pagina-aba .hino-categorias,
+.pagina-aba .cabecalho-hino .ornamento {
+  display: none;
+}
+
+.pagina-aba .hino-ficha {
+  margin-top: 2px;
+  font-size: 14px;
+}
+
+.pagina-aba .abas {
+  margin-top: 10px;
+}
+
+.cifra {
+  padding: 12px 16px 0;
+}
+
+
+.cifra-acordes {
+  margin-top: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.acorde-cartao {
+  margin: 0;
+  padding: 8px 6px 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  border: 1px solid var(--linha);
+  border-radius: 10px;
+  background: var(--superficie);
+}
+
+.acorde-nome {
+  font: 700 15px var(--sem-serifa);
+  color: var(--destaque);
+}
+
+.acorde-cartao svg {
+  width: 64px;
+  height: auto;
+}
+
+.acorde-cartao.acorde-teclado svg {
+  width: 104px;
+}
+
+.cifra-letra {
+  margin-top: 14px;
+  font-size: calc(19px * var(--escala));
+}
+
+.cifra-rotulo {
+  margin: 18px 0 4px;
+  font-size: 15px;
+  letter-spacing: 0.08em;
+  font-variant-caps: all-small-caps;
+  color: var(--suave);
+}
+
+.cifra-letra > .cifra-rotulo:first-child {
+  margin-top: 0;
+}
+
+.cifra-linha {
+  margin: 0 0 6px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  line-height: 1.25;
+}
+
+.cifra-palavra {
+  display: inline-flex;
+}
+
+.cifra-trecho {
+  display: inline-flex;
+  flex-direction: column;
+}
+
+.acorde {
+  min-height: 1.3em;
+  padding-right: 6px;
+  font: 700 0.74em/1.3 var(--sem-serifa);
+  color: var(--destaque);
+}
+
+.cifra-texto {
+  white-space: pre;
+}
+
+.cifra-coro {
+  font-style: italic;
+}
+
+.cifra-linha {
+  width: fit-content;
+  max-width: calc(100% + 8px);
+  margin-left: -4px;
+  padding: 0 4px;
+  border-radius: 4px;
+  transition: background-color 0.2s, color 0.3s;
+}
+
+.cifra-linha.atual {
+  background: linear-gradient(to right, var(--realce-verso) var(--progresso, 0%), var(--realce) var(--progresso, 0%));
+  color: var(--tinta);
+}
+
+:root.ampla .cifra-linha.atual {
+  background: linear-gradient(to right, #EFD08E var(--progresso, 0%), #FAEFD2 var(--progresso, 0%));
+  color: #14100D;
+}
+
+.cifra-letra.tocando:has(.cifra-bloco.atual) .cifra-bloco:not(.atual),
+.cifra-letra.tocando.no-coro .cifra-bloco:not(.cifra-coro) {
+  color: var(--suave);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cifra-linha {
+    transition: none;
+  }
+}
+
+.cifra-introducao {
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px 10px;
+}
+
+.cifra-introducao .acorde {
+  font-size: 15px;
+}
+
+.cifra-batida,
+.avisar-erro {
+  margin: 18px 0 0;
+  font-size: 15px;
+  font-style: italic;
+  color: var(--suave);
+}
+
+.avisar-erro a {
+  font-style: normal;
+}
+
+.acorde-desenho svg {
+  display: block;
+}
+
+.acorde-desenho .corda,
+.acorde-desenho .traste {
+  stroke: var(--tinta);
+  stroke-width: 1.2;
+}
+
+.acorde-desenho .pestana-zero {
+  stroke: var(--tinta);
+  stroke-width: 5;
+}
+
+.acorde-desenho .dedo {
+  fill: var(--destaque);
+}
+
+.acorde-desenho .solta {
+  fill: none;
+  stroke: var(--tinta);
+  stroke-width: 1.4;
+}
+
+.acorde-desenho .marca,
+.acorde-desenho .casa {
+  fill: var(--suave);
+  font: 15px var(--sem-serifa);
+}
+
+.acorde-desenho .marca {
+  text-anchor: middle;
+}
+
+.acorde-desenho .tecla-branca {
+  fill: #FBF8F1;
+  stroke: var(--tinta);
+}
+
+.acorde-desenho .tecla-preta {
+  fill: #2B2420;
+}
+
+.acorde-desenho .marcada {
+  fill: var(--destaque);
+}
+
+
+
+.partitura {
+  padding: 10px 16px 0;
+}
+
+
+.partitura-folhas {
+  margin-top: 10px;
+  padding: 8px 0;
+  min-height: 240px;
+  border: 1px solid var(--linha);
+  border-radius: 10px;
+  background: var(--superficie);
+  color: var(--tinta);
+}
+
+.partitura-estado {
+  margin: 0;
+  padding: 80px 16px;
+  text-align: center;
+  font-style: italic;
+  color: var(--suave);
+}
+
+.partitura-folha svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  color: var(--tinta);
+  fill: currentColor;
+}
+
+.partitura-folha g.note.tocando {
+  color: var(--destaque);
+  fill: var(--destaque);
+}
+
+.partitura-cursor {
+  fill: var(--realce-verso);
+  opacity: 0.7;
+}
+
+.partitura-folhas.estudando g.note.em-estudo {
+  color: var(--destaque);
+  fill: var(--destaque);
+}
+
+.partitura-folhas.estudando g.note.apagada {
+  color: var(--contorno);
+  fill: var(--contorno);
+}
+
+.partitura-folhas.estudando g.note.tocando {
+  color: var(--nota-tocando);
+  fill: var(--nota-tocando);
+}
+
+.partitura-folha g.note g.verse {
+  color: var(--tinta) !important;
+  fill: var(--tinta) !important;
+}
+
+.partitura-folha g.verse.cantando {
+  color: var(--destaque) !important;
+  fill: var(--destaque) !important;
+  font-weight: 700;
+}
+
+
+
+
+
+
+
+
+.partitura-barra {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 16px;
+}
+
+.partitura-afinacao {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 15px;
+  color: var(--suave);
+}
+
+.partitura-afinacao .player-escolhas {
+  gap: 4px;
+}
+
+.partitura-afinacao .player-escolhas button {
+  min-height: 36px;
+  padding: 0 12px;
+  font-size: 15px;
+}
+
+.partitura-estudo {
+  font-size: 15px;
+  color: var(--suave);
+}
+
+.partitura-estudo[hidden] {
+  display: none;
+}
+
+.aba-rodape {
+  margin-top: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px 16px;
+}
+
+.aba-baixar {
+  display: flex;
+  gap: 20px;
+}
+
+.aba-baixar .botao-texto {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 16px;
+}
+
+.aba-rodape .avisar-erro {
+  margin: 0;
+}
+
+.extensao {
+  margin-top: 28px;
+}
+
+.extensao .cifra-rotulo {
+  margin: 0 0 8px;
+  font-weight: 400;
+}
+
+.extensao-vozes {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.extensao-vozes li {
+  height: 24px;
+  display: flex;
+  align-items: center;
+}
+
+.extensao-voz {
+  width: 88px;
+  flex: none;
+  font-size: 15px;
+}
+
+.extensao-trilho {
+  position: relative;
+  flex-grow: 1;
+  height: 24px;
+}
+
+.extensao-faixa {
+  position: absolute;
+  top: 0;
+  height: 24px;
+  min-width: max-content;
+  padding: 0 10px;
+  display: flex;
+  align-items: center;
+  border-radius: 12px;
+  background: var(--realce-verso);
+  color: var(--tinta);
+  font-size: 14px;
+  white-space: nowrap;
+  font-variant-numeric: lining-nums;
+}
+
+.extensao-melodia {
+  background: var(--destaque);
+  color: var(--sobre-destaque);
+}
+
+.extensao-eixo {
+  position: relative;
+  height: 20px;
+  margin: 6px 0 0 88px;
+  border-top: 1px solid var(--linha);
+  font-size: 12px;
+  color: var(--suave);
+  font-variant-numeric: lining-nums;
+}
+
+.extensao-eixo span {
+  position: absolute;
+  top: 2px;
+  transform: translateX(-50%);
+}
+
+.tamanho {
+  position: relative;
+}
+
+.tamanho .botao-redondo[aria-expanded="true"] {
+  border-color: var(--destaque);
+  color: var(--destaque);
+}
+
+.tamanho-painel {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  z-index: 60;
+  width: 300px;
+  max-width: calc(100vw - 32px);
+  padding: 16px;
+  border: 1px solid var(--linha);
+  border-radius: 12px;
+  background: var(--superficie);
+  box-shadow: 0 12px 32px rgba(43, 36, 32, 0.14);
+  color: var(--tinta);
+}
+
+.tamanho-painel[hidden] {
+  display: none;
+}
+
+.tamanho-titulo {
+  margin: 0 0 8px;
+  font-size: 15px;
+  color: var(--suave);
+}
+
+.tamanho-passo {
+  margin-bottom: 4px;
+  padding-bottom: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  border-bottom: 1px solid var(--linha);
+}
+
+.tamanho-passo button {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 1px solid var(--contorno);
+  border-radius: 20px;
+  background: transparent;
+  color: var(--tinta);
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.tamanho-passo span {
+  font-size: 18px;
+  font-variant-numeric: lining-nums tabular-nums;
+}
+
+.tamanho-ampla label {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.25;
+}
+
+.tamanho-ampla label span {
+  font-size: 13px;
+  color: var(--suave);
+}
+
+.player-estudo .rotulo {
+  margin: 14px 0 6px;
+}
+
+@media (max-width: 1023px) {
+  .pagina-partitura {
+    padding-bottom: 170px;
+  }
+
+  .pagina-partitura .player {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: 0;
+    z-index: 30;
+    padding: 12px 16px calc(14px + env(safe-area-inset-bottom));
+    border-width: 1px 0 0;
+    border-radius: 0;
+  }
+
+  .pagina-partitura .player-tocar {
+    width: 48px;
+    height: 48px;
+  }
+
+  .pagina-partitura .player-estudo .rotulo {
+    display: none;
+  }
+
+  .pagina-partitura .player-estudo .player-vozes {
+    margin-top: 10px;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .pagina-partitura .player-estudo .player-vozes button {
+    padding: 0;
+    font-size: 15px;
+  }
+
+  .pagina-partitura .relatorio-linha {
+    display: none;
+  }
+}
+
+@media (min-width: 1024px) {
+  .pagina-aba .cabecalho-hino {
+    padding: 0 28px 20px;
+    display: block;
+    text-align: center;
+  }
+
+  .pagina-aba .hino-numero {
+    font-size: 72px;
+  }
+
+  .pagina-aba .cabecalho-hino h1 {
+    margin-top: 10px;
+    font-size: 38px;
+  }
+
+  .pagina-aba .hino-categorias,
+  .pagina-aba .cabecalho-hino .ornamento {
+    display: flex;
+  }
+
+  .pagina-aba .cabecalho-hino .ornamento {
+    display: block;
+  }
+
+  .pagina-aba .hino-ficha {
+    margin-top: 8px;
+    font-size: 16px;
+  }
+
+  .abas,
+  .cifra {
+    max-width: 560px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .cifra {
+    max-width: 680px;
+    padding: 16px 0 0;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    column-gap: 32px;
+    align-items: start;
+  }
+
+  .cifra > * {
+    grid-column: 2;
+  }
+
+  .cifra-acordes {
+    grid-column: 1;
+    grid-row: 1 / span 20;
+    flex-direction: column;
+    flex-wrap: nowrap;
+  }
+
+  .cifra-letra {
+    margin-top: 0;
+  }
+
+  .partitura {
+    padding: 16px 0 0;
+  }
+}
+
+@page {
+  size: A4;
+  margin: 0;
+}
+
+@media print {
+  body:has(.pagina-partitura, .pagina-cifra) {
+    background: #FFFFFF;
+    color: #000000;
+  }
+
+  body:has(.pagina-partitura, .pagina-cifra) .topo,
+  body:has(.pagina-partitura, .pagina-cifra) .rodape,
+  body:has(.pagina-partitura, .pagina-cifra) .coluna-esquerda,
+  body:has(.pagina-partitura, .pagina-cifra) .coluna-direita,
+  body:has(.pagina-partitura, .pagina-cifra) .publicidade,
+  body:has(.pagina-partitura, .pagina-cifra) .abas,
+  body:has(.pagina-partitura, .pagina-cifra) .hino-categorias,
+  body:has(.pagina-partitura, .pagina-cifra) .cabecalho-hino .ornamento,
+  body:has(.pagina-partitura, .pagina-cifra) .partitura-barra,
+  body:has(.pagina-partitura, .pagina-cifra) .avisar-erro,
+  body:has(.pagina-partitura, .pagina-cifra) .aba-rodape,
+  body:has(.pagina-partitura, .pagina-cifra) .relatorio-linha,
+  body:has(.pagina-partitura, .pagina-cifra) .vizinhos,
+  body:has(.pagina-partitura, .pagina-cifra) .aviso-cookies,
+  body:has(.pagina-partitura, .pagina-cifra) .sem-sinal,
+  body:has(.pagina-partitura, .pagina-cifra) .introducao {
+    display: none !important;
+  }
+
+  body:has(.pagina-partitura, .pagina-cifra) .pagina {
+    display: block;
+    padding: 14mm 14mm 10mm;
+  }
+
+  .partitura-folha + .partitura-folha {
+    break-before: page;
+    padding-top: 14mm;
+  }
+
+  body:has(.pagina-partitura, .pagina-cifra) .cabecalho-hino {
+    display: block;
+    padding: 0 0 8px;
+    text-align: center;
+  }
+
+  body:has(.pagina-partitura, .pagina-cifra) .hino-numero {
+    margin: 0;
+    line-height: 1;
+  }
+
+  body:has(.pagina-partitura, .pagina-cifra) .cabecalho-hino h1 {
+    margin: 4px 0 0;
+  }
+
+  body:has(.pagina-cifra) .extensao {
+    display: none !important;
+  }
+
+  body:has(.pagina-cifra) .cifra {
+    max-width: none;
+    padding: 0;
+    display: block;
+  }
+
+  body:has(.pagina-cifra) .cifra-acordes {
+    margin: 0 0 12px;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  body:has(.pagina-cifra) .cifra-letra {
+    margin-top: 14px;
+  }
+
+  body:has(.pagina-cifra) .cifra-letra {
+    column-count: 2;
+    column-gap: 32px;
+    font-size: 15px;
+  }
+
+  body:has(.pagina-cifra) .cifra-rotulo {
+    break-after: avoid;
+  }
+
+  body:has(.pagina-cifra) .cifra-bloco,
+  body:has(.pagina-cifra) .cifra-introducao {
+    break-inside: avoid;
+  }
+
+  body:has(.pagina-cifra) .cifra-linha.atual {
+    background: none;
+  }
+
+  .partitura-folhas {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: none;
+  }
+
+  .partitura-folha {
+    break-inside: avoid;
+  }
+
+  .partitura-folha svg,
+  .partitura-folha g.note,
+  .partitura-folha g.note g.verse {
+    color: #000000 !important;
+    fill: #000000 !important;
+  }
+
+  .partitura-cursor {
+    display: none;
   }
 }

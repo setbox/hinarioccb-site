@@ -11,6 +11,11 @@
   {{ with $ocasioes }}{{ $hino = merge $hino (dict "genre" .) }}{{ end }}
   {{ $trilha := dict "@type" "BreadcrumbList" "itemListElement" (slice $inicio (dict "@type" "ListItem" "position" 2 "name" $nome "item" .Permalink)) }}
   {{ $dados = dict "@context" "https://schema.org" "@graph" (slice $hino $trilha) }}
+{{ else if .Params.hino }}
+  {{ $hino := partial "hino-da-aba.html" . }}
+  {{ $nome := printf "%s: %s" (partial "rotulo.html" $hino) $hino.Title }}
+  {{ $aba := cond (eq .Section "cifras") "Cifra" "Partitura" }}
+  {{ $dados = dict "@context" "https://schema.org" "@type" "BreadcrumbList" "itemListElement" (slice $inicio (dict "@type" "ListItem" "position" 2 "name" $nome "item" $hino.Permalink) (dict "@type" "ListItem" "position" 3 "name" $aba "item" .Permalink)) }}
 {{ else if eq .Kind "term" }}
   {{ $dados = dict "@context" "https://schema.org" "@type" "BreadcrumbList" "itemListElement" (slice $inicio (dict "@type" "ListItem" "position" 2 "name" .Title "item" .Permalink)) }}
 {{ end }}

@@ -15,6 +15,10 @@ enableGitInfo = true
 [taxonomies]
 ocasiao = "ocasioes"
 
+[permalinks.page]
+cifras = "/5/:contentbasename/cifra/"
+partituras = "/5/:contentbasename/partitura/"
+
 [pagination]
 pagerSize = 5
 

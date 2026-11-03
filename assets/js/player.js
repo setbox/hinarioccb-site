@@ -11,40 +11,65 @@
     'https://cdn.jsdelivr.net/npm/@tonejs/midi@2.0.28/build/Midi.js'
   ];
 
+  function todos(seletor) {
+    return Array.prototype.slice.call(document.querySelectorAll(seletor));
+  }
+
+  function abaDaPagina() {
+    if (document.querySelector('.pagina-partitura')) return 'partitura';
+    return document.querySelector('.pagina-cifra') ? 'cifra' : 'letra';
+  }
+
   var botaoTocar = player.querySelector('[data-player-tocar]');
   var estado = player.querySelector('[data-player-estado]');
   var progresso = player.querySelector('[data-player-progresso]');
   var tempoAtual = player.querySelector('[data-player-atual]');
   var tempoTotal = player.querySelector('[data-player-total]');
-  var andamentoTexto = player.querySelector('[data-player-andamento]');
-  var letra = document.querySelector('.letra');
-  var estrofes = Array.prototype.slice.call(document.querySelectorAll('.letra li'));
+  var andamentoTextos = todos('[data-player-andamento]');
+  var ESTROFE = '.letra li, .cifra-letra .cifra-bloco:not(.cifra-coro)';
+  var CORO = '.letra > p, .cifra-letra .cifra-coro';
   var VOGAIS = 'aeiouáàâãéêíóôõúü';
   var DITONGO = /^(ai|au|ei|eu|éi|éu|oi|ói|ou|ui|iu|ão|ãe|õe|ãi)$/;
   var CUSTO_ACEITO = 4;
   var CUSTO_POR_LINHA = 0.7;
 
   function separarVersos(elemento) {
-    return Array.prototype.slice.call(elemento.querySelectorAll('.verso'));
+    return Array.prototype.slice.call(elemento.querySelectorAll('.verso, .cifra-linha'));
   }
 
-  var versosDasEstrofes = estrofes.map(separarVersos);
-  var versosDoCoro = Array.prototype.slice.call(document.querySelectorAll('.letra > p')).reduce(function (versos, p) {
-    return versos.concat(separarVersos(p));
-  }, []);
+  function textoDoVerso(verso) {
+    if (!verso.classList.contains('cifra-linha')) return verso.textContent;
+    return Array.prototype.slice.call(verso.querySelectorAll('.cifra-texto')).map(function (trecho) {
+      return trecho.textContent;
+    }).join('');
+  }
+
+  var letra = null;
+  var estrofes = [];
+  var versosDasEstrofes = [];
+  var versosDoCoro = [];
   var inicioDosVersos = [];
   var blocosDaLetra = [];
-  Array.prototype.slice.call(letra ? letra.children : []).forEach(function (elemento) {
-    if (elemento.tagName === 'OL') {
-      Array.prototype.slice.call(elemento.children).forEach(function (li) {
-        var indice = estrofes.indexOf(li);
-        blocosDaLetra.push({ tipo: 'estrofe', estrofe: indice, versos: versosDasEstrofes[indice] });
-      });
-    } else if (elemento.tagName === 'P') {
-      blocosDaLetra.push({ tipo: 'coro', estrofe: -1, versos: Array.prototype.slice.call(elemento.querySelectorAll('.verso')) });
-    }
-  });
   var linhasDoHino = null;
+
+  function lerLetra() {
+    letra = document.querySelector('.letra, .cifra-letra');
+    estrofes = todos(ESTROFE);
+    versosDasEstrofes = estrofes.map(separarVersos);
+    versosDoCoro = todos(CORO).reduce(function (versos, coro) {
+      return versos.concat(separarVersos(coro));
+    }, []);
+    inicioDosVersos = [];
+    blocosDaLetra = todos(ESTROFE + ', ' + CORO).map(function (elemento) {
+      var indice = estrofes.indexOf(elemento);
+      return indice >= 0
+        ? { tipo: 'estrofe', estrofe: indice, versos: versosDasEstrofes[indice] }
+        : { tipo: 'coro', estrofe: -1, versos: separarVersos(elemento) };
+    });
+    linhasDoHino = null;
+  }
+
+  lerLetra();
 
   function faixaDeSilabas(linha) {
     var texto = linha.toLowerCase()
@@ -159,7 +184,7 @@
         bloco.versos.forEach(function (verso) { partes.push({ verso: verso, estrofe: bloco.estrofe }); });
       });
       if (!partes.length || notas.length < partes.length) return;
-      var trechos = alinhar(notas, partes.map(function (parte) { return parte.verso.textContent; }), midi.header.ppq, partes.length * CUSTO_POR_LINHA);
+      var trechos = alinhar(notas, partes.map(function (parte) { return textoDoVerso(parte.verso); }), midi.header.ppq, partes.length * CUSTO_POR_LINHA);
       if (!trechos) return;
       var custoPorLinha = trechos.custo / partes.length;
       if (melhor && melhor.custoPorLinha <= custoPorLinha) return;
@@ -189,11 +214,16 @@
         return nota.time >= marcador.tempo - 0.001 && (!proximo || nota.time < proximo.tempo - 0.001);
       });
       if (notas.length < versos.length) return;
-      inicioDosVersos[estrofe] = alinhar(notas, versos.map(function (verso) { return verso.textContent; }), midi.header.ppq, CUSTO_ACEITO);
+      inicioDosVersos[estrofe] = alinhar(notas, versos.map(textoDoVerso), midi.header.ppq, CUSTO_ACEITO);
     });
   }
 
   var carregado = null;
+  var cabecalho = null;
+  var estudo = abaDaPagina() === 'partitura';
+  var midiCarregado = null;
+  var VOLUME = -14;
+  var VOLUME_SUAVE = -30;
   var vozes = [];
   var sintetizadores = [];
   var duracao = 0;
@@ -239,12 +269,14 @@
         .then(function () { return arquivoMidi; })
         .then(function (dados) {
           var midi = new Midi(dados);
+          midiCarregado = midi;
           vozes = midi.tracks.filter(function (faixa) { return faixa.notes.length; }).slice(0, 4);
           duracao = midi.duration;
           marcadores = midi.header.meta
             .filter(function (evento) { return evento.type === 'marker'; })
             .map(function (evento) { return { texto: evento.text, tempo: midi.header.ticksToSeconds(evento.ticks) }; })
             .sort(function (a, b) { return a.tempo - b.tempo; });
+          cabecalho = midi.header;
           andamentoBase = Math.round(midi.header.tempos.length ? midi.header.tempos[0].bpm : 100);
           andamento = andamentoBase;
           alinharEstrofes(midi);
@@ -252,9 +284,10 @@
             return new Tone.PolySynth(Tone.Synth, {
               oscillator: { type: 'custom', partials: [1, 0.5, 0.3, 0.2, 0.1] },
               envelope: { attack: 0.03, decay: 0.2, sustain: 0.8, release: 0.4 },
-              volume: -14
+              volume: VOLUME
             }).toDestination();
           });
+          aplicarVolumes();
           clique = new Tone.Synth({
             oscillator: { type: 'square' },
             envelope: { attack: 0.001, decay: 0.04, sustain: 0, release: 0.02 },
@@ -276,6 +309,16 @@
     return carregado;
   }
 
+  function avisar(nome, detalhe) {
+    document.dispatchEvent(new CustomEvent('hino:' + nome, { detail: detalhe }));
+  }
+
+  function aplicarVolumes() {
+    sintetizadores.forEach(function (sintetizador, indice) {
+      sintetizador.volume.value = vozesAtivas[indice] || !estudo ? VOLUME : VOLUME_SUAVE;
+    });
+  }
+
   function formatar(segundos) {
     var s = Math.max(0, Math.floor(segundos));
     return Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0');
@@ -290,7 +333,9 @@
   }
 
   function mostrarAndamento() {
-    andamentoTexto.textContent = '♩ ' + andamento;
+    andamentoTextos.forEach(function (texto) {
+      texto.textContent = '♩ ' + andamento;
+    });
   }
 
   function andamentoGravado(dados) {
@@ -342,7 +387,7 @@
     soltar();
     var r = razao();
     vozes.forEach(function (faixa, indice) {
-      if (!vozesAtivas[indice]) return;
+      if (!vozesAtivas[indice] && !estudo) return;
       var sintetizador = sintetizadores[indice];
       faixa.notes.forEach(function (nota) {
         if (nota.time < posicao) return;
@@ -366,11 +411,29 @@
     Tone.Transport.start();
   }
 
+  var marcarLetra = player.querySelector('[data-marcar-letra]');
+  try {
+    marcarLetra.checked = localStorage.getItem('marcar-letra') !== 'false';
+  } catch (e) {}
+  var rolagemAutomatica = player.querySelector('[data-rolagem-automatica]');
+  try {
+    if (rolagemAutomatica) rolagemAutomatica.checked = localStorage.getItem('rolagem-automatica') !== 'false';
+  } catch (e) {}
+  if (rolagemAutomatica) {
+    rolagemAutomatica.addEventListener('change', function () {
+      try {
+        localStorage.setItem('rolagem-automatica', String(rolagemAutomatica.checked));
+      } catch (e) {}
+    });
+  }
   var estrofeMarcada = -1;
+  var estrofeRolada = -1;
   var versoMarcado = null;
+  var versoCantado = null;
 
   function mostrarNaTela(elemento) {
     if (!elemento || !tocando) return;
+    if (rolagemAutomatica && !rolagemAutomatica.checked) return;
     var caixa = elemento.getBoundingClientRect();
     if (caixa.top >= 0 && caixa.bottom <= window.innerHeight) return;
     var semMovimento = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -378,23 +441,28 @@
   }
 
   function marcarVerso(verso) {
+    if (verso !== versoCantado) {
+      versoCantado = verso;
+      mostrarNaTela(verso);
+    }
+    if (!marcarLetra.checked) verso = null;
     if (verso === versoMarcado) return;
     if (versoMarcado) versoMarcado.classList.remove('atual');
     versoMarcado = verso;
-    if (verso) {
-      verso.classList.add('atual');
-      mostrarNaTela(verso);
-    }
+    if (verso) verso.classList.add('atual');
   }
 
   function destacarEstrofe(atual, porVerso) {
-    var mudou = atual !== estrofeMarcada;
+    if (atual !== estrofeRolada) {
+      estrofeRolada = atual;
+      if (!porVerso) mostrarNaTela(estrofes[atual]);
+    }
+    if (!marcarLetra.checked) atual = -1;
     estrofeMarcada = atual;
     estrofes.forEach(function (li, indice) {
       li.classList.toggle('atual', indice === atual);
       li.classList.toggle('por-verso', indice === atual && porVerso);
     });
-    if (mudou) mostrarNaTela(estrofes[atual]);
   }
 
   function linhaCantada(agora) {
@@ -404,7 +472,7 @@
 
   function marcarLinhaDoHino(linha, agora) {
     destacarEstrofe(linha.estrofe, true);
-    if (letra) letra.classList.toggle('no-coro', linha.estrofe < 0);
+    if (letra) letra.classList.toggle('no-coro', marcarLetra.checked && linha.estrofe < 0);
     marcarVerso(linha.verso);
     linha.verso.style.setProperty('--progresso', (progressoDoVerso(linha, agora) * 100).toFixed(1) + '%');
   }
@@ -443,7 +511,7 @@
       estado.textContent = linha.estrofe < 0 ? 'Coro' : 'Estrofe ' + (linha.estrofe + 1);
     } else if (estrofe) {
       marcarEstrofe(Number(estrofe[1]) - 1, agora);
-      var noCoro = !estrofes.length || versosDoCoro.indexOf(versoMarcado) >= 0;
+      var noCoro = (letra && !estrofes.length) || versosDoCoro.indexOf(versoCantado) >= 0;
       estado.textContent = noCoro ? 'Coro' : 'Estrofe ' + estrofe[1];
     } else if (texto === 'Repetição') {
       estado.textContent = 'Repetição';
@@ -457,13 +525,13 @@
       }
     }
     mostrarIntroducao(texto === 'Introdução' && tocando && agora < fimDoAviso(), agora);
+    avisar('posicao', { seminimas: cabecalho ? cabecalho.secondsToTicks(agora) / cabecalho.ppq : null, tocando: tocando });
     if (tocando) quadro = requestAnimationFrame(atualizar);
   }
 
   function fimDoAviso() {
     var primeiraEstrofe = marcadores.filter(function (item) { return /^Estrofe /.test(item.texto); })[0];
-    var inicioDoCanto = primeiraEstrofe ? primeiraEstrofe.tempo : duracao;
-    return Math.max(0, inicioDoCanto - ANTECEDENCIA_DO_AVISO * razao());
+    return Math.max(0, (primeiraEstrofe ? primeiraEstrofe.tempo : duracao) - ANTECEDENCIA_DO_AVISO * razao());
   }
 
   function mostrarIntroducao(visivel, agora) {
@@ -485,32 +553,41 @@
   }
 
   function mostrarTom() {
-    var nome = player.querySelector('[data-tom-nome]');
-    var legenda = player.querySelector('[data-tom-legenda]');
-    var voltar = player.querySelector('[data-tom-voltar]');
+    var nome;
     if (tomOriginal >= 0) {
-      nome.textContent = TONS[((tomOriginal + transposicao) % 12 + 12) % 12];
+      nome = TONS[((tomOriginal + transposicao) % 12 + 12) % 12];
     } else {
-      nome.textContent = transposicao === 0 ? 'original' : (transposicao > 0 ? '+' : '−') + Math.abs(transposicao);
+      nome = transposicao === 0 ? 'original' : (transposicao > 0 ? '+' : '−') + Math.abs(transposicao);
     }
-    legenda.hidden = transposicao === 0;
-    voltar.hidden = transposicao === 0;
-    if (transposicao !== 0) {
-      legenda.textContent = nomeDaDistancia(transposicao) + (tomOriginal >= 0 ? ' (' + TONS[tomOriginal] + ')' : '');
-    }
+    var distancia = transposicao === 0 ? '' : nomeDaDistancia(transposicao) + (tomOriginal >= 0 ? ' (' + TONS[tomOriginal] + ')' : '');
+    todos('[data-tom-nome]').forEach(function (elemento) { elemento.textContent = nome; });
+    todos('[data-tom-legenda]').forEach(function (legenda) {
+      legenda.hidden = transposicao === 0;
+      legenda.textContent = distancia;
+    });
+    todos('[data-tom-voltar]').forEach(function (voltar) { voltar.hidden = transposicao === 0; });
+    avisar('tom', transposicao);
+  }
+
+  function inicioDoCanto() {
+    var primeiraEstrofe = marcadores.filter(function (item) { return /^Estrofe /.test(item.texto); })[0];
+    return primeiraEstrofe ? primeiraEstrofe.tempo : 0;
   }
 
   function tocar() {
     if (iniciando) return;
     if (posicao >= duracao) posicao = 0;
     var doComeco = posicao === 0;
-    if (doComeco) {
+    var comIntroducao = doComeco && !pularIntroducao.checked;
+    if (comIntroducao) {
       introducaoFechada = false;
-      introducaoProgresso.style.width = '0%';
-      if (introducaoBloco) introducaoBloco.hidden = false;
+      if (introducaoBloco) {
+        introducaoProgresso.style.width = '0%';
+        introducaoBloco.hidden = false;
+      }
     }
     var espera = new Promise(function (resolver) {
-      setTimeout(resolver, doComeco && introducaoBloco ? ESPERA_ANTES_DA_INTRODUCAO : 0);
+      setTimeout(resolver, comIntroducao && introducaoBloco ? ESPERA_ANTES_DA_INTRODUCAO : 0);
     });
     iniciando = true;
     if (window.Tone) Tone.start();
@@ -518,6 +595,10 @@
       return Tone.start();
     }).then(function () {
       iniciando = false;
+      if (doComeco && !comIntroducao) {
+        introducaoFechada = true;
+        posicao = inicioDoCanto();
+      }
       if (introducaoFechada && introducaoBloco) introducaoBloco.hidden = true;
       tocando = true;
       player.classList.add('tocando');
@@ -540,6 +621,7 @@
     if (letra) letra.classList.remove('tocando');
     botaoTocar.setAttribute('aria-label', 'Tocar');
     estado.textContent = 'Pausado';
+    avisar('posicao', { seminimas: cabecalho ? cabecalho.secondsToTicks(posicao) / cabecalho.ppq : null, tocando: false });
     mostrarIntroducao(false, 0);
   }
 
@@ -597,26 +679,57 @@
     if (introducaoBloco) introducaoBloco.hidden = true;
   }
 
-  var botaoFecharIntroducao = document.querySelector('[data-introducao-fechar]');
-  if (botaoFecharIntroducao) botaoFecharIntroducao.addEventListener('click', fecharIntroducao);
+  function ligarIntroducao() {
+    introducaoBloco = document.querySelector('[data-introducao]');
+    introducaoProgresso = document.querySelector('[data-introducao-progresso]');
+    var botaoFecharIntroducao = document.querySelector('[data-introducao-fechar]');
+    if (botaoFecharIntroducao) botaoFecharIntroducao.addEventListener('click', fecharIntroducao);
+  }
+
+  ligarIntroducao();
 
   document.addEventListener('keydown', function (evento) {
     if (evento.key === 'Escape' && introducaoBloco && !introducaoBloco.hidden) fecharIntroducao();
   });
 
-  Array.prototype.slice.call(player.querySelectorAll('[data-voz]')).forEach(function (botao) {
+  var botoesDasVozes = Array.prototype.slice.call(player.querySelectorAll('[data-voz]'));
+
+  function mostrarVozes() {
+    botoesDasVozes.forEach(function (botao) {
+      botao.setAttribute('aria-pressed', vozesAtivas[Number(botao.dataset.voz)] ? 'true' : 'false');
+    });
+    avisar('vozes', vozesAtivas.slice());
+  }
+
+  function estudarVoz(indice) {
+    var todas = vozesAtivas.every(function (ativa) { return ativa; });
+    if (todas) {
+      vozesAtivas = vozesAtivas.map(function (ativa, posicaoVoz) { return posicaoVoz === indice; });
+    } else {
+      vozesAtivas[indice] = !vozesAtivas[indice];
+      if (!vozesAtivas.some(function (ativa) { return ativa; })) vozesAtivas = [true, true, true, true];
+    }
+    aplicarVolumes();
+    mostrarVozes();
+  }
+
+  botoesDasVozes.forEach(function (botao) {
     botao.addEventListener('click', function () {
       var indice = Number(botao.dataset.voz);
+      if (estudo) {
+        estudarVoz(indice);
+        return;
+      }
       var ligadas = vozesAtivas.filter(function (ativa) { return ativa; }).length;
       if (vozesAtivas[indice] && ligadas === 1) return;
       reiniciarSeTocando(function () {
         vozesAtivas[indice] = !vozesAtivas[indice];
-        botao.setAttribute('aria-pressed', vozesAtivas[indice] ? 'true' : 'false');
+        mostrarVozes();
       });
     });
   });
 
-  Array.prototype.slice.call(player.querySelectorAll('[data-tom]')).forEach(function (botao) {
+  Array.prototype.slice.call(document.querySelectorAll('[data-tom]')).forEach(function (botao) {
     botao.addEventListener('click', function () {
       reiniciarSeTocando(function () {
         transposicao = Math.min(6, Math.max(-6, transposicao + Number(botao.dataset.tom)));
@@ -625,10 +738,12 @@
     });
   });
 
-  player.querySelector('[data-tom-voltar]').addEventListener('click', function () {
-    reiniciarSeTocando(function () {
-      transposicao = 0;
-      mostrarTom();
+  todos('[data-tom-voltar]').forEach(function (voltar) {
+    voltar.addEventListener('click', function () {
+      reiniciarSeTocando(function () {
+        transposicao = 0;
+        mostrarTom();
+      });
     });
   });
 
@@ -643,12 +758,36 @@
     });
   });
 
-  var metronomo = player.querySelector('[data-metronomo]');
-  metronomo.addEventListener('change', function () {
-    reiniciarSeTocando(function () {
-      metronomoLigado = metronomo.checked;
-    });
+  marcarLetra.addEventListener('change', function () {
+    try {
+      localStorage.setItem('marcar-letra', String(marcarLetra.checked));
+    } catch (e) {}
+    if (!marcarLetra.checked) {
+      marcarVerso(null);
+      destacarEstrofe(-1, false);
+      if (letra) letra.classList.remove('no-coro');
+    }
+    avisar('marcar-letra', marcarLetra.checked);
   });
+
+  var pularIntroducao = player.querySelector('[data-pular-introducao]');
+  try {
+    pularIntroducao.checked = localStorage.getItem('pular-introducao') === 'true';
+  } catch (e) {}
+  pularIntroducao.addEventListener('change', function () {
+    try {
+      localStorage.setItem('pular-introducao', String(pularIntroducao.checked));
+    } catch (e) {}
+  });
+
+  var metronomo = player.querySelector('[data-metronomo]');
+  if (metronomo) {
+    metronomo.addEventListener('change', function () {
+      reiniciarSeTocando(function () {
+        metronomoLigado = metronomo.checked;
+      });
+    });
+  }
 
   var telaLigada = player.querySelector('[data-tela-ligada]');
   if (!('wakeLock' in navigator)) {
@@ -674,5 +813,22 @@
 
   document.addEventListener('visibilitychange', function () {
     if (document.visibilityState === 'visible' && telaLigada.checked) pedirTrava();
+  });
+  document.addEventListener('hino:aba', function () {
+    var estudoAntes = estudo;
+    estudo = abaDaPagina() === 'partitura';
+    lerLetra();
+    estrofeMarcada = -1;
+    estrofeRolada = -1;
+    versoMarcado = null;
+    versoCantado = null;
+    ligarIntroducao();
+    if (midiCarregado) alinharEstrofes(midiCarregado);
+    if (sintetizadores.length) aplicarVolumes();
+    if (estudo !== estudoAntes && vozesAtivas.some(function (ativa) { return !ativa; })) reiniciarSeTocando(function () {});
+    mostrarTom();
+    mostrarVozes();
+    avisar('marcar-letra', marcarLetra.checked);
+    if (!tocando && cabecalho) atualizar();
   });
 })();

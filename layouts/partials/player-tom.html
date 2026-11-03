@@ -1,0 +1,9 @@
+    <div class="player-tom">
+      <span>Tom <button type="button" class="botao-texto" data-tom-voltar hidden>original</button></span>
+      <div>
+        <button type="button" aria-label="Meio tom abaixo" data-tom="-1">−</button>
+        <span data-tom-nome>{{ .Params.tom | default "original" }}</span>
+        <button type="button" aria-label="Meio tom acima" data-tom="1">+</button>
+      </div>
+    </div>
+    <p class="player-tom-legenda" data-tom-legenda hidden></p>

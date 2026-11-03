@@ -1,0 +1,48 @@
+{{ $letras := dict "Dó" "C" "Ré" "D" "Mi" "E" "Fá" "F" "Sol" "G" "Lá" "A" "Si" "B" }}
+{{ $alturas := dict "Dó" 0 "Ré" 2 "Mi" 4 "Fá" 5 "Sol" 7 "Lá" 9 "Si" 11 }}
+{{ $acidentes := dict "" 0 "♭" -1 "♯" 1 }}
+{{ $nomes := dict "S" "Soprano" "A" "Contralto" "T" "Tenor" "B" "Baixo" }}
+{{ $vozes := slice }}
+{{ range $voz := slice "S" "A" "T" "B" }}
+  {{ with index $.extensao $voz }}
+    {{ $limites := slice }}
+    {{ range . }}
+      {{ $partes := index (findRESubmatch `^(Dó|Ré|Mi|Fá|Sol|Lá|Si)(♭|♯)?(-?\d)$` .) 0 }}
+      {{ $altura := add (mul 12 (add (int (index $partes 3)) 1)) (index $alturas (index $partes 1)) (index $acidentes (index $partes 2)) }}
+      {{ $limites = $limites | append (dict "nome" (printf "%s%s%s" (index $letras (index $partes 1)) (index $partes 2) (index $partes 3)) "altura" $altura) }}
+    {{ end }}
+    {{ $vozes = $vozes | append (dict "voz" (index $nomes $voz) "melodia" (eq $voz "S") "de" (index $limites 0) "ate" (index $limites 1)) }}
+  {{ end }}
+{{ end }}
+{{ with $vozes }}
+  {{ $menor := 127 }}
+  {{ $maior := 0 }}
+  {{ range . }}
+    {{ $menor = math.Min $menor .de.altura }}
+    {{ $maior = math.Max $maior .ate.altura }}
+  {{ end }}
+  {{ $menor = sub $menor 1 }}
+  {{ $maior = add $maior 1 }}
+  {{ $faixa := sub $maior $menor }}
+  <section class="extensao" aria-labelledby="extensao-titulo">
+    <h2 class="cifra-rotulo" id="extensao-titulo">Extensão das vozes</h2>
+    <ul class="extensao-vozes">
+      {{ range . }}
+        {{ $inicio := div (mul (sub .de.altura $menor) 100.0) $faixa }}
+        {{ $largura := div (mul (sub .ate.altura .de.altura) 100.0) $faixa }}
+        <li>
+          <span class="extensao-voz">{{ .voz }}</span>
+          <span class="extensao-trilho"><span class="extensao-faixa{{ if .melodia }} extensao-melodia{{ end }}" style="left: {{ printf "%.1f" $inicio }}%; width: {{ printf "%.1f" $largura }}%;">{{ .de.nome }} a {{ .ate.nome }}</span></span>
+        </li>
+      {{ end }}
+    </ul>
+    <div class="extensao-eixo" aria-hidden="true">
+      {{ range $oitava := seq -1 8 }}
+        {{ $altura := mul 12 (add $oitava 1) }}
+        {{ if and (ge $altura $menor) (le $altura $maior) }}
+          <span style="left: {{ printf "%.1f" (div (mul (sub $altura $menor) 100.0) $faixa) }}%;">C{{ $oitava }}</span>
+        {{ end }}
+      {{ end }}
+    </div>
+  </section>
+{{ end }}

@@ -1,0 +1,19 @@
+{{ define "titulo" }}{{ .Title }} CCB | HinárioCCB.net{{ end }}
+{{ define "descricao" }}{{ .Params.descricao }}{{ end }}
+
+{{ define "main" -}}
+{{ $aba := .Params.aba }}
+<div class="pagina">
+  <main class="conteudo conteudo-largo" id="conteudo">
+    <header class="cabecalho-categoria">
+      <h1>{{ .Title }}</h1>
+      <p class="subtitulo">{{ .Params.subtitulo }}</p>
+    </header>
+    <ol class="lista-hinos">
+      {{ range partial "ordenados.html" (where site.RegularPages "Section" "5") }}
+        <li><a href="{{ .RelPermalink }}{{ $aba }}/"><span class="numero-lista">{{ .Params.numero }}</span><span>{{ .Title }}</span></a></li>
+      {{ end }}
+    </ol>
+  </main>
+</div>
+{{- end }}

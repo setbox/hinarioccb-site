@@ -1,0 +1,5 @@
+{{ $pagina := .pagina }}
+{{ $assunto := printf "Erro na %s do %s" .aba (partial "rotulo.html" $pagina) }}
+{{ $corpo := printf "%s (%s), aba %s: %s%s/\n\nO que está errado:\n" (partial "rotulo.html" $pagina) $pagina.Title .aba $pagina.Permalink .aba }}
+{{ $consulta := querify "subject" $assunto "body" $corpo | replaceRE `\+` "%20" }}
+<p class="avisar-erro">{{ .texto }} <a href="{{ printf "mailto:%s?%s" site.Params.contato $consulta | safeURL }}">Avise-nos</a>.</p>

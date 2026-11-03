@@ -4,124 +4,15 @@
 
 {{ define "main" -}}
 {{ $slug := .File.BaseFileName }}
-{{ $todos := partial "ordenados.html" (where .Site.RegularPages "Section" "5") }}
-{{ $anterior := false }}
-{{ $proximo := false }}
-{{ range $i, $p := $todos }}
-  {{ if eq $p.RelPermalink $.RelPermalink }}
-    {{ if gt $i 0 }}{{ $anterior = index $todos (sub $i 1) }}{{ end }}
-    {{ if lt (add $i 1) (len $todos) }}{{ $proximo = index $todos (add $i 1) }}{{ end }}
-  {{ end }}
-{{ end }}
-{{ $midi := printf "midi/5/%s.mid" $slug }}
 
-<div class="pagina pagina-hino" data-hino="{{ partial "chave.html" . }}">
-  <aside class="coluna-esquerda">
-    <a class="voltar" href="{{ "/" | relURL }}">
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M10 3 5 8l5 5"></path></svg>
-      Índice
-    </a>
-
-    <nav class="culto-faixa" aria-label="Culto de hoje" data-culto-faixa hidden>
-      <a href="#" data-culto-anterior hidden></a>
-      <span data-culto-posicao></span>
-      <a href="#" data-culto-proximo hidden></a>
-    </nav>
-
-    {{ if fileExists (printf "static/%s" $midi) }}
-      <section class="cartao player" aria-label="Player do hino" data-player data-midi="{{ $midi | relURL }}" data-tom-do-hino="{{ .Params.tom }}">
-        <div class="player-topo">
-          <button type="button" class="player-tocar" aria-label="Tocar" data-player-tocar>
-            <svg class="icone-tocar" width="20" height="20" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M6 3.5v13l11-6.5z"></path></svg>
-            <svg class="icone-pausar" width="20" height="20" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><rect x="5" y="4" width="3.5" height="12" rx="1"></rect><rect x="11.5" y="4" width="3.5" height="12" rx="1"></rect></svg>
-          </button>
-          <div class="player-estado">
-            <p data-player-estado>Ouvir o hino</p>
-            <div class="player-barra" role="slider" tabindex="0" aria-label="Posição no hino" aria-valuemin="0" aria-valuemax="0" aria-valuenow="0" aria-valuetext="0:00" data-player-barra><div class="player-trilho"><div data-player-progresso></div></div></div>
-            <p class="player-tempos"><span data-player-atual>0:00</span><span data-player-total></span></p>
-          </div>
-          <button type="button" class="botao-texto player-ajustes-botao" aria-expanded="false" aria-controls="player-ajustes" data-player-ajustes>Ajustes</button>
-        </div>
-        <div class="player-ajustes" id="player-ajustes">
-        <p class="rotulo">Vozes</p>
-        <div class="player-vozes" role="group" aria-label="Vozes">
-          <button type="button" aria-pressed="true" data-voz="0">Soprano</button>
-          <button type="button" aria-pressed="true" data-voz="1">Contralto</button>
-          <button type="button" aria-pressed="true" data-voz="2">Tenor</button>
-          <button type="button" aria-pressed="true" data-voz="3">Baixo</button>
-        </div>
-        <div class="player-andamento">
-          <span>Andamento</span>
-          <div>
-            <button type="button" aria-label="Mais lento" data-andamento="-4">−</button>
-            <span data-player-andamento>♩</span>
-            <button type="button" aria-label="Mais rápido" data-andamento="4">+</button>
-          </div>
-        </div>
-        <div class="player-tom">
-          <span>Tom <button type="button" class="botao-texto" data-tom-voltar hidden>original</button></span>
-          <div>
-            <button type="button" aria-label="Meio tom abaixo" data-tom="-1">−</button>
-            <span data-tom-nome>{{ .Params.tom | default "original" }}</span>
-            <button type="button" aria-label="Meio tom acima" data-tom="1">+</button>
-          </div>
-        </div>
-        <p class="player-tom-legenda" data-tom-legenda hidden></p>
-        <div class="player-opcoes">
-        <div class="player-tela">
-          <label for="metronomo">Metrônomo</label>
-          <input type="checkbox" id="metronomo" data-metronomo>
-        </div>
-        <div class="player-tela" data-tela-linha>
-          <span class="player-tela-rotulo">
-            <label for="tela-ligada">Manter a tela ligada</label>
-            <span class="dica">
-              <button type="button" class="dica-botao" aria-label="O que é manter a tela ligada?" aria-expanded="false" aria-controls="dica-tela" data-dica>i</button>
-              <span class="dica-texto" id="dica-tela" role="tooltip" hidden>Impede que a tela do celular apague sozinha enquanto o hino está aberto, para você acompanhar a letra sem precisar tocar na tela.</span>
-            </span>
-          </span>
-          <input type="checkbox" id="tela-ligada" data-tela-ligada>
-        </div>
-        </div>
-        </div>
-      </section>
-    {{ end }}
-
-    <section class="cartao culto culto-lateral so-desktop" aria-label="Culto de hoje" data-culto-lateral hidden>
-      <p class="culto-lateral-titulo">Culto de hoje</p>
-      <ol class="lista-curta" data-culto-lista></ol>
-    </section>
-  </aside>
+<div class="pagina pagina-hino pagina-letra" data-hino="{{ partial "chave.html" . }}">
+  {{ partial "coluna-esquerda-hino.html" (dict "pagina" .) }}
 
   <main class="conteudo" id="conteudo">
-    <header class="cabecalho-hino" data-pagefind-body data-pagefind-meta="title:{{ partial "rotulo.html" . }}: {{ .Title }}">
-      <p class="hino-numero" data-pagefind-ignore>{{ replace (string .Params.numero) "Coro " "" }}</p>
-      <h1>{{ .Title }}</h1>
-      {{ with .GetTerms "ocasioes" }}
-        <p class="hino-categorias">
-          {{ range $i, $t := . }}{{ if $i }} {{ end }}<a href="{{ $t.RelPermalink }}">{{ $t.LinkTitle }}</a>{{ end }}
-        </p>
-      {{ end }}
-      {{ partial "ornamento.html" . }}
-      {{ $ficha := slice }}
-      {{ with .Params.tom }}{{ $ficha = $ficha | append . }}{{ end }}
-      {{ with .Params.compasso }}{{ $ficha = $ficha | append . }}{{ end }}
-      {{ with .Params.estrofes }}{{ $ficha = $ficha | append (printf "%d estrofes" .) }}{{ end }}
-      {{ with .Params.meia_hora }}{{ $ficha = $ficha | append (printf "♩ %v-%v" (index . 0) (index . 1)) }}{{ end }}
-      {{ with $ficha }}<p class="hino-ficha" data-pagefind-ignore>{{ delimit . ", " }}</p>{{ end }}
-      <button type="button" class="botao-texto" data-culto-alternar data-pagefind-ignore>Adicionar ao culto de hoje</button>
-    </header>
+    {{ partial "cabecalho-hino.html" (dict "pagina" . "aba" "letra") }}
+    {{ partial "abas.html" (dict "pagina" . "aba" "letra") }}
 
-    <div class="introducao" data-introducao role="status" hidden>
-      <button type="button" class="introducao-fechar" aria-label="Fechar o aviso da introdução" data-introducao-fechar>
-        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="m5 5 10 10M15 5 5 15"></path></svg>
-      </button>
-      {{ partial "colcheia.html" . }}
-      <p class="introducao-hino">{{ partial "rotulo.html" . }}</p>
-      <p class="introducao-nome">{{ .Title }}</p>
-      <p class="introducao-convite">Ouça a introdução e prepare-se para cantar</p>
-      <div class="introducao-barra" aria-hidden="true"><div data-introducao-progresso></div></div>
-    </div>
+    {{ partial "introducao.html" . }}
 
     <div class="barra-ampla">
       <button type="button" class="botao botao-contorno" data-acao="ampla">Sair da leitura ampla</button>
@@ -150,23 +41,13 @@
 
     {{ partial "publicidade.html" "quadrado" }}
 
-    <a class="cartao relatorio-linha" href="{{ partial "link-relatorio.html" "hino" }}" target="_blank" rel="noopener">
-      <span class="relatorio-icone"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"></path><circle cx="12" cy="9.5" r="2.5"></circle></svg></span>
-      <span class="relatorio-texto"><strong>Onde tem culto hoje?</strong><span>Horários e endereços das casas de oração no RelatórioCCB.net</span></span>
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg>
-    </a>
+    {{ partial "relatorio-linha.html" . }}
 
-    <nav class="vizinhos" aria-label="Hinos vizinhos">
-      {{ with $anterior }}
-        <a href="{{ .RelPermalink }}"><span>Anterior</span><strong class="vizinho-numero">{{ .Params.numero }}</strong> {{ .Title }}</a>
-      {{ else }}<span></span>{{ end }}
-      {{ with $proximo }}
-        <a href="{{ .RelPermalink }}" class="vizinho-proximo"><span>Próximo</span><strong class="vizinho-numero">{{ .Params.numero }}</strong> {{ .Title }}</a>
-      {{ end }}
-    </nav>
+    {{ partial "vizinhos.html" (dict "pagina" . "aba" "letra") }}
   </main>
 
   <aside class="coluna-direita">
+    {{ partial "destaque-lofi.html" "lateral" }}
     {{ partial "publicidade.html" "torre" }}
   </aside>
 </div>
@@ -176,4 +57,6 @@
 {{ define "scripts" }}
 {{ $player := resources.Get "js/player.js" | minify | fingerprint }}
 <script src="{{ $player.RelPermalink }}" integrity="{{ $player.Data.Integrity }}"></script>
+{{ $abas := resources.Get "js/abas.js" | minify | fingerprint }}
+<script src="{{ $abas.RelPermalink }}" integrity="{{ $abas.Data.Integrity }}"></script>
 {{ end }}

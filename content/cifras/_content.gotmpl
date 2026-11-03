@@ -1,0 +1,3 @@
+{{ range $slug, $cifra := site.Data.cifras }}
+  {{ $.AddPage (dict "path" $slug "kind" "page" "title" $cifra.titulo "params" (dict "hino" $slug)) }}
+{{ end }}

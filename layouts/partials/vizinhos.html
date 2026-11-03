@@ -1,0 +1,19 @@
+{{ $pagina := .pagina }}
+{{ $sufixo := cond (eq .aba "letra") "" (printf "%s/" .aba) }}
+{{ $todos := partial "ordenados.html" (where site.RegularPages "Section" "5") }}
+{{ $anterior := false }}
+{{ $proximo := false }}
+{{ range $i, $p := $todos }}
+  {{ if eq $p.RelPermalink $pagina.RelPermalink }}
+    {{ if gt $i 0 }}{{ $anterior = index $todos (sub $i 1) }}{{ end }}
+    {{ if lt (add $i 1) (len $todos) }}{{ $proximo = index $todos (add $i 1) }}{{ end }}
+  {{ end }}
+{{ end }}
+<nav class="vizinhos" aria-label="Hinos vizinhos">
+  {{ with $anterior }}
+    <a href="{{ .RelPermalink }}{{ $sufixo }}"><span>Anterior</span><strong class="vizinho-numero">{{ .Params.numero }}</strong> {{ .Title }}</a>
+  {{ else }}<span></span>{{ end }}
+  {{ with $proximo }}
+    <a href="{{ .RelPermalink }}{{ $sufixo }}" class="vizinho-proximo"><span>Próximo</span><strong class="vizinho-numero">{{ .Params.numero }}</strong> {{ .Title }}</a>
+  {{ end }}
+</nav>
