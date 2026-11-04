@@ -127,9 +127,8 @@ h1, h2 {
 }
 
 .rotulo {
-  margin: 0 0 6px;
+  margin: 0 0 8px;
   font-size: 16px;
-  font-style: italic;
   color: var(--suave);
 }
 
@@ -142,7 +141,6 @@ h1, h2 {
 .subtitulo {
   margin: 4px 0 0;
   text-align: center;
-  font-style: italic;
   color: var(--suave);
 }
 
@@ -167,7 +165,7 @@ h1, h2 {
 
 .botao {
   min-height: 48px;
-  padding: 0 18px;
+  padding: 0 20px;
   border-radius: 8px;
   cursor: pointer;
 }
@@ -189,7 +187,7 @@ h1, h2 {
   border: 0;
   background: none;
   color: var(--destaque);
-  font-size: 17px;
+  font-size: 18px;
   text-decoration: underline;
   text-underline-offset: 3px;
   cursor: pointer;
@@ -207,7 +205,7 @@ h1, h2 {
   background: var(--superficie);
   color: var(--tinta);
   font-size: 18px;
-  font-weight: 600;
+  font-weight: 500;
   text-decoration: none;
   cursor: pointer;
 }
@@ -248,9 +246,7 @@ h1, h2 {
 }
 
 .marca-site {
-  font-size: 12px;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
+  font-size: 14px;
   color: var(--suave);
 }
 
@@ -309,8 +305,8 @@ h1, h2 {
 .numero-abrir {
   width: 100%;
   min-height: 56px;
-  margin-top: 10px;
-  padding: 0 18px;
+  margin-top: 12px;
+  padding: 0 20px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -364,7 +360,7 @@ pagefind-searchbox {
   padding: 8px 12px;
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 16px;
   border-radius: 6px;
   background: var(--realce);
   color: var(--tinta);
@@ -405,11 +401,11 @@ pagefind-searchbox {
 }
 
 .atalho-numero kbd {
-  padding: 1px 6px;
+  padding: 1px 8px;
   border: 1px solid var(--contorno);
   border-radius: 4px;
   font-family: inherit;
-  font-size: 13px;
+  font-size: 14px;
   color: var(--suave);
 }
 
@@ -419,7 +415,7 @@ pagefind-searchbox .pf-searchbox-footer {
 
 pagefind-searchbox .pf-searchbox-result {
   min-height: 60px !important;
-  padding: 10px 12px !important;
+  padding: 12px 12px !important;
 }
 
 pagefind-searchbox .pf-searchbox-result-title {
@@ -474,9 +470,9 @@ pagefind-searchbox .pf-searchbox-result-excerpt {
 .lista-hinos a {
   flex-grow: 1;
   min-height: 48px;
-  padding: 10px 0;
+  padding: 12px 0;
   display: flex;
-  gap: 14px;
+  gap: 16px;
   align-items: baseline;
   color: var(--tinta);
   text-decoration: none;
@@ -517,7 +513,7 @@ pagefind-searchbox .pf-searchbox-result-excerpt {
 }
 
 .grade-categorias {
-  margin-top: 14px;
+  margin-top: 16px;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 8px;
@@ -525,7 +521,7 @@ pagefind-searchbox .pf-searchbox-result-excerpt {
 
 .grade-categorias a {
   min-height: 72px;
-  padding: 12px 14px;
+  padding: 12px 16px;
   border: 1px solid var(--linha);
   border-radius: 8px;
   background: var(--superficie);
@@ -540,6 +536,8 @@ pagefind-searchbox .pf-searchbox-result-excerpt {
 .grade-categorias em {
   font-size: 15px;
   color: var(--suave);
+  font-style: normal;
+  font-variant-numeric: lining-nums tabular-nums;
 }
 
 .lista-hinos {
@@ -554,9 +552,7 @@ pagefind-searchbox .pf-searchbox-result-excerpt {
 
 .publicidade-rotulo {
   margin: 0 0 4px;
-  font-size: 11px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
+  font-size: 12px;
   color: var(--suave);
 }
 
@@ -564,6 +560,18 @@ pagefind-searchbox .pf-searchbox-result-excerpt {
   display: flex;
   justify-content: center;
   overflow: hidden;
+}
+
+.publicidade-espaco[data-vitrine-state="empty"],
+.publicidade-espaco[data-vitrine-state="error"],
+.publicidade-espaco:has(ins.adsbygoogle[data-ad-status]) {
+  min-height: 0 !important;
+}
+
+.publicidade:has(.publicidade-espaco[data-vitrine-state="empty"], .publicidade-espaco[data-vitrine-state="error"]),
+.destaque-lofi:has([data-vitrine-state="empty"], [data-vitrine-state="error"]),
+ins.adsbygoogle[data-ad-status="unfilled"] {
+  display: none !important;
 }
 
 .publicidade-exemplo {
@@ -622,7 +630,7 @@ pagefind-searchbox .pf-searchbox-result-excerpt {
 
 
 .cabecalho-hino {
-  padding: 18px 28px 20px;
+  padding: 20px 28px 20px;
   text-align: center;
 }
 
@@ -635,24 +643,22 @@ pagefind-searchbox .pf-searchbox-result-excerpt {
 }
 
 .cabecalho-hino h1 {
-  margin: 10px 0 0;
+  margin: 12px 0 0;
   font-size: 28px;
 }
 
 .hino-categorias {
-  margin: 10px 0 0;
+  margin: 12px 0 0;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 0 18px;
+  gap: 0 20px;
   font-size: 18px;
-  font-variant-caps: all-small-caps;
-  letter-spacing: 0.08em;
 }
 
 .hino-categorias a {
   display: inline-block;
-  padding: 6px 2px;
+  padding: 8px 2px;
   color: var(--suave);
   text-decoration: none;
 }
@@ -664,7 +670,6 @@ pagefind-searchbox .pf-searchbox-result-excerpt {
 .hino-ficha {
   margin: 8px 0 0;
   font-size: 16px;
-  font-style: italic;
   color: var(--suave);
 }
 
@@ -681,7 +686,7 @@ pagefind-searchbox .pf-searchbox-result-excerpt {
 .player-topo {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 16px;
 }
 
 .player-tocar {
@@ -755,18 +760,18 @@ pagefind-searchbox .pf-searchbox-result-excerpt {
 }
 
 .player .rotulo {
-  margin: 14px 0 6px;
+  margin: 16px 0 8px;
 }
 
 .player-escolhas {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
+  gap: 8px;
 }
 
 .player-escolhas button {
   min-height: 40px;
-  padding: 0 14px;
+  padding: 0 16px;
   border: 1px dashed var(--contorno);
   border-radius: 20px;
   background: transparent;
@@ -853,7 +858,7 @@ body:has(.pagina-letra) .player-vozes button:focus-visible {
   align-items: center;
   justify-content: space-between;
   gap: 8px;
-  font-size: 17px;
+  font-size: 18px;
 }
 
 body:has(.pagina-letra) :is(.so-cifra, .so-partitura, .sem-letra),
@@ -876,7 +881,7 @@ body:has(.pagina-partitura) :is(.so-letra, .so-cifra, .sem-partitura) {
 
 .player-tom .botao-texto {
   min-height: 0;
-  margin-left: 6px;
+  margin-left: 8px;
   font-size: 14px;
 }
 
@@ -933,13 +938,13 @@ body:has(.pagina-partitura) :is(.so-letra, .so-cifra, .sem-partitura) {
 .player-passos .player-andamento,
 .player-passos .player-tom {
   min-height: 0;
-  padding: 6px 8px;
+  padding: 8px 8px;
   flex-direction: column;
   align-items: stretch;
   gap: 4px;
   border: 1px solid var(--linha);
   border-radius: 10px;
-  font-size: 13px;
+  font-size: 14px;
   color: var(--suave);
 }
 
@@ -954,7 +959,7 @@ body:has(.pagina-partitura) :is(.so-letra, .so-cifra, .sem-partitura) {
   width: 30px;
   height: 30px;
   border-radius: 15px;
-  font-size: 17px;
+  font-size: 18px;
 }
 
 .player-passos span[data-player-andamento],
@@ -966,7 +971,7 @@ body:has(.pagina-partitura) :is(.so-letra, .so-cifra, .sem-partitura) {
 
 .player-passos .player-tom .botao-texto {
   margin-left: 4px;
-  font-size: 13px;
+  font-size: 14px;
 }
 
 .cifra-controles {
@@ -1036,9 +1041,8 @@ body:has(.pagina-partitura) :is(.so-letra, .so-cifra, .sem-partitura) {
 }
 
 .introducao-convite {
-  margin: 22px 0 0;
-  font-size: 17px;
-  font-style: italic;
+  margin: 24px 0 0;
+  font-size: 18px;
   color: var(--suave);
 }
 
@@ -1216,7 +1220,7 @@ body:has(.pagina-partitura) :is(.so-letra, .so-cifra, .sem-partitura) {
 .player-tela-rotulo {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
 }
 
 .dica {
@@ -1261,7 +1265,7 @@ body:has(.pagina-partitura) :is(.so-letra, .so-cifra, .sem-partitura) {
   left: 50%;
   width: 240px;
   transform: translateX(-50%);
-  padding: 10px 12px;
+  padding: 12px 12px;
   border: 1px solid var(--linha);
   border-radius: 8px;
   background: var(--superficie);
@@ -1289,7 +1293,7 @@ body:has(.pagina-partitura) :is(.so-letra, .so-cifra, .sem-partitura) {
 
 .letra li {
   margin: 0 0 1.1em;
-  padding: 6px 8px 6px 4px;
+  padding: 8px 8px 8px 4px;
   border-radius: 8px;
   cursor: pointer;
 }
@@ -1355,7 +1359,7 @@ body:has(.pagina-partitura) :is(.so-letra, .so-cifra, .sem-partitura) {
 
 .lofi {
   margin: 32px 16px 0;
-  padding: 14px;
+  padding: 16px;
   display: flex;
   align-items: center;
   gap: 12px;
@@ -1398,14 +1402,14 @@ body:has(.pagina-partitura) :is(.so-letra, .so-cifra, .sem-partitura) {
 
 .lofi-album {
   min-height: 44px;
-  padding: 0 14px;
+  padding: 0 16px;
   display: flex;
   align-items: center;
   border: 1px solid #8E7CA8;
   border-radius: 22px;
   color: #F4ECE6;
   font-size: 14px;
-  font-weight: 700;
+  font-weight: 500;
   text-decoration: none;
 }
 
@@ -1454,7 +1458,7 @@ body:has(.pagina-partitura) :is(.so-letra, .so-cifra, .sem-partitura) {
   margin-top: 24px;
   padding-bottom: 24px;
   display: flex;
-  gap: 18px;
+  gap: 20px;
   align-items: flex-start;
   border-bottom: 1px solid var(--linha);
 }
@@ -1473,14 +1477,13 @@ body:has(.pagina-partitura) :is(.so-letra, .so-cifra, .sem-partitura) {
 }
 
 .lofi-cabecalho-detalhe {
-  margin: 6px 0 0;
+  margin: 8px 0 0;
   font-size: 18px;
-  font-style: italic;
   color: var(--suave);
 }
 
 .lofi-perfis {
-  margin-top: 14px;
+  margin-top: 16px;
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
@@ -1494,7 +1497,7 @@ body:has(.pagina-partitura) :is(.so-letra, .so-cifra, .sem-partitura) {
   border: 1px solid var(--contorno);
   border-radius: 20px;
   color: var(--tinta);
-  font-size: 17px;
+  font-size: 18px;
   text-decoration: none;
 }
 
@@ -1514,12 +1517,11 @@ body:has(.pagina-partitura) :is(.so-letra, .so-cifra, .sem-partitura) {
 
 .lofi-disco-detalhe {
   margin: 4px 0 0;
-  font-style: italic;
   color: var(--suave);
 }
 
 .lofi-disco-botoes {
-  margin-top: 6px;
+  margin-top: 8px;
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
@@ -1539,7 +1541,7 @@ body:has(.pagina-partitura) :is(.so-letra, .so-cifra, .sem-partitura) {
 .lofi-ouvir {
   margin-top: 8px;
   min-height: 44px;
-  padding: 0 18px;
+  padding: 0 20px;
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -1585,7 +1587,7 @@ body:has(.pagina-partitura) :is(.so-letra, .so-cifra, .sem-partitura) {
   padding: 0 12px;
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
   flex-shrink: 0;
   border: 1px solid var(--contorno);
   border-radius: 18px;
@@ -1596,7 +1598,6 @@ body:has(.pagina-partitura) :is(.so-letra, .so-cifra, .sem-partitura) {
 .lofi-aviso {
   margin: 20px 0 0;
   font-size: 15px;
-  font-style: italic;
   color: var(--suave);
 }
 
@@ -1612,7 +1613,7 @@ body:has(.pagina-partitura) :is(.so-letra, .so-cifra, .sem-partitura) {
 
 .vizinhos a {
   min-height: 72px;
-  padding: 14px 20px;
+  padding: 16px 20px;
   font-size: 18px;
   text-decoration: none;
 }
@@ -1641,13 +1642,13 @@ body:has(.pagina-partitura) :is(.so-letra, .so-cifra, .sem-partitura) {
   margin: 16px -20px 0;
   padding: 0 20px 4px;
   display: flex;
-  gap: 6px;
+  gap: 8px;
   overflow-x: auto;
 }
 
 .chips a {
   min-height: 40px;
-  padding: 0 14px;
+  padding: 0 16px;
   display: inline-flex;
   align-items: center;
   flex-shrink: 0;
@@ -1666,7 +1667,7 @@ body:has(.pagina-partitura) :is(.so-letra, .so-cifra, .sem-partitura) {
 }
 
 .cabecalho-categoria {
-  padding: 20px 0 18px;
+  padding: 20px 0 20px;
   text-align: center;
 }
 
@@ -1684,7 +1685,7 @@ body:has(.pagina-partitura) :is(.so-letra, .so-cifra, .sem-partitura) {
 }
 
 .menu-cartao {
-  padding: 14px 16px 8px;
+  padding: 16px 16px 8px;
 }
 
 .menu-cartao-titulo {
@@ -1720,13 +1721,15 @@ body:has(.pagina-partitura) :is(.so-letra, .so-cifra, .sem-partitura) {
 
 .categorias-lista a[aria-current="page"] {
   color: var(--destaque);
-  font-weight: 600;
+  font-weight: 500;
 }
 
 .categorias-lista em {
   font-size: 15px;
   color: var(--suave);
   font-variant-numeric: lining-nums;
+  font-style: normal;
+  font-variant-numeric: lining-nums tabular-nums;
 }
 
 .relatorio-cartao {
@@ -1735,7 +1738,7 @@ body:has(.pagina-partitura) :is(.so-letra, .so-cifra, .sem-partitura) {
 
 .relatorio-cartao p {
   margin: 0 0 12px;
-  font-size: 17px;
+  font-size: 18px;
   line-height: 1.35;
   color: var(--suave);
 }
@@ -1760,10 +1763,10 @@ body:has(.pagina-partitura) :is(.so-letra, .so-cifra, .sem-partitura) {
 
 .relatorio-linha {
   margin-top: 24px;
-  padding: 14px 16px;
+  padding: 16px 16px;
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 16px;
   color: var(--tinta);
   text-decoration: none;
 }
@@ -1806,7 +1809,7 @@ body:has(.pagina-partitura) :is(.so-letra, .so-cifra, .sem-partitura) {
   padding: 0;
   display: flex;
   flex-wrap: wrap;
-  gap: 0 18px;
+  gap: 0 20px;
   list-style: none;
 }
 
@@ -1857,7 +1860,7 @@ body:has(.pagina-partitura) :is(.so-letra, .so-cifra, .sem-partitura) {
   min-height: 44px;
   display: inline-flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   color: var(--tinta);
   font-size: 22px;
   font-weight: 500;
@@ -1869,7 +1872,7 @@ body:has(.pagina-partitura) :is(.so-letra, .so-cifra, .sem-partitura) {
 }
 
 .rodape-marca p {
-  margin: 6px 0 0;
+  margin: 8px 0 0;
   max-width: 300px;
   font-size: 16px;
   line-height: 1.45;
@@ -1880,7 +1883,6 @@ body:has(.pagina-partitura) :is(.so-letra, .so-cifra, .sem-partitura) {
   margin: 0 0 2px;
   font-size: 16px;
   font-weight: 400;
-  font-style: italic;
   color: var(--suave);
 }
 
@@ -1917,14 +1919,14 @@ body:has(.pagina-partitura) :is(.so-letra, .so-cifra, .sem-partitura) {
   color: var(--destaque);
   font: inherit;
   font-size: 18px;
-  font-weight: 600;
+  font-weight: 500;
   text-align: left;
   cursor: pointer;
 }
 
 .rodape-base {
-  margin: 26px 20px 0;
-  padding: 18px 0 28px;
+  margin: 28px 20px 0;
+  padding: 20px 0 28px;
   border-top: 1px solid var(--linha);
 }
 
@@ -1932,7 +1934,7 @@ body:has(.pagina-partitura) :is(.so-letra, .so-cifra, .sem-partitura) {
   min-height: 44px;
   display: inline-flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   color: var(--suave);
   font-size: 16px;
   text-decoration: none;
@@ -1976,7 +1978,6 @@ body:has(.pagina-partitura) :is(.so-letra, .so-cifra, .sem-partitura) {
 
 .transicao-rotulo {
   font-size: 22px;
-  font-style: italic;
   color: #E9CFC9;
 }
 
@@ -1988,7 +1989,7 @@ body:has(.pagina-partitura) :is(.so-letra, .so-cifra, .sem-partitura) {
 }
 
 .transicao .ornamento {
-  margin: 14px auto;
+  margin: 16px auto;
 }
 
 .transicao .ornamento path {
@@ -2000,7 +2001,7 @@ body:has(.pagina-partitura) :is(.so-letra, .so-cifra, .sem-partitura) {
 }
 
 .transicao-titulo {
-  font-size: 34px;
+  font-size: 36px;
   line-height: 1.15;
 }
 
@@ -2043,7 +2044,7 @@ body:has(.pagina-partitura) :is(.so-letra, .so-cifra, .sem-partitura) {
   gap: 12px;
   border-top: 1px solid var(--linha);
   background: var(--superficie);
-  font-size: 17px;
+  font-size: 18px;
 }
 
 .aviso-cookies p {
@@ -2107,7 +2108,7 @@ body.com-aviso {
 
 .sem-sinal {
   margin: 0;
-  padding: 10px 20px;
+  padding: 12px 20px;
   background: var(--realce);
   font-size: 16px;
   text-align: center;
@@ -2120,10 +2121,10 @@ body.com-aviso {
 
 .busca-sem-sinal {
   margin: 8px 0 0;
-  padding: 12px 14px;
+  padding: 12px 16px;
   border-radius: 8px;
   background: var(--realce);
-  font-size: 17px;
+  font-size: 18px;
   line-height: 1.4;
 }
 
@@ -2155,7 +2156,7 @@ body.com-aviso {
 }
 
 .sem-internet p {
-  margin: 6px 0 0;
+  margin: 8px 0 0;
   font-size: 16px;
   line-height: 1.4;
 }
@@ -2172,7 +2173,7 @@ body.com-aviso {
   min-height: 44px;
   border-radius: 22px;
   font: inherit;
-  font-size: 17px;
+  font-size: 18px;
   font-weight: 500;
 }
 
@@ -2182,14 +2183,14 @@ body.com-aviso {
 
 .sem-internet-como {
   display: block;
-  margin-top: 6px;
+  margin-top: 8px;
   text-align: center;
   font-size: 15px;
 }
 
 .sem-internet-barra {
   height: 4px;
-  margin-top: 10px;
+  margin-top: 12px;
   border-radius: 2px;
   background: var(--realce);
 }
@@ -2202,7 +2203,6 @@ body.com-aviso {
 }
 
 .sem-internet-guardados {
-  font-style: italic;
   color: var(--suave);
 }
 
@@ -2223,7 +2223,7 @@ body.com-aviso {
 .pagina-sem-internet h2,
 .pagina-texto h2 {
   margin: 28px 0 0;
-  font-size: 23px;
+  font-size: 24px;
   font-weight: 500;
 }
 
@@ -2260,28 +2260,26 @@ body.com-aviso {
 
 .sem-internet-nota,
 .sem-internet-sem-suporte {
-  font-style: italic;
   color: var(--suave);
 }
 
 .pagina-sem-internet .sem-internet p {
-  font-size: 17px;
+  font-size: 18px;
 }
 
 .pagina-texto-resumo {
   margin: 12px 0 0;
-  font-style: italic;
   color: var(--suave);
 }
 
 .pagina-texto .pagina-texto-data {
-  margin: 6px 0 0;
+  margin: 8px 0 0;
   font-size: 16px;
   color: var(--suave);
 }
 
 .pagina-texto li + li {
-  margin-top: 6px;
+  margin-top: 8px;
 }
 
 .offline-nome {
@@ -2300,7 +2298,7 @@ body.com-aviso {
   }
 
   .topo {
-    padding: 20px 40px;
+    padding: 20px max(40px, calc((100% - 1360px) / 2 + 40px));
     gap: 32px;
   }
 
@@ -2452,7 +2450,6 @@ body.com-aviso {
 
   .player .player-ajustes-topo .rotulo {
     font-size: 16px;
-    font-style: italic;
     font-weight: 400;
     color: var(--suave);
   }
@@ -2496,7 +2493,7 @@ body.com-aviso {
   .player-andamento span[data-player-andamento],
   .player-tom span[data-tom-nome],
   .player-capotraste span[data-cifra-capo-nome] {
-    font-size: 17px;
+    font-size: 18px;
   }
 
   .player-passos .player-andamento,
@@ -2506,7 +2503,7 @@ body.com-aviso {
 
   .player-passos .player-andamento,
   .player-passos .player-tom {
-    padding: 6px;
+    padding: 8px;
   }
 
   .player-passos .player-andamento button,
@@ -2530,7 +2527,7 @@ body.com-aviso {
 
   .todos {
     margin-top: 0;
-    padding-top: 14px;
+    padding-top: 16px;
   }
 
 
@@ -2632,7 +2629,7 @@ body.com-aviso {
   align-items: center;
   justify-content: center;
   border-bottom: 3px solid transparent;
-  font-size: 17px;
+  font-size: 18px;
   color: var(--suave);
   text-decoration: none;
 }
@@ -2643,7 +2640,7 @@ body.com-aviso {
 
 .abas a[aria-current="page"] {
   border-bottom-color: var(--destaque);
-  font-weight: 600;
+  font-weight: 500;
   color: var(--tinta);
 }
 
@@ -2652,7 +2649,7 @@ body.com-aviso {
 .pagina-hino .partitura { order: 6; }
 
 .pagina-aba .cabecalho-hino {
-  padding: 14px 16px 0;
+  padding: 16px 16px 0;
   display: flex;
   align-items: baseline;
   gap: 12px;
@@ -2680,7 +2677,7 @@ body.com-aviso {
 }
 
 .pagina-aba .abas {
-  margin-top: 10px;
+  margin-top: 12px;
 }
 
 .cifra {
@@ -2697,7 +2694,7 @@ body.com-aviso {
 
 .acorde-cartao {
   margin: 0;
-  padding: 8px 6px 6px;
+  padding: 8px 8px 8px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -2722,15 +2719,13 @@ body.com-aviso {
 }
 
 .cifra-letra {
-  margin-top: 14px;
+  margin-top: 16px;
   font-size: calc(19px * var(--escala));
 }
 
 .cifra-rotulo {
-  margin: 18px 0 4px;
+  margin: 20px 0 4px;
   font-size: 15px;
-  letter-spacing: 0.08em;
-  font-variant-caps: all-small-caps;
   color: var(--suave);
 }
 
@@ -2739,7 +2734,7 @@ body.com-aviso {
 }
 
 .cifra-linha {
-  margin: 0 0 6px;
+  margin: 0 0 8px;
   display: flex;
   flex-wrap: wrap;
   align-items: flex-end;
@@ -2757,7 +2752,7 @@ body.com-aviso {
 
 .acorde {
   min-height: 1.3em;
-  padding-right: 6px;
+  padding-right: 8px;
   font: 700 0.74em/1.3 var(--sem-serifa);
   color: var(--destaque);
 }
@@ -2804,7 +2799,7 @@ body.com-aviso {
   margin: 0;
   display: flex;
   flex-wrap: wrap;
-  gap: 2px 10px;
+  gap: 2px 12px;
 }
 
 .cifra-introducao .acorde {
@@ -2813,14 +2808,9 @@ body.com-aviso {
 
 .cifra-batida,
 .avisar-erro {
-  margin: 18px 0 0;
+  margin: 20px 0 0;
   font-size: 15px;
-  font-style: italic;
   color: var(--suave);
-}
-
-.avisar-erro a {
-  font-style: normal;
 }
 
 .acorde-desenho svg {
@@ -2874,12 +2864,12 @@ body.com-aviso {
 
 
 .partitura {
-  padding: 10px 16px 0;
+  padding: 12px 16px 0;
 }
 
 
 .partitura-folhas {
-  margin-top: 10px;
+  margin-top: 12px;
   padding: 8px 0;
   min-height: 240px;
   border: 1px solid var(--linha);
@@ -2892,7 +2882,6 @@ body.com-aviso {
   margin: 0;
   padding: 80px 16px;
   text-align: center;
-  font-style: italic;
   color: var(--suave);
 }
 
@@ -2937,7 +2926,7 @@ body.com-aviso {
 .partitura-folha g.verse.cantando {
   color: var(--destaque) !important;
   fill: var(--destaque) !important;
-  font-weight: 700;
+  font-weight: 600;
 }
 
 
@@ -2999,7 +2988,7 @@ body.com-aviso {
 .aba-baixar .botao-texto {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
   font-size: 16px;
 }
 
@@ -3022,7 +3011,7 @@ body.com-aviso {
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 8px;
 }
 
 .extensao-vozes li {
@@ -3048,7 +3037,7 @@ body.com-aviso {
   top: 0;
   height: 24px;
   min-width: max-content;
-  padding: 0 10px;
+  padding: 0 12px;
   display: flex;
   align-items: center;
   border-radius: 12px;
@@ -3067,7 +3056,7 @@ body.com-aviso {
 .extensao-eixo {
   position: relative;
   height: 20px;
-  margin: 6px 0 0 88px;
+  margin: 8px 0 0 88px;
   border-top: 1px solid var(--linha);
   font-size: 12px;
   color: var(--suave);
@@ -3148,18 +3137,18 @@ body.com-aviso {
 }
 
 .tamanho-ampla label span {
-  font-size: 13px;
+  font-size: 14px;
   color: var(--suave);
 }
 
 .player-estudo .rotulo {
-  margin: 14px 0 6px;
+  margin: 16px 0 8px;
 }
 
 @media (max-width: 1023px) {
   .pagina-hino .player {
     margin-top: 12px;
-    padding: 12px 16px 14px;
+    padding: 12px 16px 16px;
   }
 
   .pagina-hino .player-tocar {
@@ -3172,7 +3161,7 @@ body.com-aviso {
   }
 
   .pagina-hino .player-estudo .player-vozes {
-    margin-top: 10px;
+    margin-top: 12px;
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
@@ -3180,6 +3169,11 @@ body.com-aviso {
   .pagina-hino .player-estudo .player-vozes button {
     padding: 0;
     font-size: 15px;
+  }
+
+  .pagina-letra .player-estudo .player-vozes {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 12px;
   }
 
   .pagina-partitura .relatorio-linha {
@@ -3199,7 +3193,7 @@ body.com-aviso {
   }
 
   .pagina-aba .cabecalho-hino h1 {
-    margin-top: 10px;
+    margin-top: 12px;
     font-size: 38px;
   }
 
@@ -3325,7 +3319,7 @@ body.com-aviso {
   }
 
   body:has(.pagina-cifra) .cifra-letra {
-    margin-top: 14px;
+    margin-top: 16px;
   }
 
   body:has(.pagina-cifra) .cifra-letra {
