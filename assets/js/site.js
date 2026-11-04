@@ -494,30 +494,38 @@
   }
 
   var aviso = document.getElementById('aviso-cookies');
-  if (aviso) {
-    var mostrarAviso = function () {
-      aviso.hidden = false;
-      document.body.classList.add('com-aviso');
+  var preferencias = document.getElementById('preferencias-cookies');
+  var consentimento = window.hinarioConsentimento;
+  if (aviso && preferencias && consentimento) {
+    var medicao = preferencias.querySelector('[data-consentimento-medicao]');
+    var anuncios = preferencias.querySelector('[data-consentimento-anuncios]');
+
+    var mostrarAviso = function (visivel) {
+      aviso.hidden = !visivel;
+      document.body.classList.toggle('com-aviso', visivel);
     };
-    if (!window.consentimento) mostrarAviso();
-    todos('[data-consentimento]', aviso).forEach(function (botao) {
-      botao.addEventListener('click', function () {
-        var escolha = botao.getAttribute('data-consentimento');
-        var estadoGoogle = escolha === 'aceito' ? 'granted' : 'denied';
-        try { localStorage.setItem('consentimento', escolha); } catch (e) {}
-        window.consentimento = escolha;
-        gtag('consent', 'update', {
-          ad_storage: estadoGoogle,
-          ad_user_data: estadoGoogle,
-          ad_personalization: estadoGoogle,
-          analytics_storage: estadoGoogle
-        });
-        aviso.hidden = true;
-        document.body.classList.remove('com-aviso');
-      });
-    });
-    todos('[data-consentimento-abrir]').forEach(function (botao) {
-      botao.addEventListener('click', mostrarAviso);
+
+    var escolher = function (escolha) {
+      consentimento.gravar(escolha);
+      mostrarAviso(false);
+      if (preferencias.open) preferencias.close();
+    };
+
+    if (!consentimento.guardado) mostrarAviso(true);
+
+    document.addEventListener('click', function (evento) {
+      var botao = evento.target.closest('[data-consentimento]');
+      if (!botao) return;
+      var acao = botao.getAttribute('data-consentimento');
+      if (acao === 'aceitar') escolher({ medicao: true, anuncios: true });
+      if (acao === 'recusar') escolher({ medicao: false, anuncios: false });
+      if (acao === 'salvar') escolher({ medicao: medicao.checked, anuncios: anuncios.checked });
+      if (acao === 'abrir') {
+        var atual = consentimento.ler() || { medicao: false, anuncios: false };
+        medicao.checked = atual.medicao;
+        anuncios.checked = atual.anuncios;
+        preferencias.showModal();
+      }
     });
   }
 })();

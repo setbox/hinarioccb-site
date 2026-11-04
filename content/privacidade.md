@@ -35,7 +35,7 @@ Quando você abre um hino, ou usa “Baixar os hinos” na página [Usar sem int
 
 ## Sua escolha sobre cookies
 
-Na primeira visita, um aviso pergunta se você aceita os cookies do Google Analytics e do Google AdSense. Até você escolher, e sempre que recusar, o Google Analytics funciona sem gravar cookies e os anúncios do Google AdSense são exibidos sem personalização. A escolha fica guardada no seu navegador. Para mudar de ideia, use “Preferências de cookies” no rodapé de qualquer página.
+Na primeira visita, um aviso pergunta o que você permite: a medição do Google Analytics e os anúncios personalizados do Google AdSense. Você pode aceitar tudo, recusar tudo ou escolher cada um. Até você escolher, e sempre que recusar, o Google Analytics nem é carregado e os anúncios do Google AdSense continuam aparecendo, só que sem personalização. A escolha fica guardada no seu navegador. Para mudar de ideia, use “Preferências de cookies” no rodapé de qualquer página.
 
 ## Cookies e publicidade
 

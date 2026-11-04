@@ -2038,28 +2038,126 @@ body:has(.pagina-partitura) :is(.so-letra, .so-cifra, .sem-partitura) {
   right: 0;
   bottom: 0;
   z-index: 40;
-  padding: 16px 20px;
+  padding: 16px 20px 20px;
   display: flex;
   flex-direction: column;
   gap: 12px;
   border-top: 1px solid var(--linha);
   background: var(--superficie);
-  font-size: 18px;
+}
+
+.aviso-cookies h2 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 500;
 }
 
 .aviso-cookies p {
-  margin: 0;
-  text-align: center;
+  margin: 4px 0 0;
+  font-size: 16px;
+  line-height: 1.4;
 }
 
 .aviso-cookies-botoes {
-  display: flex;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 8px;
 }
 
+.aviso-cookies-botoes .botao {
+  min-height: 44px;
+  color: var(--tinta);
+}
+
+.aviso-cookies-escolher {
+  grid-column: 1 / -1;
+  justify-self: center;
+}
+
 body.com-aviso {
-  padding-bottom: 180px;
+  padding-bottom: 280px;
+}
+
+.preferencias-cookies {
+  width: min(520px, calc(100% - 32px));
+  max-height: calc(100% - 32px);
+  padding: 20px 24px 24px;
+  border: 1px solid var(--linha);
+  border-radius: 16px;
+  background: var(--superficie);
+  color: var(--tinta);
+  box-shadow: 0 16px 48px rgba(43, 36, 32, 0.18);
+}
+
+.preferencias-cookies::backdrop {
+  background: rgba(43, 36, 32, 0.4);
+}
+
+.preferencias-cookies-topo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.preferencias-cookies-topo h2 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 500;
+}
+
+.preferencias-cookies-topo form {
+  margin: 0;
+}
+
+.preferencias-cookies-lista {
+  margin: 8px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.preferencias-cookies-lista li {
+  padding: 16px 0;
+  align-items: flex-start;
+  gap: 16px;
+  border-bottom: 1px solid var(--linha);
+}
+
+.preferencias-cookies-lista label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  cursor: pointer;
+}
+
+.preferencias-cookies-lista strong {
+  font-weight: 500;
+}
+
+.preferencias-cookies-lista label span {
+  font-size: 16px;
+  line-height: 1.4;
+  color: var(--suave);
+}
+
+.preferencias-cookies-lista input {
+  margin-top: 4px !important;
+}
+
+.preferencias-cookies-lista input:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.preferencias-cookies-botoes {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.preferencias-cookies-botoes .botao {
+  min-height: 48px;
 }
 
 :root.ampla .letra {
@@ -2597,12 +2695,30 @@ body.com-aviso {
   .aviso-cookies {
     flex-direction: row;
     align-items: center;
-    justify-content: center;
-    padding: 16px 40px;
+    gap: 32px;
+    padding: 16px max(40px, calc((100% - 1360px) / 2 + 40px));
+  }
+
+  .aviso-cookies-texto {
+    flex: 1;
+  }
+
+  .aviso-cookies-botoes {
+    display: flex;
+    align-items: center;
+  }
+
+  .aviso-cookies-botoes .botao {
+    width: 128px;
+  }
+
+  .aviso-cookies-escolher {
+    order: -1;
+    padding: 0 16px;
   }
 
   body.com-aviso {
-    padding-bottom: 96px;
+    padding-bottom: 128px;
   }
 }
 

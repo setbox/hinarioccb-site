@@ -47,19 +47,69 @@
 <script>
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
-var consentimento = null;
-try { consentimento = localStorage.getItem('consentimento'); } catch (e) {}
-var estado = consentimento === 'aceito' ? 'granted' : 'denied';
-gtag('consent', 'default', {
-  ad_storage: estado,
-  ad_user_data: estado,
-  ad_personalization: estado,
-  analytics_storage: estado
-});
-gtag('js', new Date());
-gtag('config', 'G-R3VKLGHS2N');
+(function () {
+  var ANALYTICS = 'G-R3VKLGHS2N';
+
+  function ler() {
+    var valor = null;
+    try { valor = localStorage.getItem('consentimento'); } catch (e) {}
+    if (valor === 'aceito') return { medicao: true, anuncios: true };
+    if (valor === 'recusado') return { medicao: false, anuncios: false };
+    try {
+      var escolha = JSON.parse(valor);
+      if (escolha && typeof escolha.medicao === 'boolean') return { medicao: escolha.medicao, anuncios: !!escolha.anuncios };
+    } catch (e) {}
+    return null;
+  }
+
+  function sinais(escolha) {
+    return {
+      analytics_storage: escolha.medicao ? 'granted' : 'denied',
+      ad_storage: escolha.anuncios ? 'granted' : 'denied',
+      ad_user_data: escolha.anuncios ? 'granted' : 'denied',
+      ad_personalization: escolha.anuncios ? 'granted' : 'denied'
+    };
+  }
+
+  function carregarMedicao() {
+    if (window.medicaoCarregada) return;
+    window.medicaoCarregada = true;
+    var script = document.createElement('script');
+    script.async = true;
+    script.src = 'https://www.googletagmanager.com/gtag/js?id=' + ANALYTICS;
+    document.head.appendChild(script);
+    gtag('js', new Date());
+    gtag('config', ANALYTICS);
+  }
+
+  function apagarCookiesDaMedicao() {
+    var dominio = location.hostname.replace(/^www\./, '');
+    document.cookie.split('; ').forEach(function (par) {
+      var nome = par.split('=')[0];
+      if (!/^_ga/.test(nome)) return;
+      document.cookie = nome + '=; Max-Age=0; Path=/';
+      document.cookie = nome + '=; Max-Age=0; Path=/; Domain=' + dominio;
+    });
+  }
+
+  var guardado = ler();
+  var atual = guardado || { medicao: false, anuncios: false };
+  gtag('consent', 'default', sinais(atual));
+  (window.adsbygoogle = window.adsbygoogle || []).requestNonPersonalizedAds = atual.anuncios ? 0 : 1;
+  if (atual.medicao) carregarMedicao();
+
+  window.hinarioConsentimento = {
+    guardado: guardado,
+    ler: ler,
+    gravar: function (escolha) {
+      try { localStorage.setItem('consentimento', JSON.stringify(escolha)); } catch (e) {}
+      gtag('consent', 'update', sinais(escolha));
+      window.adsbygoogle.requestNonPersonalizedAds = escolha.anuncios ? 0 : 1;
+      if (escolha.medicao) carregarMedicao(); else apagarCookiesDaMedicao();
+    }
+  };
+})();
 </script>
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-R3VKLGHS2N"></script>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6135599490918760"
      crossorigin="anonymous"></script>
 {{- if hugo.IsProduction }}
@@ -83,13 +133,46 @@ gtag('config', 'G-R3VKLGHS2N');
   <div class="transicao-barra" aria-hidden="true"><div></div></div>
 </div>
 
-<div id="aviso-cookies" class="aviso-cookies" hidden>
-  <p>Usamos cookies do Google Analytics e do Google AdSense para medir o acesso e exibir anúncios. Você pode aceitar ou recusar. Veja a <a href="{{ "privacidade/" | relURL }}">Política de Privacidade</a>.</p>
-  <div class="aviso-cookies-botoes">
-    <button type="button" class="botao botao-contorno" data-consentimento="recusado">Recusar</button>
-    <button type="button" class="botao botao-cheio" data-consentimento="aceito">Aceitar</button>
+<section id="aviso-cookies" class="aviso-cookies" aria-labelledby="aviso-cookies-titulo" hidden>
+  <div class="aviso-cookies-texto">
+    <h2 id="aviso-cookies-titulo">Cookies neste site</h2>
+    <p>Usamos o Google Analytics para saber quais páginas ajudam e anúncios do Google AdSense para manter o site no ar. Medição e anúncios personalizados só com a sua permissão. <a href="{{ "privacidade/" | relURL }}">Política de Privacidade</a></p>
   </div>
-</div>
+  <div class="aviso-cookies-botoes">
+    <button type="button" class="botao botao-contorno" data-consentimento="recusar">Recusar</button>
+    <button type="button" class="botao botao-contorno" data-consentimento="aceitar">Aceitar</button>
+    <button type="button" class="botao-texto aviso-cookies-escolher" data-consentimento="abrir">Escolher o que permitir</button>
+  </div>
+</section>
+
+<dialog id="preferencias-cookies" class="preferencias-cookies" aria-labelledby="preferencias-cookies-titulo">
+  <div class="preferencias-cookies-topo">
+    <h2 id="preferencias-cookies-titulo">Preferências de cookies</h2>
+    <form method="dialog">
+      <button class="botao-redondo" aria-label="Fechar">
+        <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="m5 5 10 10M15 5 5 15"></path></svg>
+      </button>
+    </form>
+  </div>
+  <ul class="preferencias-cookies-lista">
+    <li class="player-tela">
+      <label for="consentimento-essenciais"><strong>Essenciais</strong><span>Tema claro ou escuro, tamanho da letra e esta escolha. Sempre ativos.</span></label>
+      <input type="checkbox" role="switch" id="consentimento-essenciais" checked disabled>
+    </li>
+    <li class="player-tela">
+      <label for="consentimento-medicao"><strong>Medição</strong><span>Google Analytics: páginas vistas e origem da visita, sem nome nem e-mail.</span></label>
+      <input type="checkbox" role="switch" id="consentimento-medicao" data-consentimento-medicao>
+    </li>
+    <li class="player-tela">
+      <label for="consentimento-anuncios"><strong>Anúncios personalizados</strong><span>O Google AdSense escolhe anúncios pelo seu histórico. Desligado, os anúncios continuam, só que genéricos.</span></label>
+      <input type="checkbox" role="switch" id="consentimento-anuncios" data-consentimento-anuncios>
+    </li>
+  </ul>
+  <div class="preferencias-cookies-botoes">
+    <button type="button" class="botao botao-cheio" data-consentimento="salvar">Salvar escolhas</button>
+    <button type="button" class="botao botao-contorno" data-consentimento="aceitar">Aceitar tudo</button>
+  </div>
+</dialog>
 
 {{ $js := resources.Get "js/site.js" | minify | fingerprint }}
 <script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}"></script>
