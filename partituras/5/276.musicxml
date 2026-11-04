@@ -4,7 +4,7 @@
   <identification>
     <encoding>
       <software>MuseScore Studio 4.7.6</software>
-      <encoding-date>2026-11-03</encoding-date>
+      <encoding-date>2026-11-04</encoding-date>
       <supports element="accidental" type="yes" />
       <supports element="beam" type="yes" />
       <supports element="print" attribute="new-page" type="yes" value="yes" />
@@ -487,7 +487,7 @@
           </lyric>
         <lyric number="4" default-y="-118.99" relative-y="-30">
           <syllabic>single</syllabic>
-          <text>paz</text>
+          <text>Paz</text>
           </lyric>
         </note>
       <note default-x="138.54" default-y="-25">

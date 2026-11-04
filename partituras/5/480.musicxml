@@ -4,7 +4,7 @@
   <identification>
     <encoding>
       <software>MuseScore Studio 4.7.6</software>
-      <encoding-date>2026-11-03</encoding-date>
+      <encoding-date>2026-11-04</encoding-date>
       <supports element="accidental" type="yes" />
       <supports element="beam" type="yes" />
       <supports element="print" attribute="new-page" type="yes" value="yes" />
@@ -192,7 +192,7 @@
           <text>vens,</text>
           </lyric>
         <lyric number="2" default-x="2.55" default-y="-80.1" relative-y="-30">
-          <syllabic>middle</syllabic>
+          <syllabic>end</syllabic>
           <text>sos,</text>
           </lyric>
         <lyric number="3" default-y="-104.52" relative-y="-30">
@@ -225,7 +225,7 @@
           <text>a</text>
           </lyric>
         <lyric number="2" default-y="-80.1" relative-y="-30">
-          <syllabic>end</syllabic>
+          <syllabic>single</syllabic>
           <text>por</text>
           </lyric>
         <lyric number="3" default-y="-104.52" relative-y="-30">
@@ -293,8 +293,7 @@
           </lyric>
         <lyric number="2" default-y="-80.1" relative-y="-30">
           <syllabic>middle</syllabic>
-          <text>to,es</text>
-          </lyric>
+          <text>to,‿es</text></lyric>
         <lyric number="3" default-y="-104.52" relative-y="-30">
           <syllabic>end</syllabic>
           <text>guem</text>
@@ -1119,7 +1118,7 @@
           </lyric>
         <lyric number="3" default-y="-104.57" relative-y="-30">
           <syllabic>end</syllabic>
-          <text>ro</text>
+          <text>ros</text>
           </lyric>
         </note>
       <note default-x="103.93" default-y="-30">

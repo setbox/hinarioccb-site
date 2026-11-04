@@ -4,7 +4,7 @@
   <identification>
     <encoding>
       <software>MuseScore Studio 4.7.6</software>
-      <encoding-date>2026-11-03</encoding-date>
+      <encoding-date>2026-11-04</encoding-date>
       <supports element="accidental" type="yes" />
       <supports element="beam" type="yes" />
       <supports element="print" attribute="new-page" type="yes" value="yes" />
@@ -632,8 +632,8 @@
           <text>do</text>
           </lyric>
         <lyric number="3" default-x="2.41" default-y="-118.52" relative-y="-30">
-          <syllabic>middle</syllabic>
-          <text>t</text>
+          <syllabic>end</syllabic>
+          <text>to,</text>
           </lyric>
         </note>
       <note default-x="261.53" default-y="-20">
@@ -667,8 +667,8 @@
           <text>o</text>
           </lyric>
         <lyric number="3" default-y="-118.52" relative-y="-30">
-          <syllabic>end</syllabic>
-          <text>o,</text>
+          <syllabic>single</syllabic>
+          <text>o</text>
           </lyric>
         </note>
       <note default-x="323.92" default-y="-30">

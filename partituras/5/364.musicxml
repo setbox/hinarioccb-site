@@ -4,7 +4,7 @@
   <identification>
     <encoding>
       <software>MuseScore Studio 4.7.6</software>
-      <encoding-date>2026-11-03</encoding-date>
+      <encoding-date>2026-11-04</encoding-date>
       <supports element="accidental" type="yes" />
       <supports element="beam" type="yes" />
       <supports element="print" attribute="new-page" type="yes" value="yes" />
@@ -2009,7 +2009,7 @@
         <stem>up</stem>
         <lyric number="1" default-x="2.34" default-y="-59.99" relative-y="-30">
           <syllabic>end</syllabic>
-          <text>Lo</text>
+          <text>Lo,</text>
           </lyric>
         </note>
       <note default-x="105.57" default-y="-45">

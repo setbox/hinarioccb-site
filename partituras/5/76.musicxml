@@ -4,7 +4,7 @@
   <identification>
     <encoding>
       <software>MuseScore Studio 4.7.6</software>
-      <encoding-date>2026-11-03</encoding-date>
+      <encoding-date>2026-11-04</encoding-date>
       <supports element="accidental" type="yes" />
       <supports element="beam" type="yes" />
       <supports element="print" attribute="new-page" type="yes" value="yes" />
@@ -356,11 +356,11 @@
         <stem>up</stem>
         <lyric number="1" default-x="-0.38" default-y="-67.85" relative-y="-30">
           <syllabic>begin</syllabic>
-          <text>su</text>
+          <text>Su</text>
           </lyric>
         <lyric number="2" default-x="-0.38" default-y="-92.27" relative-y="-30">
           <syllabic>begin</syllabic>
-          <text>su</text>
+          <text>Su</text>
           </lyric>
         <lyric number="3" default-x="-0.38" default-y="-116.69" relative-y="-30">
           <syllabic>begin</syllabic>
@@ -610,7 +610,7 @@
           </lyric>
         <lyric number="2" default-y="-84.61" relative-y="-30">
           <syllabic>begin</syllabic>
-          <text>su</text>
+          <text>Su</text>
           </lyric>
         </note>
       <note default-x="143.75" default-y="-25">
@@ -923,7 +923,7 @@
         <stem>up</stem>
         <lyric number="2" default-y="-84.61" relative-y="-30">
           <syllabic>single</syllabic>
-          <text>mal,</text>
+          <text>mal</text>
           </lyric>
         <lyric number="1" default-x="0.38" default-y="-60.19" relative-y="-30">
           <syllabic>middle</syllabic>
@@ -945,7 +945,7 @@
         <stem>up</stem>
         <lyric number="1" default-y="-60.19" relative-y="-30">
           <syllabic>end</syllabic>
-          <text>gi</text>
+          <text>ge</text>
           </lyric>
         <lyric number="2" default-y="-84.61" relative-y="-30">
           <syllabic>single</syllabic>
@@ -1179,7 +1179,7 @@
           </lyric>
         <lyric number="1" default-x="0.38" default-y="-70.21" relative-y="-30">
           <syllabic>begin</syllabic>
-          <text>su</text>
+          <text>Su</text>
           </lyric>
         <lyric number="3" default-x="0.38" default-y="-119.05" relative-y="-30">
           <syllabic>single</syllabic>
@@ -1668,7 +1668,7 @@
           </lyric>
         <lyric number="2" default-x="0.38" default-y="-104.58" relative-y="-30">
           <syllabic>single</syllabic>
-          <text>céus ao</text>
+          <text>céus, ao</text>
           </lyric>
         <lyric number="3" default-x="2.7" default-y="-129" relative-y="-30">
           <syllabic>end</syllabic>

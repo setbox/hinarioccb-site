@@ -4,7 +4,7 @@
   <identification>
     <encoding>
       <software>MuseScore Studio 4.7.6</software>
-      <encoding-date>2026-11-03</encoding-date>
+      <encoding-date>2026-11-04</encoding-date>
       <supports element="accidental" type="yes" />
       <supports element="beam" type="yes" />
       <supports element="print" attribute="new-page" type="yes" value="yes" />
@@ -512,7 +512,7 @@
           <text>na</text>
           </lyric>
         <lyric number="2" default-x="2.37" default-y="-93.24" relative-y="-30">
-          <syllabic>middle</syllabic>
+          <syllabic>end</syllabic>
           <text>gram,</text>
           </lyric>
         <lyric number="3" default-y="-117.65" relative-y="-30">
@@ -547,7 +547,7 @@
           <text>di</text>
           </lyric>
         <lyric number="2" default-y="-93.24" relative-y="-30">
-          <syllabic>end</syllabic>
+          <syllabic>single</syllabic>
           <text>ó</text>
           </lyric>
         <lyric number="3" default-x="2.33" default-y="-117.65" relative-y="-30">
@@ -706,7 +706,7 @@
           </lyric>
         <lyric number="2" default-y="-75.09" relative-y="-30">
           <syllabic>begin</syllabic>
-          <text>tu</text>
+          <text>Tu</text>
           </lyric>
         <lyric number="3" default-y="-99.5" relative-y="-30">
           <syllabic>begin</syllabic>
@@ -1215,7 +1215,7 @@
         <stem>up</stem>
         <lyric number="1" default-y="-73.78" relative-y="-30">
           <syllabic>single</syllabic>
-          <text>teus</text>
+          <text>Teus</text>
           </lyric>
         <lyric number="2" default-y="-98.19" relative-y="-30">
           <syllabic>begin</syllabic>

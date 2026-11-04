@@ -4,7 +4,7 @@
   <identification>
     <encoding>
       <software>MuseScore Studio 4.7.6</software>
-      <encoding-date>2026-11-03</encoding-date>
+      <encoding-date>2026-11-04</encoding-date>
       <supports element="accidental" type="yes" />
       <supports element="beam" type="yes" />
       <supports element="print" attribute="new-page" type="yes" value="yes" />
@@ -396,8 +396,7 @@
           </lyric>
         <lyric number="2" default-y="-79.63" relative-y="-30">
           <syllabic>end</syllabic>
-          <text>se-o</text>
-          </lyric>
+          <text>se-o</text></lyric>
         <lyric number="3" default-y="-104.05" relative-y="-30">
           <syllabic>end</syllabic>
           <text>se‿o</text></lyric>
@@ -565,7 +564,7 @@
           </lyric>
         <lyric number="3" default-x="-0.38" default-y="-104.05" relative-y="-30">
           <syllabic>single</syllabic>
-          <text>È</text>
+          <text>É</text>
           </lyric>
         <lyric number="4" default-x="-0.38" default-y="-128.47" relative-y="-30">
           <syllabic>begin</syllabic>
@@ -595,7 +594,7 @@
         <stem>up</stem>
         <lyric number="1" default-y="-55.21" relative-y="-30">
           <syllabic>end</syllabic>
-          <text>te</text>
+          <text>se</text>
           </lyric>
         <lyric number="2" default-y="-79.63" relative-y="-30">
           <syllabic>end</syllabic>
@@ -852,7 +851,7 @@
           </lyric>
         <lyric number="4" default-y="-133.42" relative-y="-30">
           <syllabic>begin</syllabic>
-          <text>Sal</text>
+          <text>sal</text>
           </lyric>
         </note>
       <note default-x="123.08" default-y="-30">

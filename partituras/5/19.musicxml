@@ -4,7 +4,7 @@
   <identification>
     <encoding>
       <software>MuseScore Studio 4.7.6</software>
-      <encoding-date>2026-11-03</encoding-date>
+      <encoding-date>2026-11-04</encoding-date>
       <supports element="accidental" type="yes" />
       <supports element="beam" type="yes" />
       <supports element="print" attribute="new-page" type="yes" value="yes" />
@@ -788,15 +788,15 @@
         <stem>up</stem>
         <lyric number="1" default-y="-70.16" relative-y="-30">
           <syllabic>begin</syllabic>
-          <text>po</text>
+          <text>Po</text>
           </lyric>
         <lyric number="2" default-y="-94.57" relative-y="-30">
           <syllabic>begin</syllabic>
-          <text>po</text>
+          <text>Po</text>
           </lyric>
         <lyric number="3" default-y="-118.98" relative-y="-30">
           <syllabic>begin</syllabic>
-          <text>po</text>
+          <text>Po</text>
           </lyric>
         </note>
       <note default-x="320.63" default-y="-20">
@@ -1603,15 +1603,15 @@
         <stem>up</stem>
         <lyric number="1" default-y="-70.16" relative-y="-30">
           <syllabic>begin</syllabic>
-          <text>po</text>
+          <text>Po</text>
           </lyric>
         <lyric number="2" default-y="-94.57" relative-y="-30">
           <syllabic>begin</syllabic>
-          <text>po</text>
+          <text>Po</text>
           </lyric>
         <lyric number="3" default-y="-118.98" relative-y="-30">
           <syllabic>begin</syllabic>
-          <text>po</text>
+          <text>Po</text>
           </lyric>
         </note>
       <note default-x="320.19" default-y="-20">
@@ -1980,7 +1980,7 @@
         <stem>up</stem>
         <lyric number="1" default-y="-52.43" relative-y="-30">
           <syllabic>single</syllabic>
-          <text>po</text>
+          <text>Po</text>
           </lyric>
         </note>
       <note default-x="357.56" default-y="-35">

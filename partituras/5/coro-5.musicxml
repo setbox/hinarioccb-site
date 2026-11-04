@@ -4,7 +4,7 @@
   <identification>
     <encoding>
       <software>MuseScore Studio 4.7.6</software>
-      <encoding-date>2026-11-03</encoding-date>
+      <encoding-date>2026-11-04</encoding-date>
       <supports element="accidental" type="yes" />
       <supports element="beam" type="yes" />
       <supports element="print" attribute="new-page" type="yes" value="yes" />
@@ -721,7 +721,7 @@
           </notations>
         <lyric number="1" default-x="2.47" default-y="-65.59" relative-y="-30">
           <syllabic>end</syllabic>
-          <text>sus!</text>
+          <text>sus;</text>
           </lyric>
         </note>
       <note default-x="12" default-y="-35">
@@ -879,7 +879,7 @@
         <stem>up</stem>
         <lyric number="1" default-x="2.45" default-y="-65.59" relative-y="-30">
           <syllabic>single</syllabic>
-          <text>deu</text>
+          <text>deu,</text>
           </lyric>
         </note>
       <note default-x="121.59" default-y="-10">

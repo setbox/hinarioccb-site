@@ -4,7 +4,7 @@
   <identification>
     <encoding>
       <software>MuseScore Studio 4.7.6</software>
-      <encoding-date>2026-11-03</encoding-date>
+      <encoding-date>2026-11-04</encoding-date>
       <supports element="accidental" type="yes" />
       <supports element="beam" type="yes" />
       <supports element="print" attribute="new-page" type="yes" value="yes" />
@@ -289,7 +289,7 @@
         <stem>up</stem>
         <lyric number="1" default-x="-0.38" default-y="-60.21" relative-y="-30">
           <syllabic>end</syllabic>
-          <text>vi,</text>
+          <text>vi</text>
           </lyric>
         <lyric number="2" default-x="-0.38" default-y="-84.63" relative-y="-30">
           <syllabic>middle</syllabic>
@@ -382,7 +382,7 @@
           </notations>
         <lyric number="1" default-x="2.46" default-y="-60.21" relative-y="-30">
           <syllabic>end</syllabic>
-          <text>do</text>
+          <text>do,</text>
           </lyric>
         <lyric number="2" default-y="-84.63" relative-y="-30">
           <syllabic>end</syllabic>
@@ -524,7 +524,7 @@
         <stem>up</stem>
         <lyric number="1" default-y="-60.21" relative-y="-30">
           <syllabic>end</syllabic>
-          <text>de e</text>
+          <text>de</text>
           </lyric>
         <lyric number="2" default-y="-84.63" relative-y="-30">
           <syllabic>end</syllabic>

@@ -4,7 +4,7 @@
   <identification>
     <encoding>
       <software>MuseScore Studio 4.7.6</software>
-      <encoding-date>2026-11-03</encoding-date>
+      <encoding-date>2026-11-04</encoding-date>
       <supports element="accidental" type="yes" />
       <supports element="beam" type="yes" />
       <supports element="print" attribute="new-page" type="yes" value="yes" />
@@ -258,7 +258,7 @@
           <text>éis,</text>
           </lyric>
         <lyric number="3" default-x="2.45" default-y="-99.28" relative-y="-30">
-          <syllabic>middle</syllabic>
+          <syllabic>end</syllabic>
           <text>éis,</text>
           </lyric>
         </note>
@@ -291,7 +291,7 @@
           <text>re</text>
           </lyric>
         <lyric number="3" default-y="-99.28" relative-y="-30">
-          <syllabic>middle</syllabic>
+          <syllabic>begin</syllabic>
           <text>re</text>
           </lyric>
         </note>
@@ -765,7 +765,7 @@
           <text>mam</text>
           </lyric>
         <lyric number="3" default-x="2.35" default-y="-99.28" relative-y="-30">
-          <syllabic>middle</syllabic>
+          <syllabic>end</syllabic>
           <text>tem,</text>
           </lyric>
         </note>
@@ -798,7 +798,7 @@
           <text>com</text>
           </lyric>
         <lyric number="3" default-y="-99.28" relative-y="-30">
-          <syllabic>end</syllabic>
+          <syllabic>single</syllabic>
           <text>ó</text>
           </lyric>
         </note>
@@ -938,7 +938,7 @@
           <text>vor:</text>
           </lyric>
         <lyric number="3" default-x="2.35" default-y="-99.28" relative-y="-30">
-          <syllabic>middle</syllabic>
+          <syllabic>end</syllabic>
           <text>tor,</text>
           </lyric>
         </note>
@@ -1010,10 +1010,10 @@
           </lyric>
         <lyric number="2" default-y="-74.95" relative-y="-30">
           <syllabic>begin</syllabic>
-          <text>A</text>
+          <text>a</text>
           </lyric>
         <lyric number="3" default-y="-99.28" relative-y="-30">
-          <syllabic>middle</syllabic>
+          <syllabic>begin</syllabic>
           <text>ce</text>
           </lyric>
         </note>
@@ -1073,11 +1073,11 @@
         <type>eighth</type>
         <stem>up</stem>
         <lyric number="1" default-x="2.32" default-y="-50.63" relative-y="-30">
-          <syllabic>middle</syllabic>
+          <syllabic>end</syllabic>
           <text>ram,</text>
           </lyric>
         <lyric number="2" default-x="2.49" default-y="-74.95" relative-y="-30">
-          <syllabic>middle</syllabic>
+          <syllabic>end</syllabic>
           <text>de,</text>
           </lyric>
         <lyric number="3" default-y="-99.28" relative-y="-30">
@@ -1106,11 +1106,11 @@
         <type>quarter</type>
         <stem>up</stem>
         <lyric number="1" default-y="-50.63" relative-y="-30">
-          <syllabic>end</syllabic>
+          <syllabic>single</syllabic>
           <text>ó</text>
           </lyric>
         <lyric number="2" default-y="-74.95" relative-y="-30">
-          <syllabic>end</syllabic>
+          <syllabic>single</syllabic>
           <text>ó</text>
           </lyric>
         <lyric number="3" default-y="-99.28" relative-y="-30">
@@ -1304,7 +1304,7 @@
         <type>eighth</type>
         <stem>up</stem>
         <lyric number="1" default-x="2.45" default-y="-50.16" relative-y="-30">
-          <syllabic>middle</syllabic>
+          <syllabic>end</syllabic>
           <text>dos,</text>
           </lyric>
         <lyric number="2" default-y="-74.49" relative-y="-30">
@@ -1338,7 +1338,7 @@
         <type>eighth</type>
         <stem>up</stem>
         <lyric number="1" default-y="-50.16" relative-y="-30">
-          <syllabic>middle</syllabic>
+          <syllabic>begin</syllabic>
           <text>con</text>
           </lyric>
         <lyric number="2" default-y="-74.49" relative-y="-30">
@@ -1404,11 +1404,11 @@
         <type>eighth</type>
         <stem>up</stem>
         <lyric number="1" default-x="2.41" default-y="-50.16" relative-y="-30">
-          <syllabic>middle</syllabic>
+          <syllabic>end</syllabic>
           <text>tos,</text>
           </lyric>
         <lyric number="2" default-x="2.56" default-y="-74.49" relative-y="-30">
-          <syllabic>middle</syllabic>
+          <syllabic>end</syllabic>
           <text>sos,</text>
           </lyric>
         <lyric number="3" default-y="-98.81" relative-y="-30">
@@ -1436,11 +1436,11 @@
         <type>eighth</type>
         <stem>up</stem>
         <lyric number="1" default-y="-50.16" relative-y="-30">
-          <syllabic>middle</syllabic>
+          <syllabic>begin</syllabic>
           <text>cla</text>
           </lyric>
         <lyric number="2" default-y="-74.49" relative-y="-30">
-          <syllabic>middle</syllabic>
+          <syllabic>begin</syllabic>
           <text>a</text>
           </lyric>
         <lyric number="3" default-y="-98.81" relative-y="-30">
@@ -1656,7 +1656,7 @@
           <text>que</text>
           </lyric>
         <lyric number="3" default-x="2.3" default-y="-98.81" relative-y="-30">
-          <syllabic>begin</syllabic>
+          <syllabic>single</syllabic>
           <text>fé,</text>
           </lyric>
         </note>
@@ -1689,7 +1689,7 @@
           <text>pro</text>
           </lyric>
         <lyric number="3" default-y="-98.81" relative-y="-30">
-          <syllabic>middle</syllabic>
+          <syllabic>begin</syllabic>
           <text>im</text>
           </lyric>
         </note>
@@ -1845,7 +1845,7 @@
           <text>Fa</text>
           </lyric>
         <lyric number="3" default-x="2.27" default-y="-121.57" relative-y="-30">
-          <syllabic>begin</syllabic>
+          <syllabic>single</syllabic>
           <text>Vem,</text>
           </lyric>
         </note>
@@ -1879,7 +1879,7 @@
           <text>ze</text>
           </lyric>
         <lyric number="3" default-y="-121.57" relative-y="-30">
-          <syllabic>end</syllabic>
+          <syllabic>single</syllabic>
           <text>ó</text>
           </lyric>
         </note>
@@ -1945,7 +1945,7 @@
           <text>to</text>
           </lyric>
         <lyric number="3" default-x="2.33" default-y="-121.57" relative-y="-30">
-          <syllabic>middle</syllabic>
+          <syllabic>end</syllabic>
           <text>nhor,</text>
           </lyric>
         </note>
@@ -1978,7 +1978,7 @@
           <text>dos</text>
           </lyric>
         <lyric number="3" default-y="-121.57" relative-y="-30">
-          <syllabic>middle</syllabic>
+          <syllabic>begin</syllabic>
           <text>con</text>
           </lyric>
         </note>
@@ -2160,7 +2160,7 @@
         <type>eighth</type>
         <stem>up</stem>
         <lyric number="1" default-x="2.38" default-y="-72.91" relative-y="-30">
-          <syllabic>begin</syllabic>
+          <syllabic>single</syllabic>
           <text>Deus,</text>
           </lyric>
         <lyric number="2" default-y="-97.24" relative-y="-30">
@@ -2193,7 +2193,7 @@
         <type>eighth</type>
         <stem>up</stem>
         <lyric number="1" default-y="-72.91" relative-y="-30">
-          <syllabic>end</syllabic>
+          <syllabic>single</syllabic>
           <text>o</text>
           </lyric>
         <lyric number="2" default-y="-97.24" relative-y="-30">
@@ -2807,7 +2807,7 @@
         <stem>up</stem>
         <lyric number="1" default-x="-14.66" default-y="-77.38" relative-y="-30">
           <syllabic>begin</syllabic>
-          <text>san</text>
+          <text>San</text>
           </lyric>
         </note>
       <note default-x="40.83" default-y="-25">

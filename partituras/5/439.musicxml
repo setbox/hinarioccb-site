@@ -4,7 +4,7 @@
   <identification>
     <encoding>
       <software>MuseScore Studio 4.7.6</software>
-      <encoding-date>2026-11-03</encoding-date>
+      <encoding-date>2026-11-04</encoding-date>
       <supports element="accidental" type="yes" />
       <supports element="beam" type="yes" />
       <supports element="print" attribute="new-page" type="yes" value="yes" />
@@ -914,7 +914,7 @@
           </lyric>
         <lyric number="2" default-x="2.27" default-y="-79.94" relative-y="-30">
           <syllabic>end</syllabic>
-          <text>mos</text>
+          <text>mos,</text>
           </lyric>
         <lyric number="3" default-y="-104.35" relative-y="-30">
           <syllabic>begin</syllabic>
@@ -1154,7 +1154,7 @@
           </notations>
         <lyric number="1" default-x="2.66" default-y="-55.53" relative-y="-30">
           <syllabic>end</syllabic>
-          <text>tar:</text>
+          <text>tar;</text>
           </lyric>
         <lyric number="2" default-x="2.22" default-y="-79.94" relative-y="-30">
           <syllabic>single</syllabic>

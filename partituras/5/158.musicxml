@@ -4,7 +4,7 @@
   <identification>
     <encoding>
       <software>MuseScore Studio 4.7.6</software>
-      <encoding-date>2026-11-03</encoding-date>
+      <encoding-date>2026-11-04</encoding-date>
       <supports element="accidental" type="yes" />
       <supports element="beam" type="yes" />
       <supports element="print" attribute="new-page" type="yes" value="yes" />
@@ -469,7 +469,7 @@
           </lyric>
         <lyric number="3" default-x="2.17" default-y="-109.52" relative-y="-30">
           <syllabic>end</syllabic>
-          <text>mor,</text>
+          <text>mor;</text>
           </lyric>
         </note>
       <note default-x="12" default-y="-40">
@@ -744,7 +744,7 @@
           </lyric>
         <lyric number="2" default-y="-85.1" relative-y="-30">
           <syllabic>middle</syllabic>
-          <text>ca</text>
+          <text>can</text>
           </lyric>
         <lyric number="3" default-y="-109.52" relative-y="-30">
           <syllabic>begin</syllabic>
@@ -1019,7 +1019,7 @@
           </lyric>
         <lyric number="2" default-y="-85.1" relative-y="-30">
           <syllabic>end</syllabic>
-          <text>te</text>
+          <text>teu</text>
           </lyric>
         <lyric number="3" default-y="-109.52" relative-y="-30">
           <syllabic>end</syllabic>
@@ -1238,7 +1238,7 @@
           </lyric>
         <lyric number="3" default-x="2.45" default-y="-94.57" relative-y="-30">
           <syllabic>end</syllabic>
-          <text>do,</text>
+          <text>dor,</text>
           </lyric>
         </note>
       <note default-x="106.79" default-y="-30">
@@ -1335,7 +1335,7 @@
           </lyric>
         <lyric number="2" default-y="-70.15" relative-y="-30">
           <syllabic>end</syllabic>
-          <text>ça</text>
+          <text>ça,</text>
           </lyric>
         <lyric number="3" default-y="-94.57" relative-y="-30">
           <syllabic>single</syllabic>

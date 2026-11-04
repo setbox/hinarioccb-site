@@ -4,7 +4,7 @@
   <identification>
     <encoding>
       <software>MuseScore Studio 4.7.6</software>
-      <encoding-date>2026-11-03</encoding-date>
+      <encoding-date>2026-11-04</encoding-date>
       <supports element="accidental" type="yes" />
       <supports element="beam" type="yes" />
       <supports element="print" attribute="new-page" type="yes" value="yes" />
@@ -798,7 +798,7 @@
           </lyric>
         <lyric number="2" default-y="-82.79" relative-y="-30">
           <syllabic>end</syllabic>
-          <text>to,</text>
+          <text>to</text>
           </lyric>
         <lyric number="3" default-x="2.38" default-y="-107.21" relative-y="-30">
           <syllabic>end</syllabic>
@@ -899,7 +899,7 @@
           </lyric>
         <lyric number="2" default-x="2.24" default-y="-82.79" relative-y="-30">
           <syllabic>end</syllabic>
-          <text>va</text>
+          <text>va,</text>
           </lyric>
         <lyric number="3" default-x="2.45" default-y="-107.21" relative-y="-30">
           <syllabic>end</syllabic>
@@ -1652,7 +1652,7 @@
         <stem>up</stem>
         <lyric number="1" default-y="-62.9" relative-y="-30">
           <syllabic>single</syllabic>
-          <text>quem</text>
+          <text>Quem</text>
           </lyric>
         </note>
       <note default-x="199.85" default-y="-25">
@@ -1822,7 +1822,7 @@
         <stem>up</stem>
         <lyric number="1" default-y="-57.95" relative-y="-30">
           <syllabic>begin</syllabic>
-          <text>N'E</text>
+          <text>N’E</text>
           </lyric>
         </note>
       <note default-x="90.77" default-y="-10">
@@ -1951,7 +1951,7 @@
         <stem>up</stem>
         <lyric number="1" default-y="-57.95" relative-y="-30">
           <syllabic>begin</syllabic>
-          <text>n'E</text>
+          <text>n’E</text>
           </lyric>
         </note>
       <note default-x="12" default-y="-30">

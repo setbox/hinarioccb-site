@@ -4,7 +4,7 @@
   <identification>
     <encoding>
       <software>MuseScore Studio 4.7.6</software>
-      <encoding-date>2026-11-03</encoding-date>
+      <encoding-date>2026-11-04</encoding-date>
       <supports element="accidental" type="yes" />
       <supports element="beam" type="yes" />
       <supports element="print" attribute="new-page" type="yes" value="yes" />
@@ -483,11 +483,11 @@
           </lyric>
         <lyric number="3" default-x="-0.38" default-y="-109.03" relative-y="-30">
           <syllabic>single</syllabic>
-          <text>pão,</text>
+          <text>pão</text>
           </lyric>
         <lyric number="4" default-x="-0.38" default-y="-133.44" relative-y="-30">
           <syllabic>single</syllabic>
-          <text>mal</text>
+          <text>mal,</text>
           </lyric>
         </note>
       <note default-x="12" default-y="-15">
@@ -1148,11 +1148,11 @@
           </lyric>
         <lyric number="2" default-x="2.1" default-y="-74.94" relative-y="-30">
           <syllabic>single</syllabic>
-          <text>céus</text>
+          <text>céus,</text>
           </lyric>
         <lyric number="3" default-x="-0.38" default-y="-99.35" relative-y="-30">
           <syllabic>end</syllabic>
-          <text>dão,</text>
+          <text>dão</text>
           </lyric>
         <lyric number="4" default-x="1.94" default-y="-123.76" relative-y="-30">
           <syllabic>end</syllabic>
@@ -1961,9 +1961,8 @@
         <type>16th</type>
         <stem>up</stem>
         <lyric number="1" default-y="-45.73" relative-y="-30">
-          <syllabic>single</syllabic>
-          <text>de</text>
-          </lyric>
+          <syllabic>begin</syllabic>
+          <text>de‿a</text></lyric>
         </note>
       <note default-x="493.7" default-y="-15">
         <chord />
@@ -1995,8 +1994,8 @@
             </articulations>
           </notations>
         <lyric number="1" default-x="2.58" default-y="-45.73" relative-y="-30">
-          <syllabic>single</syllabic>
-          <text>amor!</text>
+          <syllabic>end</syllabic>
+          <text>mor!</text>
           </lyric>
         </note>
       <note default-x="12" default-y="-20">

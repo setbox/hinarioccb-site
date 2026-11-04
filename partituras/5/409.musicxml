@@ -4,7 +4,7 @@
   <identification>
     <encoding>
       <software>MuseScore Studio 4.7.6</software>
-      <encoding-date>2026-11-03</encoding-date>
+      <encoding-date>2026-11-04</encoding-date>
       <supports element="accidental" type="yes" />
       <supports element="beam" type="yes" />
       <supports element="print" attribute="new-page" type="yes" value="yes" />
@@ -192,7 +192,7 @@
         <stem>up</stem>
         <lyric number="1" default-y="-65" relative-y="-30">
           <syllabic>begin</syllabic>
-          <text>Jú</text>
+          <text>jú</text>
           </lyric>
         <lyric number="2" default-y="-89.41" relative-y="-30">
           <syllabic>begin</syllabic>
@@ -710,7 +710,7 @@
         <stem>up</stem>
         <lyric number="1" default-y="-69.96" relative-y="-30">
           <syllabic>end</syllabic>
-          <text>bre,‿as</text></lyric>
+          <text>bre‿as</text></lyric>
         <lyric number="2" default-y="-94.37" relative-y="-30">
           <syllabic>middle</syllabic>
           <text>ça‿e</text></lyric>

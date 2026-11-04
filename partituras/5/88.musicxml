@@ -4,7 +4,7 @@
   <identification>
     <encoding>
       <software>MuseScore Studio 4.7.6</software>
-      <encoding-date>2026-11-03</encoding-date>
+      <encoding-date>2026-11-04</encoding-date>
       <supports element="accidental" type="yes" />
       <supports element="beam" type="yes" />
       <supports element="print" attribute="new-page" type="yes" value="yes" />
@@ -260,7 +260,7 @@
           <tied type="start" />
           </notations>
         <lyric number="1" default-x="2.48" default-y="-70.21" relative-y="-30">
-          <syllabic>middle</syllabic>
+          <syllabic>end</syllabic>
           <text>ção,</text>
           </lyric>
         <lyric number="2" default-x="2.48" default-y="-94.62" relative-y="-30">
@@ -296,7 +296,7 @@
         <type>eighth</type>
         <stem>up</stem>
         <lyric number="1" default-y="-70.21" relative-y="-30">
-          <syllabic>end</syllabic>
+          <syllabic>single</syllabic>
           <text>ó</text>
           </lyric>
         <lyric number="2" default-y="-94.62" relative-y="-30">

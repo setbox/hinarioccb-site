@@ -4,7 +4,7 @@
   <identification>
     <encoding>
       <software>MuseScore Studio 4.7.6</software>
-      <encoding-date>2026-11-03</encoding-date>
+      <encoding-date>2026-11-04</encoding-date>
       <supports element="accidental" type="yes" />
       <supports element="beam" type="yes" />
       <supports element="print" attribute="new-page" type="yes" value="yes" />
@@ -862,7 +862,7 @@
           </lyric>
         <lyric number="3" default-x="-11.86" default-y="-114.05" relative-y="-30">
           <syllabic>begin</syllabic>
-          <text>d'E</text>
+          <text>d’E</text>
           </lyric>
         </note>
       <note default-x="100.61" default-y="-45">
@@ -985,7 +985,7 @@
           </lyric>
         <lyric number="2" default-y="-89.63" relative-y="-30">
           <syllabic>begin</syllabic>
-          <text>N'E</text>
+          <text>N’E</text>
           </lyric>
         <lyric number="3" default-y="-114.05" relative-y="-30">
           <syllabic>single</syllabic>
@@ -1578,7 +1578,7 @@
           </lyric>
         <lyric number="2" default-y="-84.12" relative-y="-30">
           <syllabic>single</syllabic>
-          <text>E</text>
+          <text>e</text>
           </lyric>
         <lyric number="3" default-y="-108.54" relative-y="-30">
           <syllabic>single</syllabic>
@@ -2414,7 +2414,7 @@
           </lyric>
         <lyric number="3" default-y="-129" relative-y="-30">
           <syllabic>single</syllabic>
-          <text>mas,</text>
+          <text>mas</text>
           </lyric>
         </note>
       <note default-x="44.28" default-y="-50">
@@ -2452,7 +2452,7 @@
         <stem>up</stem>
         <lyric number="3" default-x="-34.16" default-y="-129" relative-y="-30">
           <syllabic>end</syllabic>
-          <text>tando</text>
+          <text>tou</text>
           </lyric>
         <lyric number="1" default-x="20" default-y="-80.16" relative-y="-30">
           <syllabic>single</syllabic>
@@ -2532,7 +2532,7 @@
           </lyric>
         <lyric number="3" default-x="2.73" default-y="-129" relative-y="-30">
           <syllabic>end</syllabic>
-          <text>da,</text>
+          <text>da;</text>
           </lyric>
         </note>
       <backup>

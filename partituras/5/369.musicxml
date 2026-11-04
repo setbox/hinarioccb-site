@@ -4,7 +4,7 @@
   <identification>
     <encoding>
       <software>MuseScore Studio 4.7.6</software>
-      <encoding-date>2026-11-03</encoding-date>
+      <encoding-date>2026-11-04</encoding-date>
       <supports element="accidental" type="yes" />
       <supports element="beam" type="yes" />
       <supports element="print" attribute="new-page" type="yes" value="yes" />
@@ -442,7 +442,7 @@
           <text>te</text>
           </lyric>
         <lyric number="2" default-y="-80.1" relative-y="-30">
-          <syllabic>begin</syllabic>
+          <syllabic>single</syllabic>
           <text>sal</text>
           </lyric>
         <lyric number="3" default-x="2.34" default-y="-104.52" relative-y="-30">
@@ -476,7 +476,7 @@
           <text>re</text>
           </lyric>
         <lyric number="2" default-y="-80.1" relative-y="-30">
-          <syllabic>end</syllabic>
+          <syllabic>middle</syllabic>
           <text>va</text>
           </lyric>
         <lyric number="3" default-y="-104.52" relative-y="-30">
@@ -515,7 +515,7 @@
           </lyric>
         <lyric number="3" default-x="2.31" default-y="-104.52" relative-y="-30">
           <syllabic>single</syllabic>
-          <text>fé</text>
+          <text>fé,</text>
           </lyric>
         </note>
       <note default-x="154.49" default-y="-35">
@@ -580,7 +580,7 @@
           <text>Seu</text>
           </lyric>
         <lyric number="2" default-y="-80.1" relative-y="-30">
-          <syllabic>single</syllabic>
+          <syllabic>end</syllabic>
           <text>o</text>
           </lyric>
         <lyric number="3" default-y="-104.52" relative-y="-30">
@@ -1075,7 +1075,7 @@
           </lyric>
         <lyric number="2" default-x="2.34" default-y="-80.1" relative-y="-30">
           <syllabic>single</syllabic>
-          <text>Ti</text>
+          <text>Ti,</text>
           </lyric>
         <lyric number="3" default-x="2.61" default-y="-104.52" relative-y="-30">
           <syllabic>end</syllabic>
@@ -1743,7 +1743,7 @@
         <stem>up</stem>
         <lyric number="1" default-x="2.35" default-y="-55.68" relative-y="-30">
           <syllabic>single</syllabic>
-          <text>Tens</text>
+          <text>Tens,</text>
           </lyric>
         </note>
       <note default-x="102.73" default-y="-30">
