@@ -4,7 +4,7 @@
   <identification>
     <encoding>
       <software>MuseScore Studio 4.7.6</software>
-      <encoding-date>2026-11-03</encoding-date>
+      <encoding-date>2026-11-04</encoding-date>
       <supports element="accidental" type="yes" />
       <supports element="beam" type="yes" />
       <supports element="print" attribute="new-page" type="yes" value="yes" />
@@ -938,7 +938,7 @@
           <text>gue</text>
           </lyric>
         <lyric number="2" default-x="2.4" default-y="-77.35" relative-y="-30">
-          <syllabic>begin</syllabic>
+          <syllabic>single</syllabic>
           <text>ti,</text>
           </lyric>
         <lyric number="3" default-y="-101.77" relative-y="-30">
@@ -971,7 +971,7 @@
           <text>pre</text>
           </lyric>
         <lyric number="2" default-y="-77.35" relative-y="-30">
-          <syllabic>end</syllabic>
+          <syllabic>single</syllabic>
           <text>na</text>
           </lyric>
         <lyric number="3" default-y="-101.77" relative-y="-30">
@@ -1596,7 +1596,7 @@
         <stem>up</stem>
         <lyric number="1" default-y="-50.21" relative-y="-30">
           <syllabic>begin</syllabic>
-          <text>da</text>
+          <text>dá</text>
           </lyric>
         <lyric number="2" default-y="-74.63" relative-y="-30">
           <syllabic>begin</syllabic>
@@ -1629,7 +1629,7 @@
         <stem>up</stem>
         <lyric number="1" default-y="-50.21" relative-y="-30">
           <syllabic>end</syllabic>
-          <text>lhe</text>
+          <text>Lhe</text>
           </lyric>
         <lyric number="2" default-y="-74.63" relative-y="-30">
           <syllabic>end</syllabic>

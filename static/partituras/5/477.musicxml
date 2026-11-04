@@ -4,7 +4,7 @@
   <identification>
     <encoding>
       <software>MuseScore Studio 4.7.6</software>
-      <encoding-date>2026-11-03</encoding-date>
+      <encoding-date>2026-11-04</encoding-date>
       <supports element="accidental" type="yes" />
       <supports element="beam" type="yes" />
       <supports element="print" attribute="new-page" type="yes" value="yes" />
@@ -167,7 +167,7 @@
           </lyric>
         <lyric number="2" default-x="-11.86" default-y="-79.62" relative-y="-30">
           <syllabic>end</syllabic>
-          <text>te</text>
+          <text>tes</text>
           </lyric>
         <lyric number="3" default-x="-9.41" default-y="-104.03" relative-y="-30">
           <syllabic>end</syllabic>

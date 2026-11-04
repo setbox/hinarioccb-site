@@ -4,7 +4,7 @@
   <identification>
     <encoding>
       <software>MuseScore Studio 4.7.6</software>
-      <encoding-date>2026-11-03</encoding-date>
+      <encoding-date>2026-11-04</encoding-date>
       <supports element="accidental" type="yes" />
       <supports element="beam" type="yes" />
       <supports element="print" attribute="new-page" type="yes" value="yes" />
@@ -1920,7 +1920,7 @@
         <dot default-x="28.66" default-y="-35" />
         <stem>up</stem>
         <lyric number="1" default-y="-60.21" relative-y="-30">
-          <syllabic>begin</syllabic>
+          <syllabic>middle</syllabic>
           <text>guar</text>
           </lyric>
         <lyric number="2" default-y="-84.63" relative-y="-30">
@@ -1958,7 +1958,7 @@
           <text>da</text>
           </lyric>
         <lyric number="2" default-y="-84.63" relative-y="-30">
-          <syllabic>single</syllabic>
+          <syllabic>end</syllabic>
           <text>lho</text>
           </lyric>
         <lyric number="3" default-y="-109.05" relative-y="-30">

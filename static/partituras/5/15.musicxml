@@ -4,7 +4,7 @@
   <identification>
     <encoding>
       <software>MuseScore Studio 4.7.6</software>
-      <encoding-date>2026-11-03</encoding-date>
+      <encoding-date>2026-11-04</encoding-date>
       <supports element="accidental" type="yes" />
       <supports element="beam" type="yes" />
       <supports element="print" attribute="new-page" type="yes" value="yes" />
@@ -341,7 +341,7 @@
           <text>ro</text>
           </lyric>
         <lyric number="3" default-x="2.48" default-y="-99.56" relative-y="-30">
-          <syllabic>middle</syllabic>
+          <syllabic>end</syllabic>
           <text>da,</text>
           </lyric>
         </note>
@@ -378,7 +378,7 @@
           <text>é</text>
           </lyric>
         <lyric number="3" default-y="-99.56" relative-y="-30">
-          <syllabic>middle</syllabic>
+          <syllabic>begin</syllabic>
           <text>re</text>
           </lyric>
         </note>
@@ -741,7 +741,7 @@
             </articulations>
           </notations>
         <lyric number="1" default-x="2.24" default-y="-55.21" relative-y="-30">
-          <syllabic>middle</syllabic>
+          <syllabic>end</syllabic>
           <text>vio,</text>
           </lyric>
         <lyric number="2" default-x="2.45" default-y="-79.62" relative-y="-30">
@@ -778,7 +778,7 @@
         <dot default-x="31.82" default-y="-45" />
         <stem>up</stem>
         <lyric number="1" default-y="-55.21" relative-y="-30">
-          <syllabic>middle</syllabic>
+          <syllabic>begin</syllabic>
           <text>re</text>
           </lyric>
         <lyric number="2" default-y="-79.62" relative-y="-30">
@@ -989,7 +989,7 @@
         <stem>up</stem>
         <lyric number="1" default-y="-55.21" relative-y="-30">
           <syllabic>begin</syllabic>
-          <text>e</text>
+          <text>E</text>
           </lyric>
         <lyric number="2" default-y="-79.62" relative-y="-30">
           <syllabic>end</syllabic>
@@ -1666,11 +1666,11 @@
         <dot default-x="28.66" default-y="-45" />
         <stem>up</stem>
         <lyric number="1" default-y="-62.95" relative-y="-30">
-          <syllabic>end</syllabic>
+          <syllabic>single</syllabic>
           <text>e</text>
           </lyric>
         <lyric number="2" default-y="-87.36" relative-y="-30">
-          <syllabic>middle</syllabic>
+          <syllabic>begin</syllabic>
           <text>cla</text>
           </lyric>
         <lyric number="3" default-y="-111.77" relative-y="-30">
@@ -1742,7 +1742,7 @@
           </lyric>
         <lyric number="2" default-y="-87.36" relative-y="-30">
           <syllabic>single</syllabic>
-          <text>Teu</text>
+          <text>teu</text>
           </lyric>
         <lyric number="3" default-y="-111.77" relative-y="-30">
           <syllabic>single</syllabic>

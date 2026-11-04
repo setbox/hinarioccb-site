@@ -4,7 +4,7 @@
   <identification>
     <encoding>
       <software>MuseScore Studio 4.7.6</software>
-      <encoding-date>2026-11-03</encoding-date>
+      <encoding-date>2026-11-04</encoding-date>
       <supports element="accidental" type="yes" />
       <supports element="beam" type="yes" />
       <supports element="print" attribute="new-page" type="yes" value="yes" />
@@ -539,7 +539,7 @@
           <text>iz</text>
           </lyric>
         <lyric number="3" default-y="-117.65" relative-y="-30">
-          <syllabic>single</syllabic>
+          <syllabic>begin</syllabic>
           <text>par</text>
           </lyric>
         </note>
@@ -595,7 +595,7 @@
           </lyric>
         <lyric number="3" default-y="-117.65" relative-y="-30">
           <syllabic>begin</syllabic>
-          <text>tru</text>
+          <text>fru</text>
           </lyric>
         </note>
       <note default-x="146.31" default-y="-35">
@@ -629,7 +629,7 @@
           <text>não</text>
           </lyric>
         <lyric number="3" default-y="-117.65" relative-y="-30">
-          <syllabic>begin</syllabic>
+          <syllabic>middle</syllabic>
           <text>ti</text>
           </lyric>
         </note>
@@ -1076,7 +1076,7 @@
           <text>A</text>
           </lyric>
         <lyric number="2" default-y="-93.24" relative-y="-30">
-          <syllabic>single</syllabic>
+          <syllabic>begin</syllabic>
           <text>Vei</text>
           </lyric>
         <lyric number="3" default-y="-117.65" relative-y="-30">
@@ -1110,7 +1110,7 @@
           <text>se</text>
           </lyric>
         <lyric number="2" default-y="-93.24" relative-y="-30">
-          <syllabic>single</syllabic>
+          <syllabic>end</syllabic>
           <text>o</text>
           </lyric>
         <lyric number="3" default-y="-117.65" relative-y="-30">
@@ -1993,7 +1993,7 @@
           </lyric>
         <lyric number="2" default-x="0.17" default-y="-80.72" relative-y="-30">
           <syllabic>end</syllabic>
-          <text>cer;</text>
+          <text>cer,</text>
           </lyric>
         <lyric number="3" default-x="2.39" default-y="-105.13" relative-y="-30">
           <syllabic>end</syllabic>
@@ -3625,7 +3625,7 @@
         <type>whole</type>
         <lyric number="1" default-x="-1.14" default-y="-73.78" relative-y="-30">
           <syllabic>end</syllabic>
-          <text>nhor</text>
+          <text>nhor.</text>
           </lyric>
         </note>
       <backup>

@@ -4,7 +4,7 @@
   <identification>
     <encoding>
       <software>MuseScore Studio 4.7.6</software>
-      <encoding-date>2026-11-03</encoding-date>
+      <encoding-date>2026-11-04</encoding-date>
       <supports element="accidental" type="yes" />
       <supports element="beam" type="yes" />
       <supports element="print" attribute="new-page" type="yes" value="yes" />
@@ -885,7 +885,7 @@
           </lyric>
         <lyric number="2" default-y="-75.14" relative-y="-30">
           <syllabic>single</syllabic>
-          <text>pão</text>
+          <text>Pão</text>
           </lyric>
         <lyric number="3" default-x="2.32" default-y="-99.56" relative-y="-30">
           <syllabic>single</syllabic>

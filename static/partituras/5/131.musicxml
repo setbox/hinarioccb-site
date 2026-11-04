@@ -4,7 +4,7 @@
   <identification>
     <encoding>
       <software>MuseScore Studio 4.7.6</software>
-      <encoding-date>2026-11-03</encoding-date>
+      <encoding-date>2026-11-04</encoding-date>
       <supports element="accidental" type="yes" />
       <supports element="beam" type="yes" />
       <supports element="print" attribute="new-page" type="yes" value="yes" />
@@ -357,7 +357,7 @@
           <text>nhas</text>
           </lyric>
         <lyric number="4" default-x="1.93" default-y="-138.47" relative-y="-30">
-          <syllabic>middle</syllabic>
+          <syllabic>end</syllabic>
           <text>mos,</text>
           </lyric>
         </note>
@@ -397,7 +397,7 @@
           <text>nos</text>
           </lyric>
         <lyric number="4" default-x="-11.86" default-y="-138.47" relative-y="-30">
-          <syllabic>end</syllabic>
+          <syllabic>single</syllabic>
           <text>na</text>
           </lyric>
         </note>
@@ -486,8 +486,7 @@
           </lyric>
         <lyric number="4" default-x="-11.86" default-y="-138.47" relative-y="-30">
           <syllabic>end</syllabic>
-          <text>da,ó</text>
-          </lyric>
+          <text>da,‿ó</text></lyric>
         </note>
       <backup>
         <duration>4</duration>
@@ -1603,7 +1602,7 @@
         <type>quarter</type>
         <stem>up</stem>
         <lyric number="1" default-x="2.46" default-y="-65.21" relative-y="-30">
-          <syllabic>middle</syllabic>
+          <syllabic>end</syllabic>
           <text>do,</text>
           </lyric>
         <lyric number="2" default-y="-89.63" relative-y="-30">
@@ -1642,7 +1641,7 @@
         <type>half</type>
         <stem>up</stem>
         <lyric number="1" default-x="-0.38" default-y="-65.21" relative-y="-30">
-          <syllabic>middle</syllabic>
+          <syllabic>begin</syllabic>
           <text>sem</text>
           </lyric>
         <lyric number="2" default-x="-0.38" default-y="-89.63" relative-y="-30">
@@ -1684,7 +1683,7 @@
             </articulations>
           </notations>
         <lyric number="1" default-x="1.95" default-y="-65.21" relative-y="-30">
-          <syllabic>middle</syllabic>
+          <syllabic>end</syllabic>
           <text>pre,</text>
           </lyric>
         <lyric number="2" default-x="-0.38" default-y="-89.63" relative-y="-30">
@@ -1696,7 +1695,7 @@
           <text>de</text>
           </lyric>
         <lyric number="4" default-x="2.01" default-y="-138.47" relative-y="-30">
-          <syllabic>middle</syllabic>
+          <syllabic>end</syllabic>
           <text>tos,</text>
           </lyric>
         </note>
@@ -1723,7 +1722,7 @@
         <type>quarter</type>
         <stem>up</stem>
         <lyric number="1" default-y="-65.21" relative-y="-30">
-          <syllabic>middle</syllabic>
+          <syllabic>begin</syllabic>
           <text>hi</text>
           </lyric>
         <lyric number="2" default-y="-89.63" relative-y="-30">
@@ -1735,7 +1734,7 @@
           <text>de</text>
           </lyric>
         <lyric number="4" default-y="-138.47" relative-y="-30">
-          <syllabic>end</syllabic>
+          <syllabic>single</syllabic>
           <text>Tu</text>
           </lyric>
         </note>

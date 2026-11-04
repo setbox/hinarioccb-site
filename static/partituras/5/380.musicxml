@@ -4,7 +4,7 @@
   <identification>
     <encoding>
       <software>MuseScore Studio 4.7.6</software>
-      <encoding-date>2026-11-03</encoding-date>
+      <encoding-date>2026-11-04</encoding-date>
       <supports element="accidental" type="yes" />
       <supports element="beam" type="yes" />
       <supports element="print" attribute="new-page" type="yes" value="yes" />
@@ -394,11 +394,11 @@
         <type>eighth</type>
         <stem>up</stem>
         <lyric number="1" default-x="2.36" default-y="-45.22" relative-y="-30">
-          <syllabic>middle</syllabic>
+          <syllabic>end</syllabic>
           <text>te,</text>
           </lyric>
         <lyric number="2" default-x="2.38" default-y="-69.64" relative-y="-30">
-          <syllabic>middle</syllabic>
+          <syllabic>end</syllabic>
           <text>to,</text>
           </lyric>
         <lyric number="3" default-x="2.46" default-y="-94.06" relative-y="-30">
@@ -428,11 +428,11 @@
         <type>eighth</type>
         <stem>up</stem>
         <lyric number="1" default-y="-45.22" relative-y="-30">
-          <syllabic>end</syllabic>
+          <syllabic>single</syllabic>
           <text>com</text>
           </lyric>
         <lyric number="2" default-y="-69.64" relative-y="-30">
-          <syllabic>end</syllabic>
+          <syllabic>single</syllabic>
           <text>eu</text>
           </lyric>
         <lyric number="3" default-y="-94.06" relative-y="-30">
@@ -912,7 +912,7 @@
           </lyric>
         <lyric number="2" default-x="2.25" default-y="-92.32" relative-y="-30">
           <syllabic>end</syllabic>
-          <text>to,</text>
+          <text>to.</text>
           </lyric>
         <lyric number="3" default-x="2.33" default-y="-116.74" relative-y="-30">
           <syllabic>end</syllabic>
@@ -2113,7 +2113,7 @@
         <stem>up</stem>
         <lyric number="1" default-x="2.61" default-y="-45.68" relative-y="-30">
           <syllabic>end</syllabic>
-          <text>sus</text>
+          <text>sus,</text>
           </lyric>
         </note>
       <note default-x="12" default-y="-25">

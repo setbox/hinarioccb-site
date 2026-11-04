@@ -4,7 +4,7 @@
   <identification>
     <encoding>
       <software>MuseScore Studio 4.7.6</software>
-      <encoding-date>2026-11-03</encoding-date>
+      <encoding-date>2026-11-04</encoding-date>
       <supports element="accidental" type="yes" />
       <supports element="beam" type="yes" />
       <supports element="print" attribute="new-page" type="yes" value="yes" />
@@ -227,7 +227,7 @@
         <stem>up</stem>
         <lyric number="1" default-x="2.32" default-y="-64.53" relative-y="-30">
           <syllabic>end</syllabic>
-          <text>mãos</text>
+          <text>mãos,</text>
           </lyric>
         <lyric number="2" default-x="2.32" default-y="-88.94" relative-y="-30">
           <syllabic>end</syllabic>
@@ -595,7 +595,7 @@
           <text>do</text>
           </lyric>
         <lyric number="3" default-x="2.29" default-y="-113.36" relative-y="-30">
-          <syllabic>middle</syllabic>
+          <syllabic>end</syllabic>
           <text>mor,</text>
           </lyric>
         </note>
@@ -628,7 +628,7 @@
           <text>ce</text>
           </lyric>
         <lyric number="3" default-y="-113.36" relative-y="-30">
-          <syllabic>middle</syllabic>
+          <syllabic>begin</syllabic>
           <text>guar</text>
           </lyric>
         </note>
@@ -1559,7 +1559,7 @@
           </lyric>
         <lyric number="3" default-x="0.38" default-y="-109.07" relative-y="-30">
           <syllabic>middle</syllabic>
-          <text>la</text>
+          <text>le</text>
           </lyric>
         </note>
       <note default-x="79.8" default-y="-25">
@@ -2317,7 +2317,7 @@
           </lyric>
         <lyric number="3" default-x="-0.38" default-y="-113.31" relative-y="-30">
           <syllabic>begin</syllabic>
-          <text>Sal</text>
+          <text>sal</text>
           </lyric>
         </note>
       <note default-x="12" default-y="-20">
