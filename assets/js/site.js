@@ -238,7 +238,6 @@
 
   var paginaHino = document.querySelector('[data-hino]');
   var chaveAtual = paginaHino ? paginaHino.dataset.hino : null;
-  var culto = ler('culto', []);
 
   if (chaveAtual) {
     gravar('recentes', [chaveAtual].concat(ler('recentes', []).filter(function (chave) {
@@ -258,50 +257,6 @@
     a.appendChild(numero);
     a.appendChild(titulo);
     return a;
-  }
-
-  function desenharCulto(lista) {
-    todos('[data-culto-lista]').forEach(function (ol) {
-      ol.textContent = '';
-      culto.forEach(function (chave, posicao) {
-        var hino = lista[chave];
-        if (!hino) return;
-        var li = document.createElement('li');
-        var a = document.createElement('a');
-        a.href = hino.u;
-        a.textContent = hino.n;
-        a.setAttribute('aria-label', (posicao + 1) + 'º do culto, ' + rotuloDoHino(hino));
-        if (chave === chaveAtual) a.setAttribute('aria-current', 'page');
-        li.appendChild(a);
-        ol.appendChild(li);
-      });
-    });
-    todos('[data-culto-vazio]').forEach(function (p) { p.hidden = culto.length > 0; });
-    todos('[data-culto-limpar]').forEach(function (b) { b.hidden = culto.length === 0; });
-    todos('[data-culto-lateral]').forEach(function (s) { s.hidden = culto.length === 0; });
-
-    var alternar = document.querySelector('[data-culto-alternar]');
-    if (alternar) {
-      alternar.textContent = culto.indexOf(chaveAtual) >= 0 ? 'Tirar do culto de hoje' : 'Adicionar ao culto de hoje';
-    }
-
-    var faixa = document.querySelector('[data-culto-faixa]');
-    if (faixa) {
-      var posicao = culto.indexOf(chaveAtual);
-      faixa.hidden = posicao < 0;
-      if (posicao >= 0) {
-        faixa.querySelector('[data-culto-posicao]').textContent = 'Culto de hoje, ' + (posicao + 1) + 'º de ' + culto.length;
-        [['[data-culto-anterior]', culto[posicao - 1], '‹ '], ['[data-culto-proximo]', culto[posicao + 1], ' ›']].forEach(function (item) {
-          var a = faixa.querySelector(item[0]);
-          var hino = item[1] && lista[item[1]];
-          a.hidden = !hino;
-          if (hino) {
-            a.href = hino.u;
-            a.textContent = item[2] === '‹ ' ? '‹ ' + hino.n : hino.n + ' ›';
-          }
-        });
-      }
-    }
   }
 
   function desenharRecentes(lista) {
@@ -327,20 +282,8 @@
     });
   }
 
-  if (document.querySelector('[data-culto-lista], [data-culto-faixa], [data-recentes]')) {
-    carregarIndice().then(function (lista) {
-      desenharCulto(lista);
-      desenharRecentes(lista);
-
-      todos('[data-culto-limpar]').forEach(function (botao) {
-        botao.addEventListener('click', function () {
-          culto = [];
-          gravar('culto', culto);
-          desenharCulto(lista);
-        });
-      });
-
-    });
+  if (document.querySelector('[data-recentes]')) {
+    carregarIndice().then(desenharRecentes);
   }
 
   function ligarConteudo(contexto) {
@@ -370,20 +313,6 @@
         if (!marcada) estrofe.classList.add('atual');
       });
     });
-
-    var alternar = contexto.querySelector('[data-culto-alternar]');
-    if (alternar) {
-      carregarIndice().then(function (lista) {
-        desenharCulto(lista);
-        alternar.addEventListener('click', function () {
-          culto = culto.indexOf(chaveAtual) >= 0
-            ? culto.filter(function (item) { return item !== chaveAtual; })
-            : culto.concat([chaveAtual]);
-          gravar('culto', culto);
-          desenharCulto(lista);
-        });
-      });
-    }
   }
 
   ligarConteudo(document);

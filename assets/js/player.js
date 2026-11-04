@@ -435,9 +435,10 @@
     if (!elemento || !tocando) return;
     if (rolagemAutomatica && !rolagemAutomatica.checked) return;
     var caixa = elemento.getBoundingClientRect();
-    if (caixa.top >= 0 && caixa.bottom <= window.innerHeight) return;
+    var limite = window.innerHeight - (getComputedStyle(player).position === 'fixed' ? player.offsetHeight : 0);
+    if (caixa.top >= 0 && caixa.bottom <= limite) return;
     var semMovimento = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    elemento.scrollIntoView({ behavior: semMovimento ? 'auto' : 'smooth', block: 'center' });
+    window.scrollTo({ top: window.scrollY + caixa.top - Math.max(16, (limite - caixa.height) / 2), behavior: semMovimento ? 'auto' : 'smooth' });
   }
 
   function marcarVerso(verso) {
