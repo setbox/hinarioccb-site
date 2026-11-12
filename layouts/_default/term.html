@@ -18,6 +18,7 @@
       <h1>{{ .Title }}</h1>
       <p class="subtitulo">{{ partial "contagem.html" . }}</p>
     </header>
+    {{ partial "anuncio-nativo.html" . }}
     {{ partial "lista-hinos.html" (partial "ordenados.html" .Pages) }}
   </main>
 

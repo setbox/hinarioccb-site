@@ -553,8 +553,19 @@ pagefind-searchbox .pf-searchbox-result-excerpt {
   margin-bottom: 0;
 }
 
+.anuncio-nativo {
+  margin: 8px 16px 24px;
+}
+
+.anuncio-nativo:empty {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
 .anuncio-texto[data-vitrine-state="empty"],
 .anuncio-texto[data-vitrine-state="error"],
+.anuncio-nativo[data-vitrine-state="empty"],
+.anuncio-nativo[data-vitrine-state="error"],
 .destaque-lofi:has([data-vitrine-state="empty"], [data-vitrine-state="error"]),
 ins.adsbygoogle[data-ad-status="unfilled"] {
   display: none !important;
@@ -2175,7 +2186,8 @@ body.com-aviso {
 
 :root.ampla .player,
 :root.ampla .lofi,
-:root.ampla .anuncio-texto {
+:root.ampla .anuncio-texto,
+:root.ampla .anuncio-nativo {
   display: none;
 }
 
@@ -2194,7 +2206,8 @@ body.com-aviso {
 }
 
 .sem-rede .destaque-lofi,
-.sem-rede .anuncio-texto {
+.sem-rede .anuncio-texto,
+.sem-rede .anuncio-nativo {
   display: none;
 }
 
