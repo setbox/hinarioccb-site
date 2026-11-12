@@ -19,13 +19,10 @@
       <p class="subtitulo">{{ partial "contagem.html" . }}</p>
     </header>
     {{ partial "lista-hinos.html" (partial "ordenados.html" .Pages) }}
-    {{ partial "publicidade.html" "quadrado" }}
   </main>
 
   <aside class="coluna-direita">
     {{ partial "destaque-lofi.html" "lateral" }}
-    {{ partial "publicidade.html" "torre" }}
   </aside>
 </div>
-{{ partial "publicidade.html" "banner" }}
 {{- end }}

@@ -41,17 +41,15 @@
       {{ partial "aba-rodape.html" (dict "pagina" $hino "aba" "cifra" "texto" "Esta cifra ainda está em revisão. Encontrou um acorde errado?") }}
     </section>
 
-    {{ partial "publicidade.html" "quadrado" }}
+    {{ partial "anuncio-texto.html" . }}
     {{ partial "relatorio-linha.html" . }}
     {{ partial "vizinhos.html" (dict "pagina" $hino "aba" "cifra") }}
   </main>
 
   <aside class="coluna-direita">
     {{ partial "destaque-lofi.html" "lateral" }}
-    {{ partial "publicidade.html" "torre" }}
   </aside>
 </div>
-{{ partial "publicidade.html" "banner" }}
 {{- end }}
 
 {{ define "scripts" }}

@@ -24,6 +24,8 @@
       {{ .Content | replaceRE `<li>\s*<p>` `<li>` | replaceRE `</p>\s*</li>` `</li>` | replaceRE `<li>` `<li><span class="verso">` | replaceRE `</li>` `</span></li>` | replaceRE `<p>` `<p><span class="verso">` | replaceRE `</p>` `</span></p>` | replaceRE `<br>\s*` "</span>\n<span class=\"verso\">" | safeHTML }}
     </article>
 
+    {{ partial "anuncio-texto.html" . }}
+
     {{ with index site.Data.lofi.hinos $slug }}
       {{ $album := index site.Data.lofi.albuns .album }}
       {{ $destino := partial "lofi-faixa.html" $slug }}
@@ -39,8 +41,6 @@
       </section>
     {{ end }}
 
-    {{ partial "publicidade.html" "quadrado" }}
-
     {{ partial "relatorio-linha.html" . }}
 
     {{ partial "vizinhos.html" (dict "pagina" . "aba" "letra") }}
@@ -48,10 +48,8 @@
 
   <aside class="coluna-direita">
     {{ partial "destaque-lofi.html" "lateral" }}
-    {{ partial "publicidade.html" "torre" }}
   </aside>
 </div>
-{{ partial "publicidade.html" "banner" }}
 {{- end }}
 
 {{ define "scripts" }}

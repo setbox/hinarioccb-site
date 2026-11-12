@@ -544,31 +544,17 @@ pagefind-searchbox .pf-searchbox-result-excerpt {
   margin-top: 16px;
 }
 
-.publicidade {
-  width: 100%;
-  margin: 32px auto 0;
-  text-align: center;
+.anuncio-texto {
+  margin: 24px 16px 0;
 }
 
-.publicidade-rotulo {
-  margin: 0 0 4px;
-  font-size: 12px;
-  color: var(--suave);
+.anuncio-texto:empty {
+  margin-top: 0;
+  margin-bottom: 0;
 }
 
-.publicidade-espaco {
-  display: flex;
-  justify-content: center;
-  overflow: hidden;
-}
-
-.publicidade-espaco[data-vitrine-state="empty"],
-.publicidade-espaco[data-vitrine-state="error"],
-.publicidade-espaco:has(ins.adsbygoogle[data-ad-status]) {
-  min-height: 0 !important;
-}
-
-.publicidade:has(.publicidade-espaco[data-vitrine-state="empty"], .publicidade-espaco[data-vitrine-state="error"]),
+.anuncio-texto[data-vitrine-state="empty"],
+.anuncio-texto[data-vitrine-state="error"],
 .destaque-lofi:has([data-vitrine-state="empty"], [data-vitrine-state="error"]),
 ins.adsbygoogle[data-ad-status="unfilled"] {
   display: none !important;
@@ -586,18 +572,12 @@ ins.adsbygoogle[data-ad-status="unfilled"] {
   font-size: 16px;
 }
 
-.publicidade-quadrado .publicidade-espaco {
-  min-height: 268px;
-}
-
-.publicidade-quadrado .publicidade-exemplo {
-  width: 250px;
-  min-height: 250px;
-}
-
-.publicidade-torre,
-.publicidade-banner {
-  display: none;
+.anuncio-texto-exemplo {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  color: var(--suave);
+  font-size: 15px;
 }
 
 .voltar {
@@ -622,7 +602,7 @@ ins.adsbygoogle[data-ad-status="unfilled"] {
 .pagina-hino .barra-ampla { order: 5; }
 .pagina-hino .letra { order: 6; }
 .pagina-hino .lofi { order: 7; }
-.pagina-hino .publicidade-quadrado { order: 8; }
+.pagina-hino .anuncio-texto { order: 6; }
 .pagina-hino .relatorio-linha { order: 9; margin: 32px 16px 0; }
 .pagina-hino .vizinhos { order: 10; }
 
@@ -1439,7 +1419,7 @@ body:has(.pagina-partitura) :is(.so-letra, .so-cifra, .sem-partitura) {
 }
 
 .coluna-direita .destaque-lofi {
-  margin: 0 0 24px;
+  margin: 0;
 }
 
 .lofi-cartao-icone {
@@ -2194,7 +2174,8 @@ body.com-aviso {
 }
 
 :root.ampla .player,
-:root.ampla .lofi {
+:root.ampla .lofi,
+:root.ampla .anuncio-texto {
   display: none;
 }
 
@@ -2213,7 +2194,7 @@ body.com-aviso {
 }
 
 .sem-rede .destaque-lofi,
-.sem-rede .publicidade {
+.sem-rede .anuncio-texto {
   display: none;
 }
 
@@ -2461,40 +2442,6 @@ body.com-aviso {
     margin-top: 28px;
   }
 
-  .publicidade-quadrado {
-    display: none;
-  }
-
-  .publicidade-torre {
-    display: block;
-    margin: 0;
-  }
-
-  .publicidade-torre .publicidade-espaco {
-    min-height: 618px;
-  }
-
-  .publicidade-torre .publicidade-exemplo {
-    width: 300px;
-    min-height: 600px;
-  }
-
-  .publicidade-banner {
-    display: block;
-    width: 970px;
-    max-width: calc(100% - 80px);
-    margin: 40px auto 0;
-  }
-
-  .publicidade-banner .publicidade-espaco {
-    min-height: 268px;
-  }
-
-  .publicidade-banner .publicidade-exemplo {
-    width: 100%;
-    min-height: 250px;
-  }
-
   .pagina {
     grid-template-columns: 260px minmax(0, 1fr) 300px;
   }
@@ -2643,6 +2590,7 @@ body.com-aviso {
 
   .letra,
   .lofi,
+  .pagina-letra .anuncio-texto,
   .pagina-hino .relatorio-linha,
   .vizinhos {
     max-width: 560px;
@@ -3378,7 +3326,7 @@ body.com-aviso {
   body:has(.pagina-partitura, .pagina-cifra) .rodape,
   body:has(.pagina-partitura, .pagina-cifra) .coluna-esquerda,
   body:has(.pagina-partitura, .pagina-cifra) .coluna-direita,
-  body:has(.pagina-partitura, .pagina-cifra) .publicidade,
+  body:has(.pagina-partitura, .pagina-cifra) .anuncio-texto,
   body:has(.pagina-partitura, .pagina-cifra) .abas,
   body:has(.pagina-partitura, .pagina-cifra) .hino-categorias,
   body:has(.pagina-partitura, .pagina-cifra) .cabecalho-hino .ornamento,
