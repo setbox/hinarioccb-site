@@ -2,7 +2,7 @@
 title: Política de Privacidade
 description: O que o HinárioCCB.net guarda, o que não guarda, quem mais participa e o que você pode exigir.
 layout: texto
-date: 2026-10-29
+date: 2026-11-12
 ---
 
 ## Quem somos
@@ -31,7 +31,7 @@ Quando você abre um hino, ou usa “Baixar os hinos” na página [Usar sem int
 
 - **Hospedagem.** O site é servido pelo GitHub Pages, que registra em log o endereço IP e os dados técnicos de cada acesso. Veja a [declaração de privacidade do GitHub](https://docs.github.com/pt/site-policy/privacy-policies/github-general-privacy-statement).
 - **Player.** Ao tocar um hino, o navegador baixa as bibliotecas de áudio Tone.js e @tonejs/midi da jsDelivr, que recebe o seu endereço IP nesse pedido.
-- **Anúncios da Setbox.** Alguns espaços mostram anúncios da Vitrine, o sistema de anúncios da própria Setbox. Ela não grava cookies nem guarda dados no seu navegador; registra apenas quantas vezes cada anúncio foi exibido e clicado.
+- **Anúncios da Setbox.** Alguns espaços mostram anúncios da Vitrine, o sistema de anúncios da própria Setbox. Ela não usa cookies e não identifica visitantes. Soma, por hora, quantas vezes cada página foi vista e quantas vezes cada anúncio foi exibido e clicado. Em cada clique, guarda por 90 dias a página onde estava o anúncio, o tipo de aparelho (computador, celular ou tablet), a família do navegador e um código feito a partir do seu endereço IP, embaralhado com uma chave que muda todo dia e não é gravada. Esse código serve só para descartar cliques repetidos ou automáticos e não permite voltar ao IP. O endereço IP e a identificação completa do navegador não são gravados. O link do anúncio leva um código aleatório do clique, para o anunciante saber que a venda veio do anúncio, sem nome, e-mail ou documento. Se você fechar um anúncio flutuante, o navegador lembra essa escolha por 7 dias, só no seu aparelho. Como nada disso identifica você, essa contagem não depende do aviso de cookies e é feita com base no legítimo interesse de medir e proteger os anúncios (art. 7º, IX da LGPD).
 
 ## Sua escolha sobre cookies
 
