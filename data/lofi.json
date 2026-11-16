@@ -11,12 +11,18 @@
     {
       "nome": "TikTok",
       "url": "https://www.tiktok.com/@hinarioccblofi"
+    },
+    {
+      "nome": "Spotify",
+      "url": "https://open.spotify.com/artist/6sQXEnMDcOwsx3a7M5Wp0P"
     }
   ],
   "albuns": {
     "em-oracao-1": {
       "titulo": "Em Oração, Vol. 1",
       "compilacao": "https://youtu.be/PmpxNAYNJv8",
+      "versao8h": "https://youtu.be/Ohuo0-ImWMw",
+      "spotify": "https://open.spotify.com/album/715rbsxC9YLT9sP2ogWFkA",
       "faixas": [
         "314",
         "403",
@@ -36,95 +42,382 @@
         "355",
         "116"
       ],
-      "versao8h": "https://youtu.be/Ohuo0-ImWMw",
-      "spotify": ""
+      "trechos": {
+        "314": {
+          "inicio": 0,
+          "spotify": "https://open.spotify.com/track/64GnmEzlAjgAwb9FUnCaex"
+        },
+        "403": {
+          "inicio": 194,
+          "spotify": "https://open.spotify.com/track/5pk4Grdp12WMQv66nNty1V"
+        },
+        "374": {
+          "inicio": 421,
+          "spotify": "https://open.spotify.com/track/1aHJuv2POlMj1RjXI72sZo"
+        },
+        "17": {
+          "inicio": 640,
+          "spotify": "https://open.spotify.com/track/5vUyKed4n1XC9FZ80O6gKx"
+        },
+        "4": {
+          "inicio": 864,
+          "spotify": "https://open.spotify.com/track/5QPKgl8r4WxKxhh8C1Kv2e"
+        },
+        "79": {
+          "inicio": 1183,
+          "spotify": "https://open.spotify.com/track/1uJZ8aYMTWFjRtTODpFJux"
+        },
+        "282": {
+          "inicio": 1458,
+          "spotify": ""
+        },
+        "220": {
+          "inicio": 1772,
+          "spotify": "https://open.spotify.com/track/0cEbXDxMYERc6Yd8TloVSx"
+        },
+        "138": {
+          "inicio": 2002,
+          "spotify": "https://open.spotify.com/track/1z7OyM2iTVToMObs7jPKwa"
+        },
+        "32": {
+          "inicio": 2231,
+          "spotify": "https://open.spotify.com/track/2ubSvweg26T5yaDhYNd57I"
+        },
+        "191": {
+          "inicio": 2359,
+          "spotify": "https://open.spotify.com/track/4NGEU2PwgxSOu4n8jdVPhp"
+        },
+        "106": {
+          "inicio": 2536,
+          "spotify": "https://open.spotify.com/track/5wHIhl1LhkvZBiyKwCcb0b"
+        },
+        "257": {
+          "inicio": 2699,
+          "spotify": "https://open.spotify.com/track/0eFPJzg5akUgXMpEsYAsbR"
+        },
+        "62": {
+          "inicio": 2960,
+          "spotify": "https://open.spotify.com/track/3ZHdsArXQvjU4MRYvYwDPo"
+        },
+        "164": {
+          "inicio": 3163,
+          "spotify": "https://open.spotify.com/track/4Aa01PKBXrvHkO0lWh9FKc"
+        },
+        "355": {
+          "inicio": 3371,
+          "spotify": "https://open.spotify.com/track/5bCTEN9P0BjbAdObBXSUm9"
+        },
+        "116": {
+          "inicio": 3628,
+          "spotify": "https://open.spotify.com/track/6Eg5xIlSE0iSTZ2JR796S5"
+        }
+      }
+    },
+    "ninar-1": {
+      "titulo": "Ninar, Vol. 1: Cordeirinhos",
+      "compilacao": "https://youtu.be/xvj7rwoog5Q",
+      "versao8h": "https://youtu.be/rpGAuLJez68",
+      "spotify": "https://open.spotify.com/album/0AR7bTGHW7FnrIqbyK4KQJ",
+      "faixas": [
+        "441",
+        "23",
+        "208",
+        "102",
+        "27",
+        "470",
+        "118",
+        "193",
+        "206",
+        "455",
+        "123",
+        "332",
+        "22"
+      ],
+      "trechos": {
+        "441": {
+          "inicio": 0,
+          "spotify": "https://open.spotify.com/track/44xC8bKPNtOnOIa0L7ON9I"
+        },
+        "23": {
+          "inicio": 279,
+          "spotify": "https://open.spotify.com/track/01pOuCCsaf097LmTkmn97r"
+        },
+        "208": {
+          "inicio": 693,
+          "spotify": ""
+        },
+        "102": {
+          "inicio": 1089,
+          "spotify": "https://open.spotify.com/track/17VhvWTJPUaSsU3dC8zql1"
+        },
+        "27": {
+          "inicio": 1389,
+          "spotify": "https://open.spotify.com/track/3G7w027Sroom16eLLoXRvr"
+        },
+        "470": {
+          "inicio": 1627,
+          "spotify": "https://open.spotify.com/track/49rlZqm14xHTssKUEgfKBy"
+        },
+        "118": {
+          "inicio": 1872,
+          "spotify": "https://open.spotify.com/track/0yn5kwVzzy0EDkjeH28Gn6"
+        },
+        "193": {
+          "inicio": 2131,
+          "spotify": "https://open.spotify.com/track/7wVVAS3pYKBObXCFA4GeYg"
+        },
+        "206": {
+          "inicio": 2470,
+          "spotify": "https://open.spotify.com/track/1J7LMHdo8D5eL3XidMXiZI"
+        },
+        "455": {
+          "inicio": 2708,
+          "spotify": "https://open.spotify.com/track/6JqoWB1LLk4dDFBHiKMmDI"
+        },
+        "123": {
+          "inicio": 3017,
+          "spotify": "https://open.spotify.com/track/4rvbYvGZ551udWj90tUqZj"
+        },
+        "332": {
+          "inicio": 3239,
+          "spotify": "https://open.spotify.com/track/0eD3PLh0k3JePPYTHVeoNL"
+        },
+        "22": {
+          "inicio": 3484,
+          "spotify": "https://open.spotify.com/track/2Bumfmng6qqDwG7dVN3ASy"
+        }
+      }
+    },
+    "mocidade-1": {
+      "titulo": "Mocidade, Vol. 1",
+      "compilacao": "https://youtu.be/luXUeA6NmUY",
+      "spotify": "https://open.spotify.com/album/6vGDCrAKUiYFumgWuuydyX",
+      "faixas": [
+        "467",
+        "437",
+        "434",
+        "431",
+        "473",
+        "479",
+        "449",
+        "443",
+        "455",
+        "452",
+        "461",
+        "476",
+        "458",
+        "446",
+        "440",
+        "464",
+        "470"
+      ],
+      "trechos": {
+        "467": {
+          "inicio": 0,
+          "spotify": "https://open.spotify.com/track/4vOwGEhrOJvYJ7BKP26DsG"
+        },
+        "437": {
+          "inicio": 183,
+          "spotify": "https://open.spotify.com/track/42WhgtMOg0fgIeBNl0FwHX"
+        },
+        "434": {
+          "inicio": 308,
+          "spotify": "https://open.spotify.com/track/5HlVS2qDeABcEJ8Cn9d7Ki"
+        },
+        "431": {
+          "inicio": 399,
+          "spotify": "https://open.spotify.com/track/3tdO8TG3fJvgLlt1F75Ysv"
+        },
+        "473": {
+          "inicio": 579,
+          "spotify": "https://open.spotify.com/track/6HJcubfayEEiryT0rmAxC8"
+        },
+        "479": {
+          "inicio": 752,
+          "spotify": "https://open.spotify.com/track/5JoaDwK17rFRQ8I9eX4izu"
+        },
+        "449": {
+          "inicio": 890,
+          "spotify": "https://open.spotify.com/track/5XDkIEn6kk7Ec67B9SQ8pO"
+        },
+        "443": {
+          "inicio": 1083,
+          "spotify": "https://open.spotify.com/track/02wEXQTvpKm7kpWl9r75MS"
+        },
+        "455": {
+          "inicio": 1258,
+          "spotify": "https://open.spotify.com/track/7lxqRihRTUNSPvbkEyn2BJ"
+        },
+        "452": {
+          "inicio": 1441,
+          "spotify": "https://open.spotify.com/track/6OYbRfACFgMMCpgJ62BXVn"
+        },
+        "461": {
+          "inicio": 1619,
+          "spotify": "https://open.spotify.com/track/0XlKh8Dy5VOn5WrFeXWt05"
+        },
+        "476": {
+          "inicio": 1799,
+          "spotify": "https://open.spotify.com/track/57tRyDGOLGRepSYlYraWnf"
+        },
+        "458": {
+          "inicio": 1897,
+          "spotify": "https://open.spotify.com/track/1UlfPcmnQxIBCm60b3EXP3"
+        },
+        "446": {
+          "inicio": 1999,
+          "spotify": "https://open.spotify.com/track/3EtlaXtpDka7zr20t1e9Xi"
+        },
+        "440": {
+          "inicio": 2260,
+          "spotify": "https://open.spotify.com/track/4lUu5sAmgCQX4VFSJPlOk8"
+        },
+        "464": {
+          "inicio": 2433,
+          "spotify": "https://open.spotify.com/track/4y50TqrbDEDwMzjGnxOJ0m"
+        },
+        "470": {
+          "inicio": 2573,
+          "spotify": "https://open.spotify.com/track/1u0cEm1eCeqj9jxXsT4fL4"
+        }
+      }
     }
   },
   "hinos": {
     "4": {
-      "album": "em-oracao-1",
-      "inicio": 864,
-      "spotify": ""
+      "album": "em-oracao-1"
     },
     "17": {
-      "album": "em-oracao-1",
-      "inicio": 640,
-      "spotify": ""
+      "album": "em-oracao-1"
+    },
+    "22": {
+      "album": "ninar-1"
+    },
+    "23": {
+      "album": "ninar-1"
+    },
+    "27": {
+      "album": "ninar-1"
     },
     "32": {
-      "album": "em-oracao-1",
-      "inicio": 2231,
-      "spotify": ""
+      "album": "em-oracao-1"
     },
     "62": {
-      "album": "em-oracao-1",
-      "inicio": 2960,
-      "spotify": ""
+      "album": "em-oracao-1"
     },
     "79": {
-      "album": "em-oracao-1",
-      "inicio": 1183,
-      "spotify": ""
+      "album": "em-oracao-1"
+    },
+    "102": {
+      "album": "ninar-1"
     },
     "106": {
-      "album": "em-oracao-1",
-      "inicio": 2536,
-      "spotify": ""
+      "album": "em-oracao-1"
     },
     "116": {
-      "album": "em-oracao-1",
-      "inicio": 3628,
-      "spotify": ""
+      "album": "em-oracao-1"
+    },
+    "118": {
+      "album": "ninar-1"
+    },
+    "123": {
+      "album": "ninar-1"
     },
     "138": {
-      "album": "em-oracao-1",
-      "inicio": 2002,
-      "spotify": ""
+      "album": "em-oracao-1"
     },
     "164": {
-      "album": "em-oracao-1",
-      "inicio": 3163,
-      "spotify": ""
+      "album": "em-oracao-1"
     },
     "191": {
-      "album": "em-oracao-1",
-      "inicio": 2359,
-      "spotify": ""
+      "album": "em-oracao-1"
+    },
+    "193": {
+      "album": "ninar-1"
+    },
+    "206": {
+      "album": "ninar-1"
+    },
+    "208": {
+      "album": "ninar-1"
     },
     "220": {
-      "album": "em-oracao-1",
-      "inicio": 1772,
-      "spotify": ""
+      "album": "em-oracao-1"
     },
     "257": {
-      "album": "em-oracao-1",
-      "inicio": 2699,
-      "spotify": ""
+      "album": "em-oracao-1"
     },
     "282": {
-      "album": "em-oracao-1",
-      "inicio": 1458,
-      "spotify": ""
+      "album": "em-oracao-1"
     },
     "314": {
-      "album": "em-oracao-1",
-      "inicio": 0,
-      "spotify": ""
+      "album": "em-oracao-1"
+    },
+    "332": {
+      "album": "ninar-1"
     },
     "355": {
-      "album": "em-oracao-1",
-      "inicio": 3371,
-      "spotify": ""
+      "album": "em-oracao-1"
     },
     "374": {
-      "album": "em-oracao-1",
-      "inicio": 421,
-      "spotify": ""
+      "album": "em-oracao-1"
     },
     "403": {
-      "album": "em-oracao-1",
-      "inicio": 194,
-      "spotify": ""
+      "album": "em-oracao-1"
+    },
+    "431": {
+      "album": "mocidade-1"
+    },
+    "434": {
+      "album": "mocidade-1"
+    },
+    "437": {
+      "album": "mocidade-1"
+    },
+    "440": {
+      "album": "mocidade-1"
+    },
+    "441": {
+      "album": "ninar-1"
+    },
+    "443": {
+      "album": "mocidade-1"
+    },
+    "446": {
+      "album": "mocidade-1"
+    },
+    "449": {
+      "album": "mocidade-1"
+    },
+    "452": {
+      "album": "mocidade-1"
+    },
+    "455": {
+      "album": "ninar-1"
+    },
+    "458": {
+      "album": "mocidade-1"
+    },
+    "461": {
+      "album": "mocidade-1"
+    },
+    "464": {
+      "album": "mocidade-1"
+    },
+    "467": {
+      "album": "mocidade-1"
+    },
+    "470": {
+      "album": "ninar-1"
+    },
+    "473": {
+      "album": "mocidade-1"
+    },
+    "476": {
+      "album": "mocidade-1"
+    },
+    "479": {
+      "album": "mocidade-1"
     }
   }
 }

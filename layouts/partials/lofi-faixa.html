@@ -1,7 +1,15 @@
-{{ $faixa := index site.Data.lofi.hinos . }}
-{{ $album := index site.Data.lofi.albuns $faixa.album }}
-{{ $destino := dict "url" (printf "%s?t=%d" $album.compilacao (int $faixa.inicio)) "plataforma" "YouTube" }}
-{{ with $faixa.spotify }}
+{{ $numero := . }}
+{{ $albumId := "" }}
+{{ if reflect.IsMap . }}
+  {{ $numero = .numero }}
+  {{ $albumId = .album }}
+{{ else }}
+  {{ $albumId = (index site.Data.lofi.hinos $numero).album }}
+{{ end }}
+{{ $album := index site.Data.lofi.albuns $albumId }}
+{{ $trecho := index $album.trechos $numero }}
+{{ $destino := dict "url" (printf "%s?t=%d" $album.compilacao (int $trecho.inicio)) "plataforma" "YouTube" }}
+{{ with $trecho.spotify }}
   {{ $destino = dict "url" . "plataforma" "Spotify" }}
 {{ end }}
 {{ return $destino }}
