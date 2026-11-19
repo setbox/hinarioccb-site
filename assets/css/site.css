@@ -566,6 +566,8 @@ pagefind-searchbox .pf-searchbox-result-excerpt {
 .anuncio-texto[data-vitrine-state="error"],
 .anuncio-nativo[data-vitrine-state="empty"],
 .anuncio-nativo[data-vitrine-state="error"],
+.anuncio-torre[data-vitrine-state="empty"],
+.anuncio-torre[data-vitrine-state="error"],
 .destaque-lofi:has([data-vitrine-state="empty"], [data-vitrine-state="error"]),
 ins.adsbygoogle[data-ad-status="unfilled"] {
   display: none !important;
@@ -1433,6 +1435,21 @@ body:has(.pagina-partitura) :is(.so-letra, .so-cifra, .sem-partitura) {
   margin: 0;
 }
 
+.anuncio-torre {
+  min-height: 618px;
+  margin-top: 24px;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.anuncio-torre .publicidade-exemplo {
+  display: flex;
+  justify-content: center;
+  width: 300px;
+  min-height: 600px;
+}
+
 .lofi-cartao-icone {
   width: 64px;
   height: 64px;
@@ -2207,7 +2224,8 @@ body.com-aviso {
 
 .sem-rede .destaque-lofi,
 .sem-rede .anuncio-texto,
-.sem-rede .anuncio-nativo {
+.sem-rede .anuncio-nativo,
+.sem-rede .anuncio-torre {
   display: none;
 }
 
